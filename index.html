@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>José Marcos Loeza Martínez | Ingeniero en Informática</title>
+<meta name="description" content="Portafolio de José Marcos Loeza Martínez, Ingeniero en Informática: sistemas, bases de datos, desarrollo web, ciencia de datos y contenido digital.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --mar: #0E3B53;        /* azul profundo de la bahía */
+    --laguna: #1F7A7A;     /* verde laguna */
+    --sol: #F2A541;        /* dorado de atardecer */
+    --tinta: #16242C;
+    --texto: #3A4A53;
+    --fondo: #F6F8F9;
+    --linea: #D5DDE1;
+    --blanco: #FFFFFF;
+    --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+    --cuerpo: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--cuerpo);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    color: var(--texto);
+    background: var(--fondo);
+  }
+  a { color: var(--laguna); }
+  a:focus-visible, button:focus-visible { outline: 3px solid var(--sol); outline-offset: 3px; border-radius: 4px; }
+  .contenedor { width: min(1080px, 100% - 2.5rem); margin-inline: auto; }
+
+  /* Navegación */
+  header {
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(246, 248, 249, 0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--linea);
+  }
+  nav { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.9rem 0; }
+  .marca { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; color: var(--tinta); font-family: var(--display); font-weight: 700; }
+  .monograma {
+    width: 2.2rem; height: 2.2rem; border-radius: 50%;
+    display: grid; place-items: center;
+    background: var(--mar); color: var(--sol);
+    font-size: 0.95rem; font-weight: 800;
+  }
+  .enlaces { display: flex; gap: 1.4rem; list-style: none; }
+  .enlaces a { color: var(--texto); text-decoration: none; font-weight: 600; font-size: 0.97rem; }
+  .enlaces a:hover { color: var(--mar); }
+  .boton {
+    display: inline-block; padding: 0.7rem 1.3rem; border-radius: 999px;
+    font-weight: 600; text-decoration: none; font-size: 0.97rem;
+    border: 2px solid var(--mar);
+  }
+  .boton { white-space: nowrap; }
+  .boton-principal { background: var(--mar); color: var(--blanco); }
+  .boton-principal:hover { background: var(--laguna); border-color: var(--laguna); }
+  .boton-secundario { color: var(--mar); background: transparent; }
+  .boton-secundario:hover { background: var(--mar); color: var(--blanco); }
+
+  /* Portada */
+  .portada { padding: clamp(3.5rem, 9vw, 7rem) 0 clamp(3rem, 7vw, 5rem); }
+  .estado {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-weight: 600; color: var(--laguna); margin-bottom: 1.2rem;
+  }
+  .estado::before { content: ""; width: 0.6rem; height: 0.6rem; border-radius: 50%; background: #2FB67C; box-shadow: 0 0 0 4px rgba(47, 182, 124, 0.18); }
+  .portada h1 {
+    font-family: var(--display);
+    font-size: clamp(2.8rem, 8vw, 5.6rem);
+    line-height: 0.98;
+    letter-spacing: -0.03em;
+    color: var(--mar);
+    font-weight: 800;
+    max-width: 12ch;
+  }
+  .portada .resumen { margin-top: 1.6rem; font-size: clamp(1.15rem, 2.2vw, 1.35rem); max-width: 42ch; color: var(--tinta); }
+  .acciones { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 2rem; }
+  .datos-rapidos {
+    display: flex; flex-wrap: wrap; gap: 0.6rem 2rem;
+    margin-top: 2.6rem; padding-top: 1.4rem;
+    border-top: 1px solid var(--linea);
+    font-size: 0.97rem;
+  }
+  .datos-rapidos strong { color: var(--tinta); }
+
+  /* Secciones */
+  section { padding: clamp(3rem, 7vw, 5rem) 0; }
+  .titulo-seccion {
+    font-family: var(--display); font-weight: 700;
+    font-size: clamp(1.9rem, 4vw, 2.6rem);
+    color: var(--mar); letter-spacing: -0.02em; line-height: 1.1;
+  }
+  .intro-seccion { margin-top: 0.7rem; max-width: 60ch; }
+
+  /* Proyectos */
+  #proyectos { background: var(--blanco); border-block: 1px solid var(--linea); }
+  .filtros { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 2rem 0 0.5rem; }
+  .filtro {
+    font: inherit; font-size: 0.95rem; font-weight: 600;
+    padding: 0.45rem 1rem; border-radius: 999px; cursor: pointer;
+    border: 1.5px solid var(--linea); background: var(--blanco); color: var(--texto);
+  }
+  .filtro:hover { border-color: var(--laguna); color: var(--laguna); }
+  .filtro[aria-pressed="true"] { background: var(--laguna); border-color: var(--laguna); color: var(--blanco); }
+  .lista-proyectos { list-style: none; }
+  .proyecto {
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+    gap: 1rem 3rem; padding: 2rem 0; border-bottom: 1px solid var(--linea);
+  }
+  .proyecto[hidden] { display: none; }
+  .proyecto h3 { font-family: var(--display); font-size: 1.45rem; color: var(--tinta); line-height: 1.2; letter-spacing: -0.01em; }
+  .proyecto .contexto { margin-top: 0.4rem; font-size: 0.95rem; color: var(--laguna); font-weight: 600; }
+  .proyecto .logro { margin-top: 0.9rem; font-family: var(--display); font-size: 1.05rem; color: var(--mar); font-weight: 700; }
+  .etiquetas { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem; list-style: none; }
+  .etiquetas li { font-size: 0.85rem; padding: 0.2rem 0.65rem; border-radius: 6px; background: #E8F1F1; color: var(--laguna); font-weight: 600; }
+  .proyecto .enlace-proyecto { display: inline-block; margin-top: 1rem; font-weight: 600; }
+  .enlaces-proyecto { display: flex; flex-wrap: wrap; gap: 0 1.4rem; }
+  .nota-privada { display: inline-block; margin-top: 1rem; font-size: 0.92rem; color: #6A7A83; }
+
+  /* Experiencia */
+  .linea-tiempo { list-style: none; margin-top: 2.2rem; border-left: 2px solid var(--linea); }
+  .puesto { position: relative; padding: 0 0 2.2rem 1.8rem; }
+  .puesto::before {
+    content: ""; position: absolute; left: -0.5rem; top: 0.35rem;
+    width: 0.9rem; height: 0.9rem; border-radius: 50%;
+    background: var(--fondo); border: 3px solid var(--laguna);
+  }
+  .puesto:first-child::before { background: var(--sol); border-color: var(--mar); }
+  .puesto .fechas { font-size: 0.93rem; color: #6A7A83; font-weight: 600; }
+  .puesto h3 { font-family: var(--display); font-size: 1.25rem; color: var(--tinta); margin-top: 0.15rem; }
+  .puesto .empresa { color: var(--laguna); font-weight: 600; }
+  .puesto p { margin-top: 0.5rem; max-width: 68ch; }
+
+  /* Habilidades */
+  #habilidades { background: var(--mar); color: #D6E4EA; }
+  #habilidades .titulo-seccion { color: var(--blanco); }
+  .rejilla-habilidades { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 2rem 3rem; margin-top: 2.2rem; }
+  .grupo h3 { font-family: var(--display); color: var(--sol); font-size: 1.1rem; margin-bottom: 0.5rem; }
+  .grupo p { line-height: 1.7; }
+
+  /* Formación */
+  .formacion { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2.5rem 3rem; margin-top: 2.2rem; }
+  .formacion h3 { font-family: var(--display); color: var(--tinta); font-size: 1.15rem; }
+  .formacion .detalle { color: var(--laguna); font-weight: 600; font-size: 0.97rem; }
+  .formacion ul { list-style: none; margin-top: 0.4rem; }
+  .formacion li { padding: 0.35rem 0; border-bottom: 1px solid var(--linea); }
+
+  /* Contacto */
+  #contacto { background: var(--blanco); border-top: 1px solid var(--linea); }
+  .contacto-caja { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 2rem; }
+  .correo-grande {
+    display: inline-block; margin-top: 1rem;
+    font-family: var(--display); font-weight: 700;
+    font-size: clamp(1.25rem, 3.5vw, 2rem);
+    color: var(--mar); text-decoration: none; word-break: break-all;
+    border-bottom: 3px solid var(--sol);
+  }
+  .correo-grande:hover { color: var(--laguna); }
+  .redes { display: flex; flex-wrap: wrap; gap: 0.8rem; }
+  footer { padding: 1.6rem 0; font-size: 0.9rem; color: #6A7A83; text-align: center; }
+
+  /* Entrada de la portada (un solo momento de animación) */
+  @media (prefers-reduced-motion: no-preference) {
+    .portada .aparece { opacity: 0; transform: translateY(14px); animation: entrar 0.7s ease forwards; }
+    .portada .aparece:nth-child(2) { animation-delay: 0.08s; }
+    .portada .aparece:nth-child(3) { animation-delay: 0.16s; }
+    .portada .aparece:nth-child(4) { animation-delay: 0.24s; }
+    .portada .aparece:nth-child(5) { animation-delay: 0.32s; }
+    @keyframes entrar { to { opacity: 1; transform: none; } }
+  }
+
+  @media (max-width: 760px) {
+    .enlaces { display: none; }
+    .proyecto { grid-template-columns: 1fr; }
+    nav .boton { padding: 0.55rem 1rem; font-size: 0.9rem; }
+    .marca { font-size: 0.95rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="contenedor" aria-label="Principal">
+    <a class="marca" href="#inicio"><span class="monograma" aria-hidden="true">JM</span> José Marcos Loeza</a>
+    <ul class="enlaces">
+      <li><a href="#proyectos">Proyectos</a></li>
+      <li><a href="#experiencia">Experiencia</a></li>
+      <li><a href="#habilidades">Habilidades</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+    <a class="boton boton-principal" href="cv.pdf" download>Descargar CV</a>
+  </nav>
+</header>
+
+<main>
+  <section class="portada contenedor" id="inicio">
+    <p class="estado aparece">Disponible para trabajar</p>
+    <h1 class="aparece">José Marcos Loeza Martínez</h1>
+    <p class="resumen aparece">Ingeniero en Informática. Administro sistemas y bases de datos, desarrollo aplicaciones web y convierto datos en decisiones con ciencia de datos.</p>
+    <div class="acciones aparece">
+      <a class="boton boton-principal" href="#proyectos">Ver proyectos</a>
+      <a class="boton boton-secundario" href="#contacto">Contactarme</a>
+    </div>
+    <div class="datos-rapidos aparece">
+      <span><strong>Ubicación:</strong> Acapulco, Guerrero</span>
+      <span><strong>Estudiando:</strong> Maestría en Inteligencia Artificial</span>
+      <span><strong>Idiomas:</strong> español e inglés (B1)</span>
+    </div>
+  </section>
+
+  <section id="proyectos">
+    <div class="contenedor">
+      <h2 class="titulo-seccion">Proyectos</h2>
+      <p class="intro-seccion">Trabajo real y proyectos propios. Filtra por el área que te interesa.</p>
+
+      <div class="filtros" role="group" aria-label="Filtrar proyectos por área">
+        <button class="filtro" type="button" data-filtro="todos" aria-pressed="true">Todos</button>
+        <button class="filtro" type="button" data-filtro="ia" aria-pressed="false">Ciencia de datos e IA</button>
+        <button class="filtro" type="button" data-filtro="datos" aria-pressed="false">Bases de datos</button>
+        <button class="filtro" type="button" data-filtro="sistemas" aria-pressed="false">Sistemas e infraestructura</button>
+        <button class="filtro" type="button" data-filtro="web" aria-pressed="false">Desarrollo web</button>
+        <button class="filtro" type="button" data-filtro="ux" aria-pressed="false">Diseño UX/UI</button>
+        <button class="filtro" type="button" data-filtro="contenido" aria-pressed="false">Contenido digital</button>
+      </div>
+
+      <ul class="lista-proyectos">
+        <li class="proyecto" data-areas="web ux datos ia">
+          <div>
+            <h3>Sistema de taller, ventas y marketing para una zapatería</h3>
+            <p class="contexto">Negocio familiar · Diseño, desarrollo y datos</p>
+          </div>
+          <div>
+            <p>Sistema web para una zapatería que vende y repara calzado, usado desde el celular por el dueño y sus empleados. Controla notas de reparación con estados y avisos por WhatsApp, ventas, inventario, clientes y corte de caja. Genera notas en PDF para impresora normal o térmica, e incluye un módulo de marketing que segmenta a los clientes por comportamiento, envía campañas y mide cuántos regresan.</p>
+            <p class="logro">Datos compartidos en tiempo real, permisos por rol y folios consecutivos sin duplicados aunque varias personas registren a la vez.</p>
+            <ul class="etiquetas"><li>JavaScript</li><li>HTML</li><li>CSS</li><li>Base de datos en tiempo real</li><li>Diseño UX/UI</li><li>Segmentación de clientes</li></ul>
+                    <div class="enlaces-proyecto">
+              <a class="enlace-proyecto" href="zapateria.html" target="_blank" rel="noopener">Ver demo</a>
+              <a class="enlace-proyecto" href="https://github.com/jmarcosloeza-jpg/jmarcosloeza-jpg.github.io/blob/main/zapateria.md" target="_blank" rel="noopener">Ver caso de estudio</a>
+            </div>
+          </div>
+        </li>
+
+        <li class="proyecto" data-areas="ia datos">
+          <div>
+            <h3>Predicción de abandono de clientes y demanda</h3>
+            <p class="contexto">Proyecto personal · Ciencia de datos</p>
+          </div>
+          <div>
+            <p>Análisis predictivo sobre los datos que exporta el sistema de la zapatería: modelo de abandono de clientes con validación temporal, segmentación RFM con valor esperado a 12 meses y pronóstico de demanda semanal evaluado a 1, 4 y 8 semanas. Mientras se acumulan datos reales, corre sobre dos años de datos simulados con un modelo BG/NBD, lo que permitió verificar que el método detecta patrones conocidos.</p>
+            <p class="logro">Encontró que entregar tarde se asocia con más abandono y que los retrasos se disparan en semanas saturadas; mostró además que un modelo complejo no superaba a una regla simple para ordenar clientes.</p>
+            <ul class="etiquetas"><li>Python</li><li>pandas</li><li>scikit-learn</li><li>SciPy</li><li>matplotlib</li><li>Jupyter</li></ul>
+            <div class="enlaces-proyecto">
+              <a class="enlace-proyecto" href="https://github.com/jmarcosloeza-jpg/jmarcosloeza-jpg.github.io/blob/main/analisis_taller.ipynb" target="_blank" rel="noopener">Ver notebook</a>
+              <a class="enlace-proyecto" href="https://github.com/jmarcosloeza-jpg/jmarcosloeza-jpg.github.io/blob/main/ciencia-de-datos.md" target="_blank" rel="noopener">Ver caso de estudio</a>
+            </div>
+          </div>
+        </li>
+
+        <li class="proyecto" data-areas="web ux ia">
+          <div>
+            <h3>Dashboard de finanzas personales</h3>
+            <p class="contexto">Proyecto personal · Análisis de datos en el navegador</p>
+          </div>
+          <div>
+            <p>Aplicación que lee el estado de cuenta del banco en CSV, categoriza los gastos automáticamente con reglas que aprenden de las correcciones del usuario, compara cada categoría contra el promedio histórico y detecta cargos inusuales. Todo el procesamiento ocurre en el navegador: los datos no se envían a ningún servidor.</p>
+            <p class="logro">Detección de anomalías con puntaje z modificado (mediana y MAD), robusto a valores extremos.</p>
+            <ul class="etiquetas"><li>JavaScript</li><li>SVG</li><li>Estadística</li><li>Visualización de datos</li></ul>
+            <div class="enlaces-proyecto">
+              <a class="enlace-proyecto" href="finanzas.html" target="_blank" rel="noopener">Ver demo</a>
+              <a class="enlace-proyecto" href="https://github.com/jmarcosloeza-jpg/jmarcosloeza-jpg.github.io/blob/main/finanzas.md" target="_blank" rel="noopener">Ver caso de estudio</a>
+            </div>
+          </div>
+        </li>
+
+        <li class="proyecto" data-areas="web ux ia">
+          <div>
+            <h3>Bit: gimnasio de programación</h3>
+            <p class="contexto">Proyecto personal · Aplicación educativa</p>
+          </div>
+          <div>
+            <p>Aplicación para practicar JavaScript con 30 retos en cinco rutas, editor con resaltado de sintaxis, pruebas automáticas que se ejecutan de forma aislada y detectan ciclos infinitos, y un tutor con IA que da pistas sin revelar la solución. Incluye experiencia, niveles, racha diaria y una mascota animada original.</p>
+            <p class="logro">Diseño centrado en la constancia: reto del día, bonos por resolver sin pistas y retroalimentación inmediata en cada prueba.</p>
+            <ul class="etiquetas"><li>JavaScript</li><li>Web Workers</li><li>IA generativa</li><li>Animación CSS</li><li>Gamificación</li></ul>
+            <div class="enlaces-proyecto">
+              <a class="enlace-proyecto" href="bit.html" target="_blank" rel="noopener">Ver demo</a>
+              <a class="enlace-proyecto" href="https://github.com/jmarcosloeza-jpg/jmarcosloeza-jpg.github.io/blob/main/bit.md" target="_blank" rel="noopener">Ver caso de estudio</a>
+            </div>
+          </div>
+        </li>
+
+        <li class="proyecto" data-areas="datos">
+          <div>
+            <h3>Sistema de Inventario Tecnológico y Mesa de Ayuda</h3>
+            <p class="contexto">Proyecto personal · PostgreSQL</p>
+          </div>
+          <div>
+            <p>Base de datos para controlar equipos de TI en varias sucursales, sus asignaciones, tickets de soporte y mantenimientos. Incluye triggers de auditoría, procedimientos almacenados, reportes con funciones de ventana, roles de seguridad y respaldos automatizados.</p>
+            <p class="logro">Optimización de consultas con índices, medida con EXPLAIN ANALYZE sobre 20,000 tickets.</p>
+            <ul class="etiquetas"><li>PostgreSQL</li><li>PL/pgSQL</li><li>SQL avanzado</li><li>Bash</li></ul>
+          </div>
+        </li>
+
+        <li class="proyecto" data-areas="sistemas datos">
+          <div>
+            <h3>Administración de sistemas e infraestructura</h3>
+            <p class="contexto">Promotora Pantera (Pantera Publicidad)</p>
+          </div>
+          <div>
+            <p>Administré el ERP Odoo y su base de datos PostgreSQL, con gestión de accesos, soporte a usuarios y respaldos automatizados. También mantuve servidores Windows Server, telefonía IP, videovigilancia (CCTV) y la red de impresión de la empresa.</p>
+            <ul class="etiquetas"><li>Odoo</li><li>PostgreSQL</li><li>Windows Server</li><li>VoIP</li><li>CCTV</li></ul>
+            <span class="nota-privada">Proyecto interno: sin código ni datos públicos.</span>
+          </div>
+        </li>
+
+        <li class="proyecto" data-areas="web datos">
+          <div>
+            <h3>Sistema web de inventario tecnológico</h3>
+            <p class="contexto">Tiendas Chedraui</p>
+          </div>
+          <div>
+            <p>Desarrollé un sistema web para registrar y controlar los equipos tecnológicos de la tienda, además de dar soporte a equipos de cómputo y puntos de venta.</p>
+            <ul class="etiquetas"><li>PHP</li><li>JavaScript</li><li>HTML</li><li>CSS</li><li>SQL</li></ul>
+            <span class="nota-privada">Proyecto interno: sin código ni datos públicos.</span>
+          </div>
+        </li>
+
+        <li class="proyecto" data-areas="contenido">
+          <div>
+            <h3>Redes sociales institucionales</h3>
+            <p class="contexto">Tecnológico Nacional de México, Campus San Marcos</p>
+          </div>
+          <div>
+            <p>Administré las redes sociales del campus y creé contenido digital para la comunicación y difusión institucional.</p>
+            <p class="logro">90% más seguidores en las cuentas institucionales.</p>
+            <ul class="etiquetas"><li>Redes sociales</li><li>Contenido digital</li><li>Comunicación institucional</li></ul>
+          </div>
+        </li>
+
+        <li class="proyecto" data-areas="datos">
+          <div>
+            <h3>Registro de equipos en Hotel Guest</h3>
+            <p class="contexto">Hotel Banyan Tree Cabo Marqués</p>
+          </div>
+          <div>
+            <p>Capturé y actualicé el registro de equipos del área de Ingeniería del hotel, manteniendo la información organizada y al día para su consulta.</p>
+            <p class="logro">99% de precisión en los registros.</p>
+            <ul class="etiquetas"><li>Hotel Guest</li><li>Captura de datos</li></ul>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="experiencia">
+    <div class="contenedor">
+      <h2 class="titulo-seccion">Experiencia</h2>
+      <ol class="linea-tiempo">
+        <li class="puesto">
+          <p class="fechas">Noviembre 2025 – Marzo 2026</p>
+          <h3>Encargado de Sistemas</h3>
+          <p class="empresa">Promotora Pantera (Pantera Publicidad)</p>
+          <p>ERP Odoo, bases de datos PostgreSQL, servidores Windows Server, telefonía IP, CCTV y red de impresión.</p>
+        </li>
+        <li class="puesto">
+          <p class="fechas">Julio 2025 – Agosto 2025</p>
+          <h3>Operador de Sistemas de Ingeniería</h3>
+          <p class="empresa">Hotel Banyan Tree Cabo Marqués</p>
+          <p>Captura y actualización del registro de equipos en el sistema Hotel Guest.</p>
+        </li>
+        <li class="puesto">
+          <p class="fechas">Enero 2025 – Junio 2025</p>
+          <h3>Desarrollador Web y Soporte Técnico</h3>
+          <p class="empresa">Tiendas Chedraui</p>
+          <p>Desarrollo de un sistema web de inventario y soporte a equipos de cómputo y puntos de venta.</p>
+        </li>
+        <li class="puesto">
+          <p class="fechas">Enero 2024 – Agosto 2024</p>
+          <h3>Auxiliar de Comunicación y Difusión</h3>
+          <p class="empresa">TecNM, Campus San Marcos</p>
+          <p>Redes sociales institucionales y creación de contenido digital.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="habilidades">
+    <div class="contenedor">
+      <h2 class="titulo-seccion">Habilidades</h2>
+      <div class="rejilla-habilidades">
+        <div class="grupo">
+          <h3>Bases de datos</h3>
+          <p>SQL, PostgreSQL, MySQL, SQL Server, phpMyAdmin, respaldos automatizados, optimización de consultas.</p>
+        </div>
+        <div class="grupo">
+          <h3>Desarrollo</h3>
+          <p>PHP, JavaScript, HTML5, CSS3, Java, Git y GitHub, Visual Studio Code, XAMPP.</p>
+        </div>
+        <div class="grupo">
+          <h3>Sistemas e infraestructura</h3>
+          <p>ERP Odoo, Windows Server, redes LAN, telefonía IP, CCTV, redes de impresión, soporte técnico.</p>
+        </div>
+        <div class="grupo">
+          <h3>Sistemas operativos</h3>
+          <p>Windows 10/11, Windows Server, Linux (Ubuntu, Debian, Fedora), iOS.</p>
+        </div>
+        <div class="grupo">
+          <h3>Ciencia de datos e IA</h3>
+          <p>Python, pandas, scikit-learn, SciPy, matplotlib, Jupyter, modelos predictivos, series de tiempo, segmentación de clientes.</p>
+        </div>
+        <div class="grupo">
+          <h3>Datos, nube e IoT</h3>
+          <p>Power BI, fundamentos de AWS y Google Cloud, Arduino, ESP32.</p>
+        </div>
+        <div class="grupo">
+          <h3>Diseño y contenido</h3>
+          <p>Canva, Adobe Photoshop, CapCut, administración de redes sociales.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="formacion">
+    <div class="contenedor">
+      <h2 class="titulo-seccion">Formación</h2>
+      <div class="formacion">
+        <div>
+          <h3>Maestría en Inteligencia Artificial</h3>
+          <p class="detalle">Instituto Tecnológico Superior de Las Choapas · 2026 – 2028</p>
+          <p>En curso, modalidad en línea con asesorías.</p>
+        </div>
+        <div>
+          <h3>Ingeniería en Informática</h3>
+          <p class="detalle">TecNM, Campus San Marcos · 2020 – 2025</p>
+          <p>Titulado. Especialidad en Desarrollo de Aplicaciones Móviles con Inteligencia Artificial.</p>
+        </div>
+        <div>
+          <h3>Certificaciones y reconocimientos</h3>
+          <ul>
+            <li>Cisco Networking Academy: Internet de las Cosas</li>
+            <li>AWS Academy y Google Cloud: Fundamentos de la Nube</li>
+            <li>Representante del campus en la Coding Cup TecNM 2021</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contacto">
+    <div class="contenedor contacto-caja">
+      <div>
+        <h2 class="titulo-seccion">¿Buscas a alguien para tu equipo?</h2>
+        <a class="correo-grande" href="mailto:jmarcosloeza@gmail.com">jmarcosloeza@gmail.com</a>
+      </div>
+      <div class="redes">
+        <!-- Cambia estos enlaces por tus perfiles reales -->
+        <a class="boton boton-secundario" href="https://www.linkedin.com/in/TU-PERFIL" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="boton boton-secundario" href="https://github.com/jmarcosloeza-jpg" target="_blank" rel="noopener">GitHub</a>
+        <a class="boton boton-principal" href="cv.pdf" download>Descargar CV</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>José Marcos Loeza Martínez · Acapulco, Guerrero, México</p>
+</footer>
+
+<script>
+  const botones = document.querySelectorAll(".filtro");
+  const proyectos = document.querySelectorAll(".proyecto");
+  botones.forEach(function (boton) {
+    boton.addEventListener("click", function () {
+      const filtro = boton.dataset.filtro;
+      botones.forEach(function (b) { b.setAttribute("aria-pressed", b === boton ? "true" : "false"); });
+      proyectos.forEach(function (p) {
+        const areas = p.dataset.areas.split(" ");
+        p.hidden = !(filtro === "todos" || areas.includes(filtro));
+      });
+    });
+  });
+</script>
+</body>
+</html>

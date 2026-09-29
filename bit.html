@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bit · Gimnasio de programación</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F3F2FA;--surface:#FFFFFF;--sunken:#ECEBF6;--ink:#1B1A33;--muted:#67658A;--line:#E0DEEE;
+  --brand:#3D5AFE;--brand-2:#7C4DFF;--brand-ink:#fff;--mint:#12B886;--mint-bg:#DDF7EE;--sun:#FFB020;--sun-bg:#FFF3D6;--pink:#F0457A;--pink-bg:#FDE4EC;
+  --code-bg:#17162C;--code-ink:#E6E4FF;--code-line:#2A2946;
+  --shadow:0 1px 2px rgba(27,26,51,.06),0 8px 24px rgba(27,26,51,.07);
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0E0D1C;--surface:#18172D;--sunken:#121126;--ink:#EDEBFF;--muted:#A3A1C6;--line:#2A2946;
+  --brand:#6F84FF;--brand-2:#A07BFF;--brand-ink:#0B0B1A;--mint:#3DD9A4;--mint-bg:#123127;--sun:#FFC24D;--sun-bg:#33290F;--pink:#FF6F99;--pink-bg:#3A1826;
+  --code-bg:#0B0A18;--code-line:#23223D;--shadow:none}}
+:root[data-theme="dark"]{
+  --bg:#0E0D1C;--surface:#18172D;--sunken:#121126;--ink:#EDEBFF;--muted:#A3A1C6;--line:#2A2946;
+  --brand:#6F84FF;--brand-2:#A07BFF;--brand-ink:#0B0B1A;--mint:#3DD9A4;--mint-bg:#123127;--sun:#FFC24D;--sun-bg:#33290F;--pink:#FF6F99;--pink-bg:#3A1826;
+  --code-bg:#0B0A18;--code-line:#23223D;--shadow:none}
+*,*::before,*::after{box-sizing:inherit}
+[hidden]{display:none!important}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Lexend",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3{margin:0;line-height:1.15;letter-spacing:-.01em}
+button,input,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--sun);outline-offset:2px;border-radius:8px}
+code,.mono{font-family:"JetBrains Mono",ui-monospace,"SFMono-Regular",Consolas,monospace}
+.wrap{max-width:1180px;margin:0 auto;padding:0 18px}
+
+/* Top bar */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:14px;height:64px}
+.logo{display:flex;align-items:center;gap:8px;font-weight:800;font-size:1.35rem;cursor:pointer;background:none;border:0;padding:0}
+.logo b{color:var(--brand)}
+.stats{margin-left:auto;display:flex;gap:8px;align-items:center}
+.chip{display:inline-flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-weight:600;font-size:.9rem;white-space:nowrap}
+.chip svg{width:18px;height:18px}
+.chip.fire{color:#E8590C}.chip.xp{color:var(--brand)}
+.lvl{display:flex;align-items:center;gap:8px}
+.lvl .bar{width:110px;height:8px;border-radius:6px;background:var(--sunken);overflow:hidden}
+.lvl .bar b{display:block;height:100%;background:linear-gradient(90deg,var(--brand),var(--brand-2));border-radius:6px;transition:width .8s cubic-bezier(.2,.8,.2,1)}
+@media (max-width:640px){.lvl .bar{display:none}.chip .lbl{display:none}}
+
+main{padding:26px 0 70px}
+
+/* Mascot */
+.bit{display:inline-block;position:relative}
+.bit svg{display:block;overflow:visible}
+.bit .body{animation:float 3.2s ease-in-out infinite;transform-origin:50% 90%}
+.bit .eye{animation:blink 4.6s infinite;transform-box:fill-box;transform-origin:center}
+.bit .bulb{animation:glow 2s ease-in-out infinite}
+.bit.celebra .body{animation:jump .7s cubic-bezier(.3,1.6,.5,1) 3}
+.bit.piensa .bulb{animation:glow .5s ease-in-out infinite}
+.bit.triste .body{animation:shake .5s ease 1}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes blink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+@keyframes glow{0%,100%{opacity:1}50%{opacity:.45}}
+@keyframes jump{0%{transform:translateY(0) rotate(0)}40%{transform:translateY(-26px) rotate(-8deg)}70%{transform:translateY(0) rotate(6deg)}100%{transform:translateY(0) rotate(0)}}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+
+/* Home */
+.hero{display:grid;grid-template-columns:auto 1fr;gap:26px;align-items:center;background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff;border-radius:28px;padding:28px 30px;position:relative;overflow:hidden;box-shadow:var(--shadow)}
+.hero::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 85% 20%,rgba(255,255,255,.22),transparent 40%),radial-gradient(circle at 10% 110%,rgba(255,176,32,.35),transparent 45%);pointer-events:none}
+.hero > .bit{background:radial-gradient(circle,rgba(255,255,255,.95) 0 58%,rgba(255,255,255,.35) 59% 66%,transparent 67%);border-radius:50%;padding:14px 12px 8px}
+.hero h1{font-size:clamp(1.7rem,4vw,2.6rem);font-weight:800}
+.hero p{margin:8px 0 0;opacity:.92;max-width:52ch}
+.hero .kpis{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap;position:relative;z-index:1}
+.hero .k{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.25);border-radius:16px;padding:8px 14px}
+.hero .k b{display:block;font-size:1.35rem}
+.hero .k span{font-size:.8rem;opacity:.85}
+@media (max-width:640px){.hero{grid-template-columns:1fr;text-align:center;padding:24px 20px}.hero .kpis{justify-content:center}.hero p{margin-inline:auto}}
+.sectitle{display:flex;align-items:baseline;justify-content:space-between;margin:34px 0 14px}
+.sectitle h2{font-size:1.4rem;font-weight:700}
+.sectitle span{color:var(--muted);font-size:.92rem}
+
+.daily{display:flex;gap:18px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:18px 20px;margin-top:18px;box-shadow:var(--shadow);position:relative;overflow:hidden;cursor:pointer;text-align:left;width:100%}
+.daily::before{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,color-mix(in srgb,var(--sun) 22%,transparent) 50%,transparent 70%);background-size:250% 100%;animation:shimmer 3.5s linear infinite;pointer-events:none}
+@keyframes shimmer{from{background-position:120% 0}to{background-position:-120% 0}}
+.daily .ico{width:56px;height:56px;border-radius:16px;background:var(--sun-bg);display:grid;place-items:center;flex:none}
+.daily h3{font-size:1.1rem}.daily p{margin:2px 0 0;color:var(--muted);font-size:.92rem}
+.daily .go{margin-left:auto;flex:none}
+.badge2{display:inline-block;background:var(--sun);color:#3a2600;font-size:.72rem;font-weight:700;border-radius:999px;padding:2px 8px;margin-left:6px;vertical-align:middle}
+
+.tracks{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+.track{background:var(--surface);border:1px solid var(--line);border-radius:22px;overflow:hidden;cursor:pointer;text-align:left;padding:0;box-shadow:var(--shadow);transition:transform .25s cubic-bezier(.2,.8,.2,1),box-shadow .25s;animation:rise .5s cubic-bezier(.2,.8,.2,1) both}
+.track:hover{transform:translateY(-4px) rotate(-.4deg);box-shadow:0 14px 34px rgba(27,26,51,.13)}
+.track:hover .art svg{transform:scale(1.06) rotate(2deg)}
+.track .art{height:120px;display:grid;place-items:center;position:relative;overflow:hidden}
+.track .art svg{width:120px;height:100px;transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+.track .info{padding:14px 16px 16px}
+.track h3{font-size:1.1rem}
+.track p{margin:4px 0 12px;color:var(--muted);font-size:.9rem;min-height:2.7em}
+.prog{height:8px;background:var(--sunken);border-radius:6px;overflow:hidden}
+.prog b{display:block;height:100%;border-radius:6px;transition:width .8s}
+.track .meta{display:flex;justify-content:space-between;font-size:.82rem;color:var(--muted);margin-top:6px}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+/* Track view */
+.back{background:none;border:0;color:var(--muted);font-weight:600;cursor:pointer;padding:6px 0;display:inline-flex;gap:6px;align-items:center}
+.back:hover{color:var(--ink)}
+.trackhead{display:flex;gap:20px;align-items:center;border-radius:24px;padding:22px;color:#fff;margin:8px 0 20px;position:relative;overflow:hidden}
+.trackhead svg{width:110px;height:92px;flex:none}
+.trackhead h1{font-size:clamp(1.5rem,3.5vw,2.1rem)}
+.trackhead p{margin:4px 0 0;opacity:.9}
+.exlist{display:grid;gap:10px}
+.ex{display:flex;align-items:center;gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px 16px;cursor:pointer;text-align:left;width:100%;transition:transform .2s,border-color .2s;animation:rise .45s cubic-bezier(.2,.8,.2,1) both}
+.ex:hover{transform:translateX(4px);border-color:var(--brand)}
+.ex .num{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;font-weight:700;background:var(--sunken);flex:none}
+.ex.done .num{background:var(--mint);color:#fff}
+.ex .t{font-weight:600}.ex .s{color:var(--muted);font-size:.86rem}
+.ex .main{flex:1;min-width:0}
+.stars{color:var(--sun);letter-spacing:1px;font-size:.9rem;white-space:nowrap}
+.stars i{color:var(--line);font-style:normal}
+
+/* Exercise view */
+.exgrid{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.25fr);gap:18px;align-items:start}
+@media (max-width:900px){.exgrid{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:20px;box-shadow:var(--shadow)}
+.card + .card{margin-top:14px}
+.exhead{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:8px}
+.tag{font-size:.78rem;font-weight:600;border-radius:999px;padding:3px 10px;background:var(--sunken);color:var(--muted)}
+.desc{font-size:1rem}
+.desc code{background:var(--sunken);border-radius:6px;padding:1px 6px;font-size:.88em}
+.examples{margin-top:14px}
+.examples .e{font-family:"JetBrains Mono",monospace;font-size:.85rem;background:var(--sunken);border-radius:10px;padding:8px 12px;margin-top:6px;overflow-x:auto;white-space:pre}
+.examples .e span{color:var(--muted)}
+.tutor{display:flex;gap:12px;align-items:flex-start}
+.bubble{flex:1;background:var(--sunken);border-radius:4px 16px 16px 16px;padding:12px 14px;font-size:.94rem;min-height:52px;white-space:pre-wrap;position:relative}
+.bubble.wait::after{content:"";display:inline-block;width:1.5em;animation:dots 1.2s steps(4) infinite;vertical-align:bottom;overflow:hidden;white-space:nowrap}
+@keyframes dots{0%{content:""}25%{content:"."}50%{content:".."}75%{content:"..."}}
+.tutor-acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+
+.btn{border:1px solid var(--line);background:var(--surface);border-radius:14px;padding:10px 16px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:8px;min-height:44px;transition:transform .12s,filter .2s,background .2s}
+.btn:hover{border-color:var(--muted)}
+.btn:active{transform:scale(.97)}
+.btn svg{width:18px;height:18px}
+.btn.primary{background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff;border:0;box-shadow:0 6px 18px color-mix(in srgb,var(--brand) 40%,transparent)}
+.btn.primary:hover{filter:brightness(1.08)}
+.btn.go{background:var(--mint);color:#fff;border:0}
+.btn.ghost{background:transparent}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn.sm{min-height:36px;padding:6px 12px;font-size:.88rem;border-radius:11px}
+
+/* Editor */
+.editor{background:var(--code-bg);border-radius:20px;overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--code-line)}
+.edbar{display:flex;align-items:center;gap:8px;padding:10px 14px;border-bottom:1px solid var(--code-line);color:#A9A7D6;font-size:.85rem}
+.edbar .dots i{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:5px}
+.edbar .file{font-family:"JetBrains Mono",monospace}
+.edbar .sp{flex:1}
+.edbar button{background:transparent;border:1px solid var(--code-line);color:#C9C7F2;border-radius:9px;padding:4px 10px;cursor:pointer;font-size:.8rem}
+.edbar button:hover{background:var(--code-line)}
+.edarea{position:relative;display:flex;font-family:"JetBrains Mono",ui-monospace,Consolas,monospace;font-size:14px;line-height:1.6;max-height:430px;min-height:240px;overflow:auto}
+.gutter{padding:14px 10px 14px 14px;color:#5D5B88;text-align:right;user-select:none;flex:none;white-space:pre}
+.codebox{position:relative;flex:1;min-width:0}
+.codebox pre,.codebox textarea{margin:0;padding:14px 16px 14px 4px;font:inherit;line-height:inherit;white-space:pre;tab-size:2;border:0;min-height:100%;width:100%}
+.codebox pre{color:var(--code-ink);pointer-events:none;position:absolute;inset:0;overflow:hidden}
+.codebox textarea{position:relative;background:transparent;color:transparent;caret-color:#FFD166;resize:none;outline:none;overflow:hidden;display:block;height:auto}
+.codebox textarea::selection{background:rgba(124,77,255,.45);color:transparent}
+.tk-k{color:#C792EA}.tk-s{color:#C3E88D}.tk-n{color:#F78C6C}.tk-c{color:#6C6A99;font-style:italic}.tk-f{color:#82AAFF}.tk-b{color:#FFCB6B}
+.runbar{display:flex;gap:8px;padding:12px 14px;border-top:1px solid var(--code-line);flex-wrap:wrap;align-items:center}
+.runbar .kbd{color:#7E7CAB;font-size:.8rem;margin-left:auto}
+
+/* Results */
+.results{margin-top:14px}
+.summary{display:flex;align-items:center;gap:14px;margin-bottom:10px}
+.ring{width:54px;height:54px;flex:none}
+.ring circle{transition:stroke-dashoffset .8s cubic-bezier(.2,.8,.2,1)}
+.summary h3{font-size:1.1rem}.summary p{margin:0;color:var(--muted);font-size:.9rem}
+.test{display:grid;grid-template-columns:auto 1fr;gap:4px 10px;padding:10px 12px;border-radius:12px;margin-top:6px;font-size:.88rem;animation:pop .35s cubic-bezier(.2,.8,.2,1) both}
+.test.ok{background:var(--mint-bg)}.test.bad{background:var(--pink-bg)}
+.test .ic{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:800;font-size:.8rem}
+.test.ok .ic{background:var(--mint)}.test.bad .ic{background:var(--pink)}
+.test .io{font-family:"JetBrains Mono",monospace;font-size:.82rem;overflow-x:auto;white-space:pre-wrap;word-break:break-word}
+.test .io span{color:var(--muted)}
+.console{background:var(--code-bg);color:#C9C7F2;border-radius:12px;padding:10px 12px;font-family:"JetBrains Mono",monospace;font-size:.82rem;margin-top:10px;white-space:pre-wrap;max-height:160px;overflow:auto}
+.errbox{background:var(--pink-bg);color:var(--pink);border-radius:12px;padding:12px 14px;font-weight:500;font-size:.92rem;animation:pop .3s both}
+@keyframes pop{from{opacity:0;transform:scale(.96) translateY(6px)}to{opacity:1;transform:none}}
+.success{display:flex;gap:14px;align-items:center;background:linear-gradient(135deg,var(--mint),#0CA678);color:#fff;border-radius:18px;padding:16px 18px;margin-bottom:12px;animation:pop .5s cubic-bezier(.2,1.4,.4,1) both}
+.success h3{font-size:1.2rem}.success p{margin:2px 0 0;opacity:.92;font-size:.92rem}
+.success .btn{margin-left:auto;background:#fff;color:#087F5B;border:0}
+
+.xpfloat{position:fixed;z-index:80;font-weight:800;font-size:1.6rem;color:var(--sun);text-shadow:0 2px 10px rgba(0,0,0,.25);pointer-events:none;animation:xpup 1.6s cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes xpup{0%{opacity:0;transform:translate(-50%,10px) scale(.6)}20%{opacity:1;transform:translate(-50%,-10px) scale(1.15)}100%{opacity:0;transform:translate(-50%,-90px) scale(1)}}
+#confetti{position:fixed;inset:0;pointer-events:none;z-index:70}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--bg);padding:11px 18px;border-radius:14px;font-weight:500;opacity:0;transition:all .3s;z-index:90;max-width:92vw;text-align:center}
+.toast.show{opacity:1;transform:translateX(-50%)}
+.levelup{position:fixed;inset:0;z-index:85;display:grid;place-items:center;background:rgba(14,13,28,.55);animation:fade .3s both}
+.levelup .box{background:var(--surface);border-radius:28px;padding:30px 34px;text-align:center;max-width:340px;animation:pop .5s cubic-bezier(.2,1.5,.4,1) both}
+.levelup h2{font-size:1.8rem;margin-top:8px}.levelup p{color:var(--muted)}
+@keyframes fade{from{opacity:0}}
+footer{color:var(--muted);font-size:.85rem;text-align:center;padding:10px 0 30px}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <button class="logo" id="home" aria-label="Ir al inicio"><span id="miniBit"></span>bit<b>.</b></button>
+  <div class="stats">
+    <span class="chip fire" title="Días seguidos practicando"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c1 3.5-1.5 5-1.5 7.5 0 1.4 1 2.5 2.3 2.5 1.6 0 2.2-1.4 2-3.2C17.5 10.6 19 13 19 15.5A7 7 0 0 1 5 15.5C5 10 11 8 12 2z"/></svg><span id="streak">0</span><span class="lbl">&nbsp;días</span></span>
+    <span class="chip xp lvl" title="Nivel y experiencia"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 17l-6.1 3.4 1.5-6.8L2.2 9l6.9-.7z"/></svg><span id="lvlTxt">Nv 1</span><span class="bar"><b id="lvlBar" style="width:0"></b></span></span>
+  </div>
+</div></header>
+<main><div class="wrap" id="view"></div></main>
+<footer>Hecho para practicar un poco cada día.</footer>
+<canvas id="confetti" aria-hidden="true"></canvas>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+'use strict';
+const EJERCICIOS = [
+// ---------- Fundamentos
+{id:"suma-hasta",pista:"fundamentos",titulo:"Suma hasta n",nivel:1,fn:"sumaHasta",
+ desc:"Escribe `sumaHasta(n)` que regrese la suma de todos los enteros desde 1 hasta `n`. Si `n` es menor que 1, regresa 0.",
+ inicio:"function sumaHasta(n) {\n  // tu código aquí\n}",
+ sol:"function sumaHasta(n) {\n  let total = 0;\n  for (let i = 1; i <= n; i++) total += i;\n  return total;\n}",
+ pruebas:[[[5],15],[[1],1],[[0],0],[[100],5050],[[-3],0]]},
+{id:"es-par",pista:"fundamentos",titulo:"¿Par o impar?",nivel:1,fn:"esPar",
+ desc:"Escribe `esPar(n)` que regrese `true` si `n` es par y `false` si no. Funciona también con negativos.",
+ inicio:"function esPar(n) {\n  \n}",sol:"function esPar(n) {\n  return n % 2 === 0;\n}",
+ pruebas:[[[4],true],[[7],false],[[0],true],[[-2],true],[[-5],false]]},
+{id:"mayor-de-tres",pista:"fundamentos",titulo:"El mayor de tres",nivel:1,fn:"mayorDeTres",
+ desc:"Escribe `mayorDeTres(a, b, c)` que regrese el mayor de los tres números **sin usar** `Math.max`. Practica los condicionales.",
+ inicio:"function mayorDeTres(a, b, c) {\n  \n}",sol:"function mayorDeTres(a, b, c) {\n  let m = a;\n  if (b > m) m = b;\n  if (c > m) m = c;\n  return m;\n}",
+ pruebas:[[[1,2,3],3],[[9,4,7],9],[[5,8,2],8],[[-1,-5,-3],-1],[[4,4,4],4]]},
+{id:"fizzbuzz",pista:"fundamentos",titulo:"FizzBuzz",nivel:2,fn:"fizzBuzz",
+ desc:"Escribe `fizzBuzz(n)` que regrese un arreglo del 1 al `n` donde los múltiplos de 3 son `\"Fizz\"`, los de 5 son `\"Buzz\"`, los de ambos `\"FizzBuzz\"`, y el resto el número como texto.",
+ inicio:"function fizzBuzz(n) {\n  const resultado = [];\n  \n  return resultado;\n}",
+ sol:"function fizzBuzz(n) {\n  const r = [];\n  for (let i = 1; i <= n; i++) {\n    if (i % 15 === 0) r.push('FizzBuzz');\n    else if (i % 3 === 0) r.push('Fizz');\n    else if (i % 5 === 0) r.push('Buzz');\n    else r.push(String(i));\n  }\n  return r;\n}",
+ pruebas:[[[5],["1","2","Fizz","4","Buzz"]],[[15],["1","2","Fizz","4","Buzz","Fizz","7","8","Fizz","Buzz","11","Fizz","13","14","FizzBuzz"]],[[1],["1"]],[[0],[]]]},
+{id:"factorial",pista:"fundamentos",titulo:"Factorial",nivel:2,fn:"factorial",
+ desc:"Escribe `factorial(n)`: el producto de todos los enteros de 1 a `n`. Por definición, `factorial(0)` es 1.",
+ inicio:"function factorial(n) {\n  \n}",sol:"function factorial(n) {\n  let r = 1;\n  for (let i = 2; i <= n; i++) r *= i;\n  return r;\n}",
+ pruebas:[[[0],1],[[1],1],[[5],120],[[10],3628800]]},
+{id:"contar-vocales",pista:"fundamentos",titulo:"Contar vocales",nivel:1,fn:"contarVocales",
+ desc:"Escribe `contarVocales(texto)` que cuente cuántas vocales (a, e, i, o, u) hay, sin importar mayúsculas. Las vocales con acento también cuentan.",
+ inicio:"function contarVocales(texto) {\n  \n}",
+ sol:"function contarVocales(texto) {\n  let c = 0;\n  for (const ch of texto.toLowerCase()) if ('aeiouáéíóúü'.includes(ch)) c++;\n  return c;\n}",
+ pruebas:[[["hola"],2],[["MURCIÉLAGO"],5],[["xyz"],0],[[""],0],[["Programación"],5]]},
+// ---------- Cadenas
+{id:"invertir",pista:"cadenas",titulo:"Invertir texto",nivel:1,fn:"invertir",
+ desc:"Escribe `invertir(texto)` que regrese el texto al revés.",inicio:"function invertir(texto) {\n  \n}",
+ sol:"function invertir(texto) {\n  return [...texto].reverse().join('');\n}",pruebas:[[["hola"],"aloh"],[["a"],"a"],[[""],""],[["JavaScript"],"tpircSavaJ"]]},
+{id:"palindromo",pista:"cadenas",titulo:"¿Es palíndromo?",nivel:2,fn:"esPalindromo",
+ desc:"Escribe `esPalindromo(texto)` que regrese `true` si se lee igual al derecho y al revés, **ignorando espacios, mayúsculas y acentos**. Ejemplo: \"Anita lava la tina\".",
+ inicio:"function esPalindromo(texto) {\n  \n}",
+ sol:"function esPalindromo(texto) {\n  const t = texto.toLowerCase().normalize('NFD').replace(/[\\u0300-\\u036f]/g, '').replace(/[^a-zñ0-9]/g, '');\n  return t === [...t].reverse().join('');\n}",
+ pruebas:[[["Anita lava la tina"],true],[["reconocer"],true],[["hola"],false],[["Sé verlas al revés"],true],[[""],true]]},
+{id:"capitalizar",pista:"cadenas",titulo:"Capitalizar palabras",nivel:1,fn:"capitalizar",
+ desc:"Escribe `capitalizar(frase)` que ponga en mayúscula la primera letra de cada palabra y el resto en minúscula. Las palabras están separadas por un espacio.",
+ inicio:"function capitalizar(frase) {\n  \n}",
+ sol:"function capitalizar(frase) {\n  return frase.split(' ').map(p => p ? p[0].toUpperCase() + p.slice(1).toLowerCase() : p).join(' ');\n}",
+ pruebas:[[["hola mundo"],"Hola Mundo"],[["jAVAsCRIPT es genial"],"Javascript Es Genial"],[["a"],"A"],[[""],""]]},
+{id:"contar-palabras",pista:"cadenas",titulo:"Contar palabras",nivel:2,fn:"contarPalabras",
+ desc:"Escribe `contarPalabras(frase)` que regrese cuántas palabras hay. Cuidado: puede haber varios espacios seguidos o espacios al inicio y al final.",
+ inicio:"function contarPalabras(frase) {\n  \n}",
+ sol:"function contarPalabras(frase) {\n  const t = frase.trim();\n  return t ? t.split(/\\s+/).length : 0;\n}",
+ pruebas:[[["hola mundo"],2],[["  muchos   espacios  aquí "],3],[[""],0],[["   "],0],[["una"],1]]},
+{id:"cesar",pista:"cadenas",titulo:"Cifrado César",nivel:3,fn:"cifradoCesar",
+ desc:"Escribe `cifradoCesar(texto, k)` que desplace cada letra minúscula (a-z) `k` posiciones en el alfabeto, dando la vuelta después de la z. Los demás caracteres no cambian. `k` puede ser negativo.",
+ inicio:"function cifradoCesar(texto, k) {\n  \n}",
+ sol:"function cifradoCesar(texto, k) {\n  return [...texto].map(ch => {\n    const c = ch.charCodeAt(0);\n    if (c < 97 || c > 122) return ch;\n    return String.fromCharCode(((c - 97 + k) % 26 + 26) % 26 + 97);\n  }).join('');\n}",
+ pruebas:[[["abc",1],"bcd"],[["xyz",3],"abc"],[["hola mundo",5],"mtqf rzsit"],[["bcd",-1],"abc"],[["a!b",26],"a!b"]]},
+{id:"anagramas",pista:"cadenas",titulo:"¿Son anagramas?",nivel:2,fn:"sonAnagramas",
+ desc:"Escribe `sonAnagramas(a, b)` que regrese `true` si ambas palabras tienen exactamente las mismas letras en distinto orden, sin importar mayúsculas ni espacios.",
+ inicio:"function sonAnagramas(a, b) {\n  \n}",
+ sol:"function sonAnagramas(a, b) {\n  const f = s => s.toLowerCase().replace(/\\s/g, '').split('').sort().join('');\n  return f(a) === f(b);\n}",
+ pruebas:[[["roma","amor"],true],[["Listen","Silent"],true],[["hola","halo"],true],[["gato","perro"],false],[["aab","abb"],false]]},
+// ---------- Arreglos y objetos
+{id:"maximo",pista:"arreglos",titulo:"Máximo de un arreglo",nivel:1,fn:"maximo",
+ desc:"Escribe `maximo(nums)` que regrese el número más grande. Si el arreglo está vacío, regresa `null`.",
+ inicio:"function maximo(nums) {\n  \n}",sol:"function maximo(nums) {\n  if (!nums.length) return null;\n  let m = nums[0];\n  for (const n of nums) if (n > m) m = n;\n  return m;\n}",
+ pruebas:[[[[3,9,2]],9],[[[-4,-1,-8]],-1],[[[7]],7],[[[]],null]]},
+{id:"promedio",pista:"arreglos",titulo:"Promedio",nivel:1,fn:"promedio",
+ desc:"Escribe `promedio(nums)` que regrese la media. Si está vacío, regresa 0.",inicio:"function promedio(nums) {\n  \n}",
+ sol:"function promedio(nums) {\n  return nums.length ? nums.reduce((a, b) => a + b, 0) / nums.length : 0;\n}",
+ pruebas:[[[[2,4,6]],4],[[[10]],10],[[[]],0],[[[1,2]],1.5]]},
+{id:"sin-duplicados",pista:"arreglos",titulo:"Quitar duplicados",nivel:2,fn:"sinDuplicados",
+ desc:"Escribe `sinDuplicados(arr)` que regrese un arreglo sin elementos repetidos, **conservando el orden** de primera aparición.",
+ inicio:"function sinDuplicados(arr) {\n  \n}",sol:"function sinDuplicados(arr) {\n  return [...new Set(arr)];\n}",
+ pruebas:[[[[1,2,2,3,1]],[1,2,3]],[[["a","b","a"]],["a","b"]],[[[]],[]],[[[5,5,5]],[5]]]},
+{id:"frecuencias",pista:"arreglos",titulo:"Tabla de frecuencias",nivel:2,fn:"frecuencias",
+ desc:"Escribe `frecuencias(arr)` que regrese un objeto donde cada clave es un elemento y su valor es cuántas veces aparece.",
+ inicio:"function frecuencias(arr) {\n  const conteo = {};\n  \n  return conteo;\n}",
+ sol:"function frecuencias(arr) {\n  const c = {};\n  for (const x of arr) c[x] = (c[x] || 0) + 1;\n  return c;\n}",
+ pruebas:[[[["a","b","a"]],{a:2,b:1}],[[[]],{}],[[["sí","no","sí","sí"]],{"sí":3,no:1}]]},
+{id:"agrupar-longitud",pista:"arreglos",titulo:"Agrupar por longitud",nivel:2,fn:"agruparPorLongitud",
+ desc:"Escribe `agruparPorLongitud(palabras)` que regrese un objeto cuyas claves son longitudes y cuyos valores son arreglos con las palabras de esa longitud, en el orden original.",
+ inicio:"function agruparPorLongitud(palabras) {\n  \n}",
+ sol:"function agruparPorLongitud(palabras) {\n  const g = {};\n  for (const p of palabras) (g[p.length] ||= []).push(p);\n  return g;\n}",
+ pruebas:[[[["sol","mar","luna"]],{3:["sol","mar"],4:["luna"]}],[[[]],{}],[[["a","bb","c"]],{1:["a","c"],2:["bb"]}]]},
+{id:"aplanar",pista:"arreglos",titulo:"Aplanar arreglos",nivel:3,fn:"aplanar",
+ desc:"Escribe `aplanar(arr)` que convierta un arreglo con arreglos anidados (a cualquier profundidad) en uno plano, **sin usar** `.flat()`. Pista: la recursión es tu amiga.",
+ inicio:"function aplanar(arr) {\n  \n}",
+ sol:"function aplanar(arr) {\n  const r = [];\n  for (const x of arr) Array.isArray(x) ? r.push(...aplanar(x)) : r.push(x);\n  return r;\n}",
+ pruebas:[[[[1,[2,3],4]],[1,2,3,4]],[[[1,[2,[3,[4]]]]],[1,2,3,4]],[[[]],[]],[[[[],[[]]]],[]]]},
+// ---------- Datos (orden superior)
+{id:"total-ventas",pista:"datos",titulo:"Total de ventas",nivel:1,fn:"totalVentas",
+ desc:"Recibes un arreglo de ventas como `{producto, precio, cantidad}`. Escribe `totalVentas(ventas)` que regrese el ingreso total usando `reduce`.",
+ inicio:"function totalVentas(ventas) {\n  \n}",sol:"function totalVentas(ventas) {\n  return ventas.reduce((t, v) => t + v.precio * v.cantidad, 0);\n}",
+ pruebas:[[[[{producto:"bota",precio:1200,cantidad:2},{producto:"crema",precio:95,cantidad:3}]],2685],[[[]],0]]},
+{id:"filtrar-mayores",pista:"datos",titulo:"Filtrar y transformar",nivel:1,fn:"nombresMayores",
+ desc:"Escribe `nombresMayores(personas, edad)` que regrese los **nombres** de las personas con edad mayor o igual a `edad`. Combina `filter` y `map`.",
+ inicio:"function nombresMayores(personas, edad) {\n  \n}",sol:"function nombresMayores(personas, edad) {\n  return personas.filter(p => p.edad >= edad).map(p => p.nombre);\n}",
+ pruebas:[[[[{nombre:"Ana",edad:20},{nombre:"Luis",edad:15},{nombre:"Eva",edad:18}],18],["Ana","Eva"]],[[[],10],[]]]},
+{id:"top-n",pista:"datos",titulo:"Los más vendidos",nivel:2,fn:"topN",
+ desc:"Escribe `topN(productos, n)` que regrese los nombres de los `n` productos con más `ventas`, de mayor a menor. No modifiques el arreglo original.",
+ inicio:"function topN(productos, n) {\n  \n}",sol:"function topN(productos, n) {\n  return [...productos].sort((a, b) => b.ventas - a.ventas).slice(0, n).map(p => p.nombre);\n}",
+ pruebas:[[[[{nombre:"A",ventas:5},{nombre:"B",ventas:12},{nombre:"C",ventas:8}],2],["B","C"]],[[[{nombre:"X",ventas:1}],3],["X"]],[[[],2],[]]]},
+{id:"estadisticas",pista:"datos",titulo:"Estadística descriptiva",nivel:2,fn:"estadisticas",
+ desc:"Escribe `estadisticas(nums)` que regrese `{min, max, media, mediana}`. La mediana de una cantidad par de datos es el promedio de los dos centrales. El arreglo nunca está vacío.",
+ inicio:"function estadisticas(nums) {\n  \n}",
+ sol:"function estadisticas(nums) {\n  const s = [...nums].sort((a, b) => a - b), n = s.length;\n  const media = s.reduce((a, b) => a + b, 0) / n;\n  const mediana = n % 2 ? s[(n - 1) / 2] : (s[n / 2 - 1] + s[n / 2]) / 2;\n  return { min: s[0], max: s[n - 1], media, mediana };\n}",
+ pruebas:[[[[3,1,2]],{min:1,max:3,media:2,mediana:2}],[[[4,1,3,2]],{min:1,max:4,media:2.5,mediana:2.5}],[[[7]],{min:7,max:7,media:7,mediana:7}]]},
+{id:"promedio-movil",pista:"datos",titulo:"Promedio móvil",nivel:3,fn:"promedioMovil",
+ desc:"Escribe `promedioMovil(nums, k)` que regrese el promedio de cada ventana de `k` elementos consecutivos. Si hay menos de `k` datos, regresa un arreglo vacío. Muy usado para suavizar series de tiempo.",
+ inicio:"function promedioMovil(nums, k) {\n  \n}",
+ sol:"function promedioMovil(nums, k) {\n  const r = [];\n  for (let i = 0; i + k <= nums.length; i++) r.push(nums.slice(i, i + k).reduce((a, b) => a + b, 0) / k);\n  return r;\n}",
+ pruebas:[[[[1,2,3,4,5],3],[2,3,4]],[[[10,20],2],[15]],[[[1,2],3],[]],[[[5,5,5,5],1],[5,5,5,5]]]},
+{id:"ordenar-por",pista:"datos",titulo:"Ordenar por clave",nivel:2,fn:"ordenarPor",
+ desc:"Escribe `ordenarPor(filas, clave)` que regrese una copia de `filas` ordenada de menor a mayor por esa clave (números o textos). Si hay empate, conserva el orden original.",
+ inicio:"function ordenarPor(filas, clave) {\n  \n}",
+ sol:"function ordenarPor(filas, clave) {\n  return [...filas].sort((a, b) => a[clave] < b[clave] ? -1 : a[clave] > b[clave] ? 1 : 0);\n}",
+ pruebas:[[[[{n:"b",e:2},{n:"a",e:1}],"e"],[{n:"a",e:1},{n:"b",e:2}]],[[[{n:"c"},{n:"a"},{n:"b"}],"n"],[{n:"a"},{n:"b"},{n:"c"}]],[[[{n:1,t:"x"},{n:0,t:"y"},{n:1,t:"z"}],"n"],[{n:0,t:"y"},{n:1,t:"x"},{n:1,t:"z"}]]]},
+// ---------- Algoritmos
+{id:"busqueda-binaria",pista:"algoritmos",titulo:"Búsqueda binaria",nivel:2,fn:"busquedaBinaria",
+ desc:"Recibes un arreglo **ordenado** y un número. Escribe `busquedaBinaria(arr, x)` que regrese el índice de `x` o `-1` si no está. Debe partir el rango a la mitad en cada paso (no uses `indexOf`).",
+ inicio:"function busquedaBinaria(arr, x) {\n  let izq = 0, der = arr.length - 1;\n  \n  return -1;\n}",
+ sol:"function busquedaBinaria(arr, x) {\n  let i = 0, d = arr.length - 1;\n  while (i <= d) {\n    const m = (i + d) >> 1;\n    if (arr[m] === x) return m;\n    if (arr[m] < x) i = m + 1; else d = m - 1;\n  }\n  return -1;\n}",
+ pruebas:[[[[1,3,5,7,9],7],3],[[[1,3,5,7,9],1],0],[[[1,3,5,7,9],4],-1],[[[],1],-1],[[[2,4,6,8,10,12],12],5]]},
+{id:"fibonacci",pista:"algoritmos",titulo:"Fibonacci rápido",nivel:2,fn:"fibonacci",
+ desc:"Escribe `fibonacci(n)` que regrese el n-ésimo número de Fibonacci (`fibonacci(0)=0`, `fibonacci(1)=1`). Debe ser rápido incluso para `n = 70`: la recursión ingenua no alcanza.",
+ inicio:"function fibonacci(n) {\n  \n}",sol:"function fibonacci(n) {\n  let a = 0, b = 1;\n  for (let i = 0; i < n; i++) [a, b] = [b, a + b];\n  return a;\n}",
+ pruebas:[[[0],0],[[1],1],[[10],55],[[20],6765],[[70],190392490709135]]},
+{id:"dos-suma",pista:"algoritmos",titulo:"Dos números que suman",nivel:3,fn:"dosSuma",
+ desc:"Escribe `dosSuma(nums, objetivo)` que regrese los índices `[i, j]` (con `i < j`) de los dos números que suman `objetivo`. Siempre hay exactamente una respuesta. Reto: hazlo en una sola pasada con un objeto o `Map`.",
+ inicio:"function dosSuma(nums, objetivo) {\n  \n}",
+ sol:"function dosSuma(nums, objetivo) {\n  const vistos = new Map();\n  for (let j = 0; j < nums.length; j++) {\n    const falta = objetivo - nums[j];\n    if (vistos.has(falta)) return [vistos.get(falta), j];\n    vistos.set(nums[j], j);\n  }\n}",
+ pruebas:[[[[2,7,11,15],9],[0,1]],[[[3,2,4],6],[1,2]],[[[3,3],6],[0,1]],[[[1,5,9,-2],7],[2,3]]]},
+{id:"parentesis",pista:"algoritmos",titulo:"Paréntesis balanceados",nivel:3,fn:"balanceado",
+ desc:"Escribe `balanceado(s)` que regrese `true` si cada `(`, `[` y `{` se cierra en el orden correcto. Ignora cualquier otro carácter. Pista: una pila.",
+ inicio:"function balanceado(s) {\n  const pila = [];\n  \n}",
+ sol:"function balanceado(s) {\n  const pila = [], par = { ')': '(', ']': '[', '}': '{' };\n  for (const c of s) {\n    if ('([{'.includes(c)) pila.push(c);\n    else if (par[c]) { if (pila.pop() !== par[c]) return false; }\n  }\n  return pila.length === 0;\n}",
+ pruebas:[[["()[]{}"],true],[["([{}])"],true],[["(]"],false],[["([)]"],false],[["((("],false],[["f(x[0]) + {a: 1}"],true],[[""],true]]},
+{id:"rotar-matriz",pista:"algoritmos",titulo:"Rotar una matriz",nivel:3,fn:"rotar",
+ desc:"Escribe `rotar(m)` que regrese una nueva matriz cuadrada girada 90° en sentido de las manecillas del reloj.",
+ inicio:"function rotar(m) {\n  \n}",sol:"function rotar(m) {\n  const n = m.length;\n  return m.map((_, i) => m.map((_, j) => m[n - 1 - j][i]));\n}",
+ pruebas:[[[[[1,2],[3,4]]],[[3,1],[4,2]]],[[[[1,2,3],[4,5,6],[7,8,9]]],[[7,4,1],[8,5,2],[9,6,3]]],[[[[5]]],[[5]]]]},
+{id:"primos",pista:"algoritmos",titulo:"Criba de primos",nivel:3,fn:"primosHasta",
+ desc:"Escribe `primosHasta(n)` que regrese todos los números primos menores o iguales a `n`, en orden. Reto: usa la criba de Eratóstenes.",
+ inicio:"function primosHasta(n) {\n  \n}",
+ sol:"function primosHasta(n) {\n  const es = new Array(n + 1).fill(true); es[0] = es[1] = false;\n  for (let i = 2; i * i <= n; i++) if (es[i]) for (let j = i * i; j <= n; j += i) es[j] = false;\n  return es.reduce((r, v, i) => (v && r.push(i), r), []);\n}",
+ pruebas:[[[10],[2,3,5,7]],[[2],[2]],[[1],[]],[[30],[2,3,5,7,11,13,17,19,23,29]]]}
+];
+
+
+
+const PISTAS = {
+  fundamentos:{nombre:"Fundamentos",desc:"Variables, condicionales y ciclos: la base de todo.",c1:"#3D5AFE",c2:"#7C4DFF"},
+  cadenas:{nombre:"Texto y cadenas",desc:"Manipula palabras, frases y caracteres.",c1:"#F0457A",c2:"#FF8A5B"},
+  arreglos:{nombre:"Arreglos y objetos",desc:"Organiza, cuenta y transforma colecciones.",c1:"#12B886",c2:"#15AABF"},
+  datos:{nombre:"Datos con JavaScript",desc:"map, filter, reduce y estadística: pensar como analista.",c1:"#FF9F1C",c2:"#FFB020"},
+  algoritmos:{nombre:"Algoritmos",desc:"Búsqueda, pilas y eficiencia: preguntas de entrevista.",c1:"#1B1A33",c2:"#5B3CC4"}
+};
+const NIVELES=["Aprendiz","Explorador","Constructor","Artesano","Arquitecto","Maestro","Leyenda"];
+const XP_POR_NIVEL=[0,60,160,320,540,820,1160];
+
+/* ============ Ilustraciones (SVG originales) ============ */
+function mascota(size=120,mood="feliz"){
+  const eyes = mood==="celebra" ? `<path class="eye" d="M40 55 q6 -8 12 0" stroke="#7CFFCB" stroke-width="5" fill="none" stroke-linecap="round"/><path class="eye" d="M68 55 q6 -8 12 0" stroke="#7CFFCB" stroke-width="5" fill="none" stroke-linecap="round"/>`
+    : mood==="triste" ? `<rect class="eye" x="41" y="50" width="10" height="12" rx="5" fill="#7CFFCB"/><rect class="eye" x="69" y="50" width="10" height="12" rx="5" fill="#7CFFCB"/><path d="M36 46 l14 4 M84 46 l-14 4" stroke="#7CFFCB" stroke-width="3" stroke-linecap="round"/>`
+    : mood==="piensa" ? `<rect class="eye" x="41" y="50" width="10" height="12" rx="5" fill="#7CFFCB"/><rect class="eye" x="71" y="47" width="10" height="12" rx="5" fill="#7CFFCB"/>`
+    : `<rect class="eye" x="41" y="48" width="10" height="14" rx="5" fill="#7CFFCB"/><rect class="eye" x="69" y="48" width="10" height="14" rx="5" fill="#7CFFCB"/>`;
+  const mouth = mood==="celebra" ? `<path d="M48 70 q12 14 24 0 z" fill="#7CFFCB"/>` : mood==="triste" ? `<path d="M50 75 q10 -8 20 0" stroke="#7CFFCB" stroke-width="4" fill="none" stroke-linecap="round"/>`
+    : mood==="piensa" ? `<path d="M52 72 h16" stroke="#7CFFCB" stroke-width="4" stroke-linecap="round"/>` : `<path d="M50 70 q10 9 20 0" stroke="#7CFFCB" stroke-width="4" fill="none" stroke-linecap="round"/>`;
+  const arms = mood==="celebra" ? `<path d="M14 72 l-10 -22" stroke="#5B3CC4" stroke-width="8" stroke-linecap="round"/><path d="M106 72 l10 -22" stroke="#5B3CC4" stroke-width="8" stroke-linecap="round"/>`
+    : `<path d="M14 76 q-10 8 -6 20" stroke="#5B3CC4" stroke-width="8" fill="none" stroke-linecap="round"/><path d="M106 76 q10 8 6 20" stroke="#5B3CC4" stroke-width="8" fill="none" stroke-linecap="round"/>`;
+  return `<span class="bit ${mood}" aria-hidden="true"><svg width="${size}" height="${size*1.08}" viewBox="0 -10 120 130"><g class="body">
+    <line x1="60" y1="18" x2="60" y2="4" stroke="#5B3CC4" stroke-width="4" stroke-linecap="round"/><circle class="bulb" cx="60" cy="2" r="7" fill="#FFB020"/>
+    ${arms}
+    <rect x="12" y="18" width="96" height="84" rx="30" fill="#7C4DFF"/><rect x="12" y="18" width="96" height="84" rx="30" fill="url(#shine${size})"/>
+    <rect x="24" y="32" width="72" height="56" rx="20" fill="#17162C"/>
+    ${eyes}${mouth}
+    <circle cx="28" cy="96" r="4" fill="#FFB020"/><rect x="40" y="102" width="40" height="10" rx="5" fill="#5B3CC4"/>
+    <defs><linearGradient id="shine${size}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".28"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/></linearGradient></defs>
+  </g></svg></span>`;
+}
+function arte(pista){
+  const W='fill="#fff"';
+  const m={
+    fundamentos:`<svg viewBox="0 0 120 100"><rect x="14" y="58" width="30" height="30" rx="6" ${W} opacity=".95"/><rect x="46" y="58" width="30" height="30" rx="6" ${W} opacity=".75"/><rect x="78" y="58" width="30" height="30" rx="6" ${W} opacity=".95"/><rect x="30" y="26" width="30" height="30" rx="6" ${W} opacity=".85"/><rect x="62" y="26" width="30" height="30" rx="6" ${W} opacity=".6"/><rect x="46" y="-4" width="30" height="28" rx="6" fill="#FFB020"/><text x="61" y="16" text-anchor="middle" font-family="JetBrains Mono,monospace" font-weight="700" font-size="14" fill="#3a2600">if</text></svg>`,
+    cadenas:`<svg viewBox="0 0 120 100"><text x="8" y="62" font-family="JetBrains Mono,monospace" font-size="54" font-weight="700" ${W} opacity=".35">"</text><rect x="26" y="30" width="70" height="40" rx="12" ${W}/><text x="61" y="57" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="18" font-weight="700" fill="#F0457A">hola</text><text x="96" y="92" font-family="JetBrains Mono,monospace" font-size="54" font-weight="700" ${W} opacity=".35">"</text></svg>`,
+    arreglos:`<svg viewBox="0 0 120 100"><text x="6" y="66" font-family="JetBrains Mono,monospace" font-size="46" font-weight="700" ${W}>[</text><circle cx="40" cy="50" r="11" ${W}/><circle cx="64" cy="50" r="11" ${W} opacity=".8"/><circle cx="88" cy="50" r="11" fill="#FFB020"/><text x="102" y="66" font-family="JetBrains Mono,monospace" font-size="46" font-weight="700" ${W}>]</text></svg>`,
+    datos:`<svg viewBox="0 0 120 100"><rect x="16" y="54" width="16" height="34" rx="4" ${W} opacity=".8"/><rect x="38" y="36" width="16" height="52" rx="4" ${W}/><rect x="60" y="46" width="16" height="42" rx="4" ${W} opacity=".8"/><rect x="82" y="18" width="16" height="70" rx="4" fill="#1B1A33"/><path d="M14 40 L46 26 L68 34 L100 8" stroke="#1B1A33" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+    algoritmos:`<svg viewBox="0 0 120 100"><path d="M60 22 L32 52 M60 22 L88 52 M32 52 L18 82 M32 52 L46 82 M88 52 L102 82" stroke="#fff" stroke-width="3" opacity=".7"/><circle cx="60" cy="22" r="12" fill="#FFB020"/><circle cx="32" cy="52" r="10" ${W}/><circle cx="88" cy="52" r="10" ${W}/><circle cx="18" cy="82" r="8" ${W} opacity=".7"/><circle cx="46" cy="82" r="8" ${W} opacity=".7"/><circle cx="102" cy="82" r="8" fill="#7CFFCB"/></svg>`
+  };return m[pista];
+}
+const ICON={
+  play:'<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.9l12-7.5a1 1 0 0 0 0-1.8l-12-7.5A1 1 0 0 0 7 4.5z"/></svg>',
+  bulb:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></svg>',
+  eye:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>',
+  search:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>',
+  next:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>',
+  back:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>',
+  cal:'<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#E8590C" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/><path d="M12 13.5l1 2 2.2.3-1.6 1.5.4 2.2-2-1-2 1 .4-2.2-1.6-1.5 2.2-.3z" fill="#FFB020" stroke="none"/></svg>'
+};
+
+/* ============ Estado y guardado ============ */
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const hoy=()=>new Date().toLocaleDateString('en-CA');
+const LKEY='bit-progreso-v1', DKEY='bit-borradores-v1';
+let P={xp:0,resueltos:{},intentos:{},dias:[],pistasUsadas:{}};
+let DB=null, SAMPLE=null, saveTimer=null, saving=false, pendingSave=false;
+function lsGet(k){try{return JSON.parse(localStorage.getItem(k)||'null')}catch(e){return null}}
+function lsSet(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+function guardar(){lsSet(LKEY,P);clearTimeout(saveTimer);saveTimer=setTimeout(guardarNube,900)}
+async function guardarNube(){
+  if(!DB)return; if(saving){pendingSave=true;return}
+  saving=true;try{await DB.doc('data/users/me/progreso').set(P)}catch(e){}saving=false;
+  if(pendingSave){pendingSave=false;guardarNube()}
+}
+function mezclar(a,b){ // conserva lo mejor de dos progresos (este equipo y la nube)
+  const r={xp:Math.max(a.xp||0,b.xp||0),resueltos:{...(b.resueltos||{}),...(a.resueltos||{})},intentos:{...(b.intentos||{}),...(a.intentos||{})},
+    dias:[...new Set([...(a.dias||[]),...(b.dias||[])])].sort(),pistasUsadas:{...(b.pistasUsadas||{}),...(a.pistasUsadas||{})}};
+  return r;
+}
+const drafts=lsGet(DKEY)||{};
+function nivelDe(xp){let n=0;while(n+1<XP_POR_NIVEL.length&&xp>=XP_POR_NIVEL[n+1])n++;
+  if(n===XP_POR_NIVEL.length-1){const extra=Math.floor((xp-XP_POR_NIVEL[n])/400);return{n:n+extra,base:XP_POR_NIVEL[n]+extra*400,sig:XP_POR_NIVEL[n]+(extra+1)*400}}
+  return{n,base:XP_POR_NIVEL[n],sig:XP_POR_NIVEL[n+1]}}
+const nombreNivel=n=>NIVELES[Math.min(n,NIVELES.length-1)];
+function racha(){const s=new Set(P.dias);let d=new Date();let k=0;if(!s.has(hoy())){d.setDate(d.getDate()-1)}
+  while(s.has(d.toLocaleDateString('en-CA'))){k++;d.setDate(d.getDate()-1)}return k}
+function retoDelDia(){const pend=EJERCICIOS.filter(e=>!P.resueltos[e.id]);const pool=pend.length?pend:EJERCICIOS;
+  const h=[...hoy()].reduce((a,c)=>(a*31+c.charCodeAt(0))>>>0,7);return pool[h%pool.length]}
+function actualizarBarra(){const L=nivelDe(P.xp);$('lvlTxt').textContent=`Nv ${L.n+1}`;$('lvlBar').style.width=`${Math.min(100,(P.xp-L.base)/(L.sig-L.base)*100)}%`;$('streak').textContent=racha()}
+function toast(t){const el=$('toast');el.textContent=t;el.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>el.classList.remove('show'),2800)}
+
+/* ============ Vistas ============ */
+let ruta={v:'inicio'};
+function ir(r){ruta=r;render();window.scrollTo({top:0,behavior:'smooth'})}
+function estrellas(n){return `<span class="stars" aria-label="Dificultad ${n} de 3">${'★'.repeat(n)}<i>${'★'.repeat(3-n)}</i></span>`}
+function saludo(){const h=new Date().getHours();return h<12?'¡Buenos días!':h<19?'¡Buenas tardes!':'¡Buenas noches!'}
+
+function vistaInicio(){
+  const tot=EJERCICIOS.length,res=Object.keys(P.resueltos).length,L=nivelDe(P.xp),rd=retoDelDia(),hecho=!!P.resueltos[rd.id];
+  const msg=res===0?'Soy Bit. Resuelve retos cortos, gana experiencia y sube de nivel. Empieza por Fundamentos o prueba el reto del día.'
+    :res===tot?'¡Completaste todos los retos! Vuelve a resolverlos sin pistas o pídeme una revisión de código para pulir tu estilo.'
+    :`Llevas ${res} de ${tot} retos. Un poco cada día vale más que mucho una vez: cuida tu racha.`;
+  return `<section class="hero">${mascota(130,res&&res===tot?'celebra':'feliz')}
+    <div style="position:relative;z-index:1"><h1>${saludo()}</h1><p>${esc(msg)}</p>
+    <div class="kpis"><div class="k"><b>${nombreNivel(L.n)}</b><span>Nivel ${L.n+1}</span></div><div class="k"><b>${P.xp}</b><span>XP totales</span></div><div class="k"><b>${res}/${tot}</b><span>Retos resueltos</span></div><div class="k"><b>${racha()}</b><span>Días de racha</span></div></div></div></section>
+    <button class="daily" data-ex="${rd.id}"><div class="ico">${ICON.cal}</div><div><h3>Reto del día<span class="badge2">XP ×2</span></h3><p>${hecho?'Ya lo resolviste hoy. ¡Bien!':esc(rd.titulo)+' · '+esc(PISTAS[rd.pista].nombre)}</p></div><span class="btn primary go sm">${hecho?'Ver':'Empezar'} ${ICON.next}</span></button>
+    <div class="sectitle"><h2>Rutas de práctica</h2><span>${tot} retos en ${Object.keys(PISTAS).length} rutas</span></div>
+    <div class="tracks">${Object.entries(PISTAS).map(([k,p],i)=>{const ex=EJERCICIOS.filter(e=>e.pista===k),r=ex.filter(e=>P.resueltos[e.id]).length;
+      return `<button class="track" data-pista="${k}" style="animation-delay:${i*70}ms"><div class="art" style="background:linear-gradient(135deg,${p.c1},${p.c2})">${arte(k)}</div>
+      <div class="info"><h3>${esc(p.nombre)}</h3><p>${esc(p.desc)}</p><div class="prog"><b style="width:${r/ex.length*100}%;background:linear-gradient(90deg,${p.c1},${p.c2})"></b></div><div class="meta"><span>${r} de ${ex.length}</span><span>${r===ex.length?'Completa':'Continuar'}</span></div></div></button>`}).join('')}</div>`;
+}
+function vistaPista(k){
+  const p=PISTAS[k],ex=EJERCICIOS.filter(e=>e.pista===k);
+  return `<button class="back" data-go="inicio">${ICON.back} Rutas</button>
+    <div class="trackhead" style="background:linear-gradient(135deg,${p.c1},${p.c2})">${arte(k)}<div><h1>${esc(p.nombre)}</h1><p>${esc(p.desc)}</p></div></div>
+    <div class="exlist">${ex.map((e,i)=>{const d=P.resueltos[e.id];return `<button class="ex ${d?'done':''}" data-ex="${e.id}" style="animation-delay:${i*50}ms"><span class="num">${d?'✓':i+1}</span><span class="main"><span class="t">${esc(e.titulo)}</span><br><span class="s">${d?`Resuelto${d.pistas?'':' sin pistas'}`:`${e.nivel*10+10} XP`}</span></span>${estrellas(e.nivel)}</button>`}).join('')}</div>`;
+}
+function md(s){return esc(s).replace(/`([^`]+)`/g,'<code>$1</code>').replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>')}
+const fmtv=v=>v===undefined?'undefined':JSON.stringify(v);
+function vistaEjercicio(id){
+  const e=EJERCICIOS.find(x=>x.id===id),p=PISTAS[e.pista],hecho=P.resueltos[e.id],code=drafts[e.id]??e.inicio;
+  const ejemplos=e.pruebas.slice(0,2).map(([a,x])=>`<div class="e">${esc(e.fn)}(${esc(a.map(fmtv).join(', '))}) <span>→</span> ${esc(fmtv(x))}</div>`).join('');
+  return `<button class="back" data-pista="${e.pista}">${ICON.back} ${esc(p.nombre)}</button>
+  <div class="exgrid" style="margin-top:8px">
+    <div>
+      <div class="card"><div class="exhead"><span class="tag" style="background:${p.c1};color:#fff">${esc(p.nombre)}</span>${estrellas(e.nivel)}${hecho?'<span class="tag" style="background:var(--mint-bg);color:var(--mint)">Resuelto</span>':''}${retoDelDia().id===e.id?'<span class="badge2">Reto del día ×2</span>':''}</div>
+        <h2 style="font-size:1.6rem;margin-bottom:10px">${esc(e.titulo)}</h2><div class="desc">${md(e.desc)}</div>
+        <div class="examples"><strong style="font-size:.9rem">Ejemplos</strong>${ejemplos}</div></div>
+      <div class="card"><div class="tutor"><span id="tutorBit">${mascota(64,'feliz')}</span><div class="bubble" id="bubble">${hecho?'¡Ya dominas este reto! Si quieres, te reviso el código para ver si se puede escribir más limpio.':'Lee con calma el enunciado y los ejemplos. Cuando quieras, corre las pruebas: equivocarse es parte del juego.'}</div></div>
+        <div class="tutor-acts" id="tutorActs"></div></div>
+    </div>
+    <div>
+      <div class="editor"><div class="edbar"><span class="dots"><i style="background:#FF5F57"></i><i style="background:#FEBC2E"></i><i style="background:#28C840"></i></span><span class="file">${esc(e.id)}.js</span><span class="sp"></span><button id="reset" title="Volver al código inicial">Reiniciar</button></div>
+        <div class="edarea" id="edarea"><div class="gutter" id="gutter">1</div><div class="codebox"><pre id="hl" aria-hidden="true"></pre><textarea id="code" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off" aria-label="Editor de código">${esc(code)}</textarea></div></div>
+        <div class="runbar"><button class="btn primary" id="run">${ICON.play} Correr pruebas</button><button class="btn ghost sm" id="sol" hidden style="color:#C9C7F2;border-color:var(--code-line)">${ICON.eye} Ver solución</button><span class="kbd">Ctrl + Enter</span></div></div>
+      <div class="results" id="results" aria-live="polite"></div>
+    </div>
+  </div>`;
+}
+
+function render(){
+  actualizarBarra();$('miniBit').innerHTML=mascota(30,'feliz');
+  const v=$('view');
+  if(ruta.v==='inicio')v.innerHTML=vistaInicio();
+  else if(ruta.v==='pista')v.innerHTML=vistaPista(ruta.k);
+  else {v.innerHTML=vistaEjercicio(ruta.id);montarEditor(ruta.id)}
+  document.title=ruta.v==='ej'?EJERCICIOS.find(x=>x.id===ruta.id).titulo+' · Bit':'Bit · Gimnasio de programación';
+}
+
+/* ============ Editor con resaltado ============ */
+const KW=new Set('function return const let var if else for while do of in new true false null undefined break continue switch case default typeof instanceof class this try catch throw'.split(' '));
+function resaltar(src){
+  const re=/(\/\/[^\n]*|\/\*[\s\S]*?\*\/)|("(?:\\.|[^"\\\n])*"|'(?:\\.|[^'\\\n])*'|`(?:\\.|[^`\\])*`)|(\b\d+(?:\.\d+)?\b)|([A-Za-z_$][\w$]*)(?=\s*\()|([A-Za-z_$][\w$]*)|([{}()[\]])/g;
+  let out='',last=0,m;
+  while((m=re.exec(src))){out+=esc(src.slice(last,m.index));const t=esc(m[0]);
+    if(m[1])out+=`<span class="tk-c">${t}</span>`;else if(m[2])out+=`<span class="tk-s">${t}</span>`;else if(m[3])out+=`<span class="tk-n">${t}</span>`;
+    else if(m[4])out+=KW.has(m[4])?`<span class="tk-k">${t}</span>`:`<span class="tk-f">${t}</span>`;else if(m[5])out+=KW.has(m[5])?`<span class="tk-k">${t}</span>`:t;else out+=`<span class="tk-b">${t}</span>`;
+    last=re.lastIndex}
+  return out+esc(src.slice(last))+'\n';
+}
+let fallos=0;
+function montarEditor(id){
+  const e=EJERCICIOS.find(x=>x.id===id),ta=$('code'),hl=$('hl'),gut=$('gutter');fallos=P.intentos[id]||0;
+  const sync=()=>{hl.innerHTML=resaltar(ta.value);const n=ta.value.split('\n').length;gut.textContent=Array.from({length:n},(_,i)=>i+1).join('\n');ta.style.height='auto';ta.style.height=ta.scrollHeight+'px';drafts[id]=ta.value;lsSet(DKEY,drafts)};
+  ta.addEventListener('input',sync);sync();
+  ta.addEventListener('keydown',ev=>{
+    if((ev.ctrlKey||ev.metaKey)&&ev.key==='Enter'){ev.preventDefault();correr(e);return}
+    if(ev.key==='Tab'){ev.preventDefault();const s=ta.selectionStart,t=ta.selectionEnd;ta.setRangeText('  ',s,t,'end');sync();return}
+    if(ev.key==='}'||ev.key===']'||ev.key===')'){const s=ta.selectionStart,before=ta.value.slice(0,s),ls=before.lastIndexOf('\n')+1,pre=before.slice(ls);
+      if(/^ {2,}$/.test(pre)&&s===ta.selectionEnd){ev.preventDefault();ta.setRangeText(pre.slice(2)+ev.key,ls,s,'end');sync();return}}
+    if(ev.key==='Enter'){const s=ta.selectionStart,line=ta.value.slice(0,s).split('\n').pop(),ind=(line.match(/^\s*/)||[''])[0]+(/[{[(]\s*$/.test(line)?'  ':'');
+      ev.preventDefault();ta.setRangeText('\n'+ind,s,ta.selectionEnd,'end');sync()}
+  });
+  $('run').onclick=()=>correr(e);
+  $('reset').onclick=()=>{if(confirm('¿Volver al código inicial? Se borra lo que escribiste.')){ta.value=e.inicio;sync();ta.focus()}};
+  $('sol').hidden=fallos<3||!!P.resueltos[id];
+  $('sol').onclick=()=>{if(confirm('Ver la solución resta la mitad de la experiencia de este reto. ¿Continuar?')){ta.value=e.sol;sync();P.pistasUsadas[id]=(P.pistasUsadas[id]||0)+2;guardar();burbuja('Aquí está una solución posible. Léela línea por línea, cierra este reto y vuelve a escribirla mañana sin verla: así se queda.','piensa')}};
+  montarTutor(e);
+}
+function montarTutor(e){
+  const acts=$('tutorActs');if(!acts)return;
+  if(SAMPLE){acts.innerHTML=`<button class="btn sm" id="hint">${ICON.bulb} Pedir una pista</button><button class="btn sm" id="review">${ICON.search} Revisar mi código</button>`;
+    $('hint').onclick=()=>tutor(e,'pista');$('review').onclick=()=>tutor(e,'revision')}
+  else acts.innerHTML=`<p style="margin:0;color:var(--muted);font-size:.86rem">Consejo: si fallas 3 veces, se desbloquea la solución. Intenta primero explicar en voz alta qué debe hacer tu código paso a paso.</p>`;
+}
+
+/* ============ Ejecución segura de pruebas ============ */
+const WORKER_SRC=`
+function eq(a,b){if(a===b)return true;if(typeof a!=='object'||typeof b!=='object'||a===null||b===null)return Number.isNaN(a)&&Number.isNaN(b);
+ if(Array.isArray(a)!==Array.isArray(b))return false;const ka=Object.keys(a),kb=Object.keys(b);if(ka.length!==kb.length)return false;return ka.every(k=>eq(a[k],b[k]))}
+function fmt(v){try{return v===undefined?'undefined':typeof v==='function'?'[función]':JSON.stringify(v)}catch(e){return String(v)}}
+function correr(d){const logs=[];const con={log:(...a)=>{if(logs.length<60)logs.push(a.map(x=>typeof x==='string'?x:fmt(x)).join(' '))}};con.error=con.warn=con.info=con.log;
+ let f;try{f=new Function('console',d.code+'\\n;return typeof '+d.fn+'==="function"?'+d.fn+':undefined')(con)}catch(e){return{error:e.name+': '+e.message,logs}}
+ if(typeof f!=='function')return{error:'No encontré la función '+d.fn+'. Revisa que se llame exactamente así.',logs};
+ const res=d.pruebas.map(([args,esp])=>{try{const got=f(...JSON.parse(JSON.stringify(args)));return{ok:eq(got,esp),got:fmt(got)}}catch(e){return{ok:false,got:e.name+': '+e.message,err:true}}});
+ return{res,logs}}
+self.onmessage=ev=>self.postMessage(correr(ev.data));`;
+let workerOK=true;
+function ejecutar(d){
+  return new Promise(resolve=>{
+    let w;try{if(!workerOK)throw 0;w=new Worker(URL.createObjectURL(new Blob([WORKER_SRC],{type:'text/javascript'})))}catch(e){workerOK=false}
+    if(!w){ // respaldo: sin Worker, corre en la página
+      try{const run=new Function(WORKER_SRC.replace('self.onmessage=ev=>self.postMessage(correr(ev.data));','return correr;'))();resolve(run(d))}catch(e){resolve({error:String(e)})}return}
+    const t=setTimeout(()=>{w.terminate();resolve({error:'Tu código tardó demasiado (más de 3 segundos). ¿Hay un ciclo que nunca termina?'})},3000);
+    w.onmessage=ev=>{clearTimeout(t);w.terminate();resolve(ev.data)};
+    w.onerror=ev=>{clearTimeout(t);w.terminate();ev.preventDefault&&ev.preventDefault();workerOK=false;ejecutar(d).then(resolve)};
+    w.postMessage({code:d.code,fn:d.fn,pruebas:d.pruebas});
+  });
+}
+let ultimoResultado=null;
+async function correr(e){
+  const btn=$('run');btn.disabled=true;btn.innerHTML=`${ICON.play} Corriendo…`;
+  const code=$('code').value,r=await ejecutar({code,fn:e.fn,pruebas:e.pruebas});
+  btn.disabled=false;btn.innerHTML=`${ICON.play} Correr pruebas`;
+  ultimoResultado=r;const box=$('results');
+  if(!P.dias.includes(hoy())){P.dias.push(hoy());}
+  const logs=r.logs&&r.logs.length?`<div class="console"><strong>console.log</strong>\n${esc(r.logs.join('\n'))}</div>`:'';
+  if(r.error){fallo(e);box.innerHTML=`<div class="errbox">${esc(r.error)}</div>${logs}`;burbuja(consejoError(r.error),'triste');guardar();actualizarBarra();return}
+  const ok=r.res.filter(x=>x.ok).length,n=r.res.length,C=2*Math.PI*22;
+  let h='';
+  if(ok===n){h+=exito(e)}else{fallo(e);burbuja(ok===0?'Ninguna prueba pasó todavía. Revisa primero el caso más sencillo de la lista y compáralo con lo que regresó tu función.':`¡Vas bien! ${ok} de ${n}. Fíjate en las pruebas en rojo: suelen ser casos especiales, como arreglos vacíos, ceros o negativos.`,ok?'piensa':'triste')}
+  h+=`<div class="card"><div class="summary"><svg class="ring" viewBox="0 0 54 54"><circle cx="27" cy="27" r="22" stroke="var(--sunken)" stroke-width="6" fill="none"/><circle cx="27" cy="27" r="22" stroke="${ok===n?'var(--mint)':'var(--pink)'}" stroke-width="6" fill="none" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C}" transform="rotate(-90 27 27)" id="ringArc"/><text x="27" y="32" text-anchor="middle" font-weight="700" font-size="13" fill="currentColor">${ok}/${n}</text></svg><div><h3>${ok===n?'Todas las pruebas pasaron':`${n-ok} prueba${n-ok>1?'s':''} por corregir`}</h3><p>Intento ${P.intentos[e.id]||1}</p></div></div>
+    ${r.res.map((x,i)=>{const[a,esp]=e.pruebas[i];return `<div class="test ${x.ok?'ok':'bad'}" style="animation-delay:${i*70}ms"><span class="ic">${x.ok?'✓':'✗'}</span><div class="io">${esc(e.fn)}(${esc(a.map(fmtv).join(', '))})${x.ok?` <span>→</span> ${esc(x.got)}`:`\n<span>esperado:</span> ${esc(fmtv(esp))}\n<span>obtuve:</span>   ${esc(x.got)}`}</div></div>`}).join('')}${logs}</div>`;
+  box.innerHTML=h;requestAnimationFrame(()=>{const a=$('ringArc');if(a)a.style.strokeDashoffset=C*(1-ok/n)});
+  if(ok===n)celebrar(e);
+  $('sol').hidden=(P.intentos[e.id]||0)<3||!!P.resueltos[e.id];
+  guardar();actualizarBarra();
+  if(window.matchMedia('(max-width:900px)').matches)box.scrollIntoView({behavior:'smooth',block:'start'});
+}
+function consejoError(m){
+  if(/SyntaxError/.test(m))return 'Hay un error de sintaxis: revisa que cada ( { [ tenga su pareja y que no falten comas o comillas.';
+  if(/ReferenceError/.test(m))return 'Usas una variable que no existe. ¿La declaraste con let o const? ¿Está bien escrita?';
+  if(/TypeError/.test(m))return 'Intentas usar algo que no es lo que crees (por ejemplo, un método sobre undefined). Usa console.log para ver qué valor tiene.';
+  if(/tardó/.test(m))return 'Parece un ciclo infinito: revisa que la condición del while o del for eventualmente se vuelva falsa.';
+  return 'Algo salió mal. Lee el mensaje con calma: casi siempre dice exactamente qué línea o qué valor falló.';
+}
+function fallo(e){P.intentos[e.id]=(P.intentos[e.id]||0)+1}
+let ganado=0;
+function exito(e){
+  P.intentos[e.id]=(P.intentos[e.id]||0)+1;
+  const ya=P.resueltos[e.id];ganado=0;
+  if(!ya){
+    let xp=e.nivel*10+10;const pistas=P.pistasUsadas[e.id]||0;
+    if(pistas>=2)xp=Math.round(xp/2);else if(pistas===0&&P.intentos[e.id]===1)xp+=5;
+    if(retoDelDia().id===e.id)xp*=2;
+    ganado=xp;const antes=nivelDe(P.xp).n;P.xp+=xp;P.resueltos[e.id]={fecha:hoy(),intentos:P.intentos[e.id],pistas};
+    if(nivelDe(P.xp).n>antes)setTimeout(()=>subirNivel(nivelDe(P.xp).n),1400);
+  }
+  const sig=siguiente(e);
+  burbuja(ya?'¡Otra vez perfecto! Repetir retos ya resueltos es de las mejores formas de afianzar lo aprendido.':P.intentos[e.id]===1?'¡A la primera! Eso fue muy limpio. ¿Te animas con el siguiente?':'¡Lo lograste! Cada error que corregiste te enseñó algo. Así se aprende de verdad.','celebra');
+  return `<div class="success">${mascota(54,'celebra')}<div><h3>${ya?'¡Resuelto de nuevo!':`¡Reto superado! +${ganado} XP`}</h3><p>${ya?'Ya tenías este reto.':P.intentos[e.id]===1&&!(P.pistasUsadas[e.id])?'A la primera y sin pistas: bono incluido.':'Sigue así.'}</p></div>${sig?`<button class="btn" data-ex="${sig.id}">Siguiente ${ICON.next}</button>`:`<button class="btn" data-go="inicio">Inicio</button>`}</div>`;
+}
+function siguiente(e){const ex=EJERCICIOS.filter(x=>x.pista===e.pista);const i=ex.indexOf(e);return ex.slice(i+1).find(x=>!P.resueltos[x.id])||ex.find(x=>!P.resueltos[x.id])||EJERCICIOS.find(x=>!P.resueltos[x.id])}
+function burbuja(t,mood){const b=$('bubble');if(!b)return;b.classList.remove('wait');b.textContent=t;$('tutorBit').innerHTML=mascota(64,mood||'feliz')}
+
+/* ============ Tutor con IA ============ */
+let tutorBusy=null;
+async function tutor(e,modo){
+  if(!SAMPLE)return;if(tutorBusy)tutorBusy.abort();
+  const ctl=new AbortController();tutorBusy=ctl;
+  const b=$('bubble');b.textContent='';b.classList.add('wait');$('tutorBit').innerHTML=mascota(64,'piensa');
+  const code=$('code').value;const r=ultimoResultado;
+  const res=r?(r.error?`Error al ejecutar: ${r.error}`:r.res.map((x,i)=>`${x.ok?'PASA':'FALLA'}: ${e.fn}(${e.pruebas[i][0].map(fmtv).join(', ')}) esperado ${fmtv(e.pruebas[i][1])}, obtuvo ${x.got}`).join('\n')):'Aún no ha corrido las pruebas.';
+  const inst=modo==='pista'
+    ?`Eres Bit, un tutor de programación amable que habla español de México con un estudiante que está practicando JavaScript. Da UNA sola pista breve (máximo 3 oraciones) que lo acerque a la solución sin darle código de la solución ni la respuesta completa. Si su código tiene un error concreto, señala dónde mirar y por qué, con una pregunta que lo haga pensar. No uses markdown, ni listas, ni bloques de código.`
+    :`Eres Bit, un tutor de programación amable que habla español de México. Revisa el código del estudiante en máximo 5 oraciones: primero algo que hizo bien, luego lo más importante a mejorar (claridad de nombres, casos borde, eficiencia o estilo moderno de JavaScript). Si sus pruebas fallan, enfócate en por qué sin escribir la solución completa. Puedes citar fragmentos cortos de su código entre comillas. No uses markdown ni listas.`;
+  const prompt=`${inst}\n\nEJERCICIO: ${e.titulo}\n${e.desc}\n\nCÓDIGO DEL ESTUDIANTE:\n${code}\n\nRESULTADOS DE LAS PRUEBAS:\n${res}`;
+  try{
+    const out=await SAMPLE(prompt,{modelTier:'quick',cache:false,signal:ctl.signal,onText:({text})=>{b.classList.remove('wait');b.textContent=text}});
+    b.classList.remove('wait');b.textContent=out.text.trim();$('tutorBit').innerHTML=mascota(64,'feliz');
+    if(modo==='pista'){P.pistasUsadas[e.id]=(P.pistasUsadas[e.id]||0)+1;guardar()}
+  }catch(err){
+    if(err&&err.code==='cancelled')return;
+    b.classList.remove('wait');
+    if(err&&err.code==='not_granted'){$('tutorActs').innerHTML='';b.textContent='El tutor con IA no está disponible aquí. Si fallas 3 veces, se desbloquea la solución.'}
+    else if(err&&err.code==='rate_limited')b.textContent='Me hiciste muchas preguntas seguidas. Dame un minuto y vuelve a intentar.';
+    else b.textContent=(err&&err.text)||'No pude responder ahora. Intenta de nuevo en un momento.';
+    $('tutorBit').innerHTML=mascota(64,'feliz');
+  }finally{if(tutorBusy===ctl)tutorBusy=null}
+}
+
+/* ============ Celebración ============ */
+const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+function celebrar(){
+  if(ganado){const r=$('run').getBoundingClientRect();const f=document.createElement('div');f.className='xpfloat';f.textContent=`+${ganado} XP`;f.style.left=(r.left+r.width/2)+'px';f.style.top=(r.top-10)+'px';document.body.appendChild(f);setTimeout(()=>f.remove(),1700)}
+  if(reduce)return;
+  const cv=$('confetti'),ctx=cv.getContext('2d'),dpr=window.devicePixelRatio||1;cv.width=innerWidth*dpr;cv.height=innerHeight*dpr;ctx.scale(dpr,dpr);
+  const cols=['#3D5AFE','#7C4DFF','#FFB020','#12B886','#F0457A','#15AABF'];
+  const ps=Array.from({length:150},()=>({x:innerWidth/2+(Math.random()-.5)*160,y:innerHeight*.35,vx:(Math.random()-.5)*14,vy:-Math.random()*14-4,r:Math.random()*6+4,c:cols[Math.random()*cols.length|0],a:Math.random()*6,va:(Math.random()-.5)*.3,s:Math.random()<.5}));
+  const t0=performance.now();
+  (function frame(t){const dt=t-t0;ctx.clearRect(0,0,innerWidth,innerHeight);
+    for(const p of ps){p.vy+=.35;p.vx*=.99;p.x+=p.vx;p.y+=p.vy;p.a+=p.va;ctx.save();ctx.globalAlpha=Math.max(0,1-dt/2600);ctx.translate(p.x,p.y);ctx.rotate(p.a);ctx.fillStyle=p.c;
+      if(p.s)ctx.fillRect(-p.r/2,-p.r/4,p.r,p.r/2);else{ctx.beginPath();ctx.arc(0,0,p.r/2.4,0,6.3);ctx.fill()}ctx.restore()}
+    if(dt<2600)requestAnimationFrame(frame);else ctx.clearRect(0,0,innerWidth,innerHeight)})(t0);
+}
+function subirNivel(n){
+  const d=document.createElement('div');d.className='levelup';d.innerHTML=`<div class="box" role="dialog" aria-label="Subiste de nivel">${mascota(110,'celebra')}<h2>¡Nivel ${n+1}!</h2><p>Ahora eres <strong>${nombreNivel(n)}</strong>. Tu constancia está dando frutos.</p><button class="btn primary">¡Vamos!</button></div>`;
+  document.body.appendChild(d);d.querySelector('button').focus();d.onclick=ev=>{if(ev.target===d||ev.target.closest('button'))d.remove()};celebrar();
+}
+
+/* ============ Eventos e inicio ============ */
+document.addEventListener('click',ev=>{
+  const x=ev.target.closest('[data-ex]');if(x){ir({v:'ej',id:x.dataset.ex});return}
+  const p=ev.target.closest('[data-pista]');if(p){ir({v:'pista',k:p.dataset.pista});return}
+  const g=ev.target.closest('[data-go]');if(g){ir({v:'inicio'});return}
+  if(ev.target.closest('#home'))ir({v:'inicio'});
+});
+(async function iniciar(){
+  const local=lsGet(LKEY);if(local)P=mezclar(local,{});
+  render();
+  if(window.claude&&typeof window.claude.use==='function'){
+    const [db,sample,user]=await Promise.all([window.claude.use('db').catch(()=>null),window.claude.use('sample').catch(()=>null),window.claude.use('user').catch(()=>null)]);
+    SAMPLE=sample||null;
+    if(db&&user){DB=db;try{const s=await db.doc('data/users/me/progreso').get();if(s.exists)P=mezclar(P,s.data());}catch(e){DB=null}}
+    if(ruta.v==='ej'){if(SAMPLE)montarTutor(EJERCICIOS.find(x=>x.id===ruta.id))} else render();
+    actualizarBarra();
+  }
+})();
+</script>
+</body>
+</html>
