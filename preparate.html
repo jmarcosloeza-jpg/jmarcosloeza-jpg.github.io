@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Prepárate · Entrevistas de Scrum Master, datos y cloud</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F4F5F9;--surface:#fff;--sunken:#EEF0F6;--ink:#141827;--muted:#5D6480;--line:#DDE1EC;--brand:#4F46E5;--good:#16A34A;--good-bg:#E7F7EC;--bad:#DC2626;--bad-bg:#FDECEC;--warn:#B45309;--warn-bg:#FEF3E2;--shadow:0 1px 2px rgba(20,24,39,.05),0 8px 24px rgba(20,24,39,.06);
+ box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0D1020;--surface:#161A2E;--sunken:#11142A;--ink:#E9EBF5;--muted:#A0A7C3;--line:#2A2F4A;--brand:#8B85FF;--good:#4ADE80;--good-bg:#12301F;--bad:#F87171;--bad-bg:#3A1717;--warn:#FBBF24;--warn-bg:#352812;--shadow:none}}
+:root[data-theme="dark"]{--bg:#0D1020;--surface:#161A2E;--sunken:#11142A;--ink:#E9EBF5;--muted:#A0A7C3;--line:#2A2F4A;--brand:#8B85FF;--good:#4ADE80;--good-bg:#12301F;--bad:#F87171;--bad-bg:#3A1717;--warn:#FBBF24;--warn-bg:#352812;--shadow:none}
+*,*::before,*::after{box-sizing:inherit}html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
+h1,h2,h3{margin:0;line-height:1.2;letter-spacing:-.01em}h1{font-size:clamp(1.6rem,4vw,2.3rem);font-weight:800}h2{font-size:1.3rem;font-weight:800}
+button,textarea,input{font:inherit;color:inherit}:focus-visible{outline:3px solid var(--brand);outline-offset:2px;border-radius:8px}
+code,pre{font-family:"JetBrains Mono",ui-monospace,Consolas,monospace}
+code{background:var(--sunken);border-radius:6px;padding:1px 6px;font-size:.86em;word-break:break-word}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top .in{max-width:1100px;margin:0 auto;padding:0 16px;height:60px;display:flex;align-items:center;gap:16px}
+.brand{font-weight:800;font-size:1.15rem;display:flex;align-items:center;gap:8px;background:none;border:0;cursor:pointer;white-space:nowrap}
+.brand i{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#6D28D9,#0E7490);display:grid;place-items:center;color:#fff;font-style:normal;font-size:.9rem}
+.nav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}.nav::-webkit-scrollbar{display:none}
+.nav button{border:0;background:none;padding:8px 12px;border-radius:10px;font-weight:700;color:var(--muted);cursor:pointer;white-space:nowrap}
+.nav button:hover{background:var(--sunken)}.nav button[aria-current="page"]{background:var(--ink);color:var(--bg)}
+main{max-width:1100px;margin:0 auto;padding:22px 16px 60px}
+.btn{border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:10px 16px;font-weight:700;cursor:pointer;min-height:44px;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.btn:hover{border-color:var(--muted)}.btn:active{transform:scale(.98)}.btn.primary{background:var(--brand);border-color:var(--brand);color:#fff}
+:root[data-theme="dark"] .btn.primary{color:#0D1020}@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn.primary{color:#0D1020}}
+.btn.light{background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.35);color:#fff}.btn.ghost{background:transparent}.btn.sm{min-height:36px;padding:6px 12px;font-size:.9rem}.btn:disabled{opacity:.55;cursor:wait}
+.muted{color:var(--muted)}.center{text-align:center}.sect{margin:30px 0 12px}.sub{font-size:1rem;margin:18px 0 8px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:20px;box-shadow:var(--shadow)}
+.card.center{display:flex;flex-direction:column;align-items:center;gap:10px;padding:32px 20px}
+.cardhead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}
+.pill{background:var(--sunken);border-radius:999px;padding:3px 12px;font-weight:800;font-size:.85rem;white-space:nowrap}
+.bar{height:8px;background:var(--sunken);border-radius:6px;overflow:hidden;margin:6px 0 12px;flex:1}.bar b{display:block;height:100%;background:linear-gradient(90deg,#6D28D9,#0E7490);transition:width .5s}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}@media(max-width:820px){.two{grid-template-columns:1fr}}
+/* hero */
+.hero{display:grid;grid-template-columns:1.4fr 1fr;gap:20px;align-items:center;background:linear-gradient(135deg,#1E1B4B,#4C1D95 55%,#0E7490);color:#fff;border-radius:26px;padding:30px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-60px;top:-60px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(253,230,138,.35),transparent 65%)}
+.hero p{opacity:.9;max-width:52ch}.kicker{display:inline-block;font-size:.78rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;background:rgba(255,255,255,.14);border-radius:999px;padding:4px 12px;margin-bottom:12px}
+.herobtns{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.heroart svg{width:100%;height:auto;position:relative;z-index:1}
+.tk{animation:tk 3s ease-in-out infinite}@keyframes tk{50%{transform:translateY(-3px)}}.line{stroke-dasharray:120;stroke-dashoffset:120;animation:ln 2.5s ease forwards .5s}@keyframes ln{to{stroke-dashoffset:0}}
+@media(max-width:720px){.hero{grid-template-columns:1fr;padding:22px}.heroart{display:none}}
+.rutas{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}@media(max-width:820px){.rutas{grid-template-columns:1fr}}
+.ruta{text-align:left;background:var(--surface);border:1px solid var(--line);border-top:5px solid var(--c);border-radius:20px;padding:18px;cursor:pointer;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:6px;transition:transform .2s;animation:rise .45s both}
+.ruta:hover{transform:translateY(-3px)}.ruta p{margin:0;color:var(--muted);font-size:.92rem;flex:1}.rtop{display:flex;justify-content:space-between;align-items:center}.re{font-size:2rem}
+.rmeta{display:flex;justify-content:space-between;gap:8px;font-size:.82rem;font-weight:700;color:var(--muted);margin-top:6px}
+.rutas.mini{margin-top:14px}.rutas.mini .ruta{align-items:center;text-align:center}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}}
+.ring .rbg{fill:none;stroke:var(--line);stroke-width:7}.ring .rfg{fill:none;stroke-width:7;stroke-linecap:round;transform:rotate(-90deg);transform-origin:center;transition:stroke-dashoffset .8s}
+.ring text{font-size:14px;font-weight:800;fill:currentColor}
+.plan{list-style:none;margin:0;padding:0;display:grid;gap:4px;max-height:420px;overflow:auto}
+.plan label{display:flex;gap:10px;align-items:flex-start;padding:8px;border-radius:10px;cursor:pointer}.plan label:hover{background:var(--sunken)}
+.plan input{width:20px;height:20px;margin-top:2px;accent-color:var(--brand);flex:none}.plan input:checked+span{opacity:.55;text-decoration:line-through}
+.tips{margin:10px 0 0;padding-left:18px;display:grid;gap:8px}
+.hist{list-style:none;margin:0;padding:0;display:grid;gap:6px}.hist li{display:flex;gap:10px;align-items:center;font-size:.92rem}
+.score{display:inline-grid;place-items:center;min-width:34px;height:34px;border-radius:10px;font-weight:800;flex:none}.score.sh{background:var(--good-bg);color:var(--good)}.score.sm{background:var(--warn-bg);color:var(--warn)}.score.sl{background:var(--bad-bg);color:var(--bad)}
+.score.xl{min-width:72px;height:72px;font-size:2rem;border-radius:18px}
+/* ruta */
+.rhead{background:var(--c);color:#fff;border-radius:24px;padding:18px 22px 0;margin-bottom:18px;overflow:hidden}
+.back{background:none;border:0;color:#fff;opacity:.85;font-weight:700;cursor:pointer;padding:4px 0}
+.rh{display:flex;gap:14px;align-items:center;margin:6px 0 14px}.rh p{margin:4px 0 0;opacity:.88}.rh>div{flex:1}.rh .ring .rbg{stroke:rgba(255,255,255,.25)}
+.subtabs{display:flex;gap:4px;overflow-x:auto}.subtabs button{border:0;background:rgba(255,255,255,.12);color:#fff;padding:10px 16px;border-radius:12px 12px 0 0;font-weight:700;cursor:pointer;white-space:nowrap}
+.subtabs button[aria-current="page"]{background:var(--bg);color:var(--ink)}
+.mods,.ents{display:grid;gap:10px}
+details.mod,details.ent{background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);overflow:hidden}
+details summary{list-style:none;display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer}details summary::-webkit-details-marker{display:none}
+.mn{width:32px;height:32px;border-radius:10px;background:var(--sunken);display:grid;place-items:center;font-weight:800;flex:none}
+details.done .mn{background:var(--good);color:#fff}details summary b{flex:1}
+.chev{font-size:1.4rem;color:var(--muted);transition:transform .2s}details[open] .chev{transform:rotate(90deg)}
+.mbody{padding:0 18px 18px 60px}@media(max-width:600px){.mbody{padding:0 14px 16px}}
+.mbody ul{margin:0 0 14px;padding-left:18px;display:grid;gap:8px}
+.tw{overflow-x:auto;margin-bottom:12px;border:1px solid var(--line);border-radius:12px}table{border-collapse:collapse;width:100%;font-size:.88rem;min-width:620px}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}thead th{background:var(--sunken)}tbody th{font-weight:700}
+.code{background:#0F1222;color:#E3E6F7;border-radius:16px;overflow:hidden;margin-bottom:12px}.codehead{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1px solid #262B45}
+.codehead .btn{color:#E3E6F7;border-color:#343A5A}.code pre{margin:0;padding:14px 16px;overflow-x:auto;font-size:.85rem;line-height:1.6}.code code{background:none;padding:0;font-size:inherit}
+.code .k{color:#C792EA}.code .s{color:#C3E88D}.code .n{color:#F78C6C}.code .c{color:#6C7399;font-style:italic}
+/* tarjetas */
+.flashwrap{max-width:620px;margin:0 auto}.flash{width:100%;height:260px;border:0;background:none;perspective:1000px;cursor:pointer;padding:0;margin:10px 0 14px}
+.fin{position:relative;width:100%;height:100%;transition:transform .55s cubic-bezier(.2,.8,.2,1);transform-style:preserve-3d}.flash.vuelta .fin{transform:rotateY(180deg)}
+.ff,.fb{position:absolute;inset:0;backface-visibility:hidden;border-radius:22px;padding:24px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;box-shadow:var(--shadow)}
+.ff{background:var(--surface);border:1px solid var(--line)}.fb{background:linear-gradient(135deg,#312E81,#0E7490);color:#fff;transform:rotateY(180deg)}
+.ff small,.fb small{text-transform:uppercase;letter-spacing:.1em;font-weight:800;opacity:.6;font-size:.72rem}.ff p,.fb p{font-size:1.2rem;font-weight:700;margin:10px 0 0}
+.fbtns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+/* examen */
+.quiz h2{margin:12px 0 16px}.qtop{display:flex;align-items:center;gap:12px}
+.ops{display:grid;gap:10px}.op{display:flex;gap:12px;align-items:center;text-align:left;border:2px solid var(--line);background:var(--surface);border-radius:14px;padding:12px 14px;cursor:pointer;font-weight:600;transition:border-color .2s}
+.op:hover:not(:disabled){border-color:var(--brand)}.ol{width:30px;height:30px;border-radius:8px;background:var(--sunken);display:grid;place-items:center;font-weight:800;flex:none}
+.op.bien{border-color:var(--good);background:var(--good-bg)}.op.mal{border-color:var(--bad);background:var(--bad-bg)}.op:disabled{cursor:default}
+.exp{margin:14px 0;border-radius:12px;padding:12px 14px}.exp.bien{background:var(--good-bg)}.exp.mal{background:var(--bad-bg)}
+.review{text-align:left;width:100%;max-width:640px}.review ul{padding-left:18px;display:grid;gap:10px}
+/* entrevista */
+.modelo{background:var(--sunken);border-radius:12px;padding:12px 14px;margin:0 0 10px}.lbl{display:block;font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;font-weight:800;color:var(--muted);margin-bottom:4px}
+.tip{margin:0 0 12px;color:var(--warn);font-weight:600}.entbtns{display:flex;gap:8px;flex-wrap:wrap}
+/* simulador */
+.entrevistador{display:flex;gap:12px;align-items:flex-start;margin:12px 0 16px}.avatar{width:52px;height:52px;border-radius:50%;background:var(--sunken);display:grid;place-items:center;font-size:1.7rem;flex:none}
+.bubble{background:var(--sunken);border-radius:4px 18px 18px 18px;padding:12px 16px;flex:1}.bubble small{font-weight:800;color:var(--muted)}.bubble p{margin:4px 0 0;font-size:1.1rem;font-weight:700}
+.resp{display:flex;flex-direction:column;gap:6px;font-weight:700}.resp textarea{border:1px solid var(--line);background:var(--sunken);border-radius:14px;padding:12px 14px;resize:vertical;font-weight:500;line-height:1.5}
+.simbtns{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.loading{display:flex;align-items:center;gap:10px;color:var(--muted);font-weight:700;padding:14px 0}.dots{display:inline-flex;gap:4px}.dots i{width:8px;height:8px;border-radius:50%;background:var(--brand);animation:bo 1s infinite}.dots i:nth-child(2){animation-delay:.15s}.dots i:nth-child(3){animation-delay:.3s}@keyframes bo{50%{transform:translateY(-6px);opacity:.5}}
+.res{margin-top:10px;animation:rise .4s both}.rscore{display:flex;gap:14px;align-items:center}.rscore p{margin:2px 0 0}
+.rbox{background:var(--sunken);border-radius:14px;padding:14px 16px;margin-top:12px}.rbox h3{font-size:1rem;margin-bottom:6px}.rbox ul{margin:0;padding-left:18px;display:grid;gap:4px}.rbox p{margin:0 0 8px}
+.rbox.good{background:var(--good-bg)}.rbox.warn{background:var(--warn-bg)}.two .rbox{margin-top:0}
+.labcards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}@media(max-width:820px){.labcards{grid-template-columns:1fr}}
+.labcard{text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:18px;padding:16px;cursor:pointer;display:flex;flex-direction:column;gap:4px;box-shadow:var(--shadow);transition:transform .2s}.labcard:hover{transform:translateY(-3px)}.labcard span{font-size:1.8rem}.labcard small{color:var(--muted)}
+.labline{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:-4px 0 14px;font-weight:700;color:var(--muted)}
+.labhead{margin-bottom:14px}.kicker.dark{background:var(--sunken);color:var(--brand)}
+.labtabs{display:flex;gap:6px;overflow-x:auto;margin-bottom:14px}.labtabs button{border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:10px 14px;font-weight:700;cursor:pointer;white-space:nowrap}.labtabs button[aria-current="page"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.contexto{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center;background:var(--sunken);border-radius:14px;padding:14px}@media(max-width:600px){.contexto{grid-template-columns:1fr}}
+.vel{display:flex;gap:10px;align-items:flex-end;height:74px;margin:6px 0}.vel div{display:flex;flex-direction:column;align-items:center;gap:4px}.vel b{width:34px;background:linear-gradient(0deg,#6D28D9,#A78BFA);border-radius:6px 6px 2px 2px}.vel small{font-size:.72rem;color:var(--muted);font-weight:700}
+.nota{background:var(--warn-bg);border-radius:12px;padding:10px 12px}
+.metas{display:grid;gap:8px}.meta{display:flex;gap:10px;align-items:center;border:2px solid var(--line);border-radius:12px;padding:10px 12px;cursor:pointer;font-weight:600}.meta.on{border-color:var(--brand);background:color-mix(in srgb,var(--brand) 8%,transparent)}.meta input{accent-color:var(--brand)}
+.cargabar{display:flex;align-items:center;gap:12px;font-weight:700}.cargabar .bar{margin:0}
+.backlog{display:grid;gap:6px}.issue{display:grid;grid-template-columns:auto 1fr auto auto;gap:4px 10px;align-items:center;text-align:left;border:2px solid var(--line);background:var(--surface);border-radius:12px;padding:10px 12px;cursor:pointer;transition:all .15s}
+.issue.sel{border-color:var(--brand);background:color-mix(in srgb,var(--brand) 9%,transparent)}.issue .it{font-weight:600}.ik{font-family:"JetBrains Mono",monospace;font-size:.78rem;font-weight:600;color:var(--muted);white-space:nowrap}
+.pts{background:var(--sunken);border-radius:999px;min-width:28px;height:28px;display:inline-grid;place-items:center;font-weight:800;font-size:.85rem;padding:0 6px}
+.ip{font-size:.75rem;font-weight:800;border-radius:6px;padding:2px 8px}.pri-Alta{background:var(--bad-bg);color:var(--bad)}.pri-Media{background:var(--warn-bg);color:var(--warn)}.pri-Baja{background:var(--good-bg);color:var(--good)}
+.nolista{grid-column:2/-1;font-size:.78rem;color:var(--warn);font-weight:700}
+@media(max-width:600px){.issue{grid-template-columns:1fr auto}.issue .ik{grid-column:1/-1}}
+.goal{background:var(--sunken);border-radius:12px;padding:10px 12px;margin:0 0 12px}
+.evento{border:2px solid var(--warn);background:var(--warn-bg);border-radius:14px;padding:14px;margin-bottom:12px;animation:rise .35s both}.evento p{margin:6px 0 10px;font-weight:600}.evops{display:grid;gap:8px}.evops .btn{justify-content:flex-start;text-align:left;height:auto;padding:10px 14px}
+.board{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;overflow-x:auto}.col{background:var(--sunken);border-radius:14px;padding:10px;min-width:180px;display:flex;flex-direction:column;gap:8px;min-height:140px}
+.col h4{margin:0 0 4px;font-size:.85rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);display:flex;justify-content:space-between}
+.card2{display:flex;flex-direction:column;gap:6px;text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:10px;position:relative;font-size:.88rem;animation:rise .3s both}.card2.mov{cursor:pointer}.card2.mov:hover{border-color:var(--brand)}.card2 .pts{position:absolute;right:8px;top:8px;min-width:24px;height:24px}.card2 .it{padding-right:26px;font-weight:600}
+.card2.bloq{border-color:var(--bad);background:var(--bad-bg)}.bl{font-weight:800;color:var(--bad);font-size:.78rem}.prog{height:6px;background:var(--sunken);border-radius:4px;overflow:hidden}.prog b{display:block;height:100%;background:var(--brand);transition:width .4s}
+.daybar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:14px;flex-wrap:wrap}.minib{width:260px;max-width:100%}
+.burn{width:100%;height:auto}.burn .ideal{stroke:var(--muted);stroke-dasharray:4 4;stroke-width:1.5}.burn .real{fill:none;stroke:var(--brand);stroke-width:2.5}.burn .pt{fill:var(--brand)}.burn .lb{font-size:9px;fill:var(--muted)}
+.burnbig{max-width:560px;margin:10px 0}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.kpis div{background:var(--sunken);border-radius:14px;padding:12px;text-align:center;display:flex;flex-direction:column}.kpis b{font-size:1.8rem}.kpis small{color:var(--muted);font-weight:700}
+.fb{list-style:none;margin:0;padding:0;display:grid;gap:6px}.fb li{border-radius:10px;padding:8px 12px;background:var(--sunken)}.fb li.bien{background:var(--good-bg)}.fb li.mal{background:var(--bad-bg)}
+.jqlgrid{display:grid;grid-template-columns:1.6fr 1fr;gap:14px;align-items:start}@media(max-width:860px){.jqlgrid{grid-template-columns:1fr}}
+.reto{font-size:1.1rem;font-weight:700;margin:4px 0 12px}.jqlin{display:flex;flex-direction:column;gap:6px;font-weight:700}.jqlin textarea{font-family:"JetBrains Mono",monospace;border:1px solid var(--line);background:#0F1222;color:#E3E6F7;border-radius:12px;padding:12px;font-size:.92rem;resize:vertical}
+.retonav{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px}.retonav button{width:36px;height:36px;border-radius:10px;border:1px solid var(--line);background:var(--surface);font-weight:800;cursor:pointer}.retonav button.on{border-color:var(--brand);box-shadow:0 0 0 2px var(--brand)}.retonav button.ok{background:var(--good-bg);color:var(--good)}
+.guia{list-style:none;margin:8px 0 12px;padding:0;display:grid;gap:6px}.small{font-size:.86rem}
+table.inc{min-width:640px}table.inc tr.extra{background:var(--bad-bg)}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%) translateY(16px);background:var(--ink);color:var(--bg);padding:11px 18px;border-radius:14px;opacity:0;transition:all .3s;z-index:40;max-width:92vw;text-align:center;font-weight:600}.toast.show{opacity:1;transform:translateX(-50%)}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<header class="top"><div class="in"><button class="brand" data-go="inicio"><i>✓</i>Prepárate</button>
+<nav class="nav" aria-label="Secciones"><button data-go="inicio" data-v="inicio">Inicio</button><button data-ruta="scrum" data-v="ruta" data-r="scrum">Scrum Master</button><button data-ruta="datos" data-v="ruta" data-r="datos">Datos</button><button data-ruta="cloud" data-v="ruta" data-r="cloud">Cloud</button><button data-lab="jira" data-v="lab">🧪 Laboratorio</button><button data-go="sim" data-v="sim">🎙️ Simulador</button></nav></div></header>
+<main id="main"></main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+'use strict';
+const RUTAS={
+scrum:{n:'Scrum Master',e:'🧭',c:'#6D28D9',desc:'Scrum, facilitación, métricas, liderazgo y las herramientas que pide la vacante: Jira, Confluence, Trello, Azure DevOps, Miro, Mural y Office.',
+mods:[
+{id:'s1',t:'Scrum en 5 minutos (Guía Scrum 2020)',p:[
+ '<b>Empirismo</b>: se decide con base en lo observado. Sus 3 pilares son <b>transparencia, inspección y adaptación</b>. Scrum también se apoya en el pensamiento Lean (reducir desperdicio, enfocarse en lo esencial).',
+ '<b>5 valores</b>: compromiso, foco, apertura, respeto y coraje.',
+ '<b>Scrum Team</b>: normalmente 10 personas o menos, sin subequipos ni jerarquías. Tiene tres responsabilidades: <b>Developers</b> (crean el Incremento), <b>Product Owner</b> (maximiza el valor y gestiona el Product Backlog; es una persona, no un comité) y <b>Scrum Master</b> (responsable de la efectividad del equipo).',
+ '<b>Eventos y timeboxes</b> (para un Sprint de un mes; se acortan en Sprints más cortos): Sprint de un mes o menos · Sprint Planning hasta 8 h · Daily Scrum 15 min · Sprint Review hasta 4 h · Sprint Retrospective hasta 3 h.',
+ '<b>Artefactos y su compromiso</b>: Product Backlog → <b>Product Goal</b> · Sprint Backlog → <b>Sprint Goal</b> · Incremento → <b>Definition of Done</b>.',
+ 'Dato de entrevista: la guía de 2020 cambió "Development Team" por <b>Developers</b> y describe al Scrum Master como "un líder verdadero que sirve" (antes "servant leader"). Menciónalo: demuestra que estás actualizado.']},
+{id:'s2',t:'Facilitar las ceremonias',p:[
+ '<b>Sprint Planning</b> responde tres preguntas: ¿por qué es valioso este Sprint? (Sprint Goal), ¿qué se puede terminar? y ¿cómo se hará? Tu papel: que llegue refinado lo necesario, que el equipo decida cuánto trabajo toma y que salga con un objetivo claro.',
+ '<b>Daily Scrum</b> es de y para los Developers: 15 minutos para inspeccionar el avance hacia el Sprint Goal y ajustar el plan. No es un reporte de estatus al Scrum Master. Si se alarga, lleva los temas a una conversación posterior.',
+ '<b>Sprint Review</b> es una sesión de trabajo con stakeholders, no solo una demo: se revisa lo logrado, cambios en el entorno y se ajusta el Product Backlog.',
+ '<b>Retrospectiva</b>: el equipo inspecciona personas, interacciones, procesos, herramientas y su Definition of Done, y elige mejoras concretas. Formatos útiles: Start/Stop/Continue, 4Ls, Velero (Sailboat), Mad/Sad/Glad, línea del tiempo. Cierra siempre con 1 a 3 acciones con responsable.',
+ '<b>Refinamiento</b> no es un evento formal, es una actividad continua para detallar, dividir y estimar elementos del backlog.',
+ 'Técnicas de facilitación: timeboxing visible, votación por puntos, puño de cinco para medir acuerdo, parking lot para temas fuera de foco, y turnos de palabra para que participen también las personas calladas.']},
+{id:'s3',t:'Apoyar al Product Owner y el backlog',p:[
+ 'Un buen Product Backlog es <b>DEEP</b>: detallado según su prioridad, estimado, emergente y priorizado.',
+ 'Las historias de usuario siguen <b>INVEST</b>: independientes, negociables, valiosas, estimables, pequeñas y comprobables. Formato: "Como [rol] quiero [acción] para [beneficio]".',
+ 'Criterios de aceptación en formato <b>Gherkin</b>: Dado [contexto], Cuando [acción], Entonces [resultado].',
+ 'Priorización: <b>WSJF</b> (costo de retraso ÷ tamaño del trabajo), <b>MoSCoW</b> (Must, Should, Could, Won\'t), matriz valor contra esfuerzo, modelo Kano.',
+ 'Dividir historias con <b>SPIDR</b>: Spike, Paths (caminos), Interfaces, Data (datos) y Rules (reglas). También por pasos del flujo o camino feliz contra casos de error.',
+ 'Story mapping (en Miro o Mural): actividades del usuario de izquierda a derecha y prioridad de arriba abajo, para planear entregas por valor.',
+ 'Tu rol no es priorizar por el PO, sino enseñarle técnicas, facilitar el refinamiento y ayudarle a comunicar el Product Goal a los stakeholders.']},
+{id:'s4',t:'Definition of Done y Definition of Ready',p:[
+ '<b>Definition of Done (DoD)</b>: descripción formal del estado del Incremento cuando cumple las medidas de calidad. Si la organización tiene un estándar, el equipo debe cumplirlo como mínimo. Si algo no cumple la DoD, no se presenta en la Review ni se libera.',
+ 'Ejemplo de DoD: código revisado por un par · pruebas automáticas pasando · cobertura mínima acordada · criterios de aceptación validados · desplegado en ambiente de pruebas · documentación en Confluence actualizada · sin defectos críticos abiertos.',
+ '<b>Definition of Ready (DoR)</b>: práctica complementaria, <b>no forma parte de la Guía Scrum</b>. Define cuándo un elemento está listo para entrar al Sprint: tiene valor claro, criterios de aceptación, está estimado, no tiene dependencias bloqueantes y cabe en un Sprint.',
+ 'Riesgo de la DoR: si se vuelve demasiado rígida se convierte en una "puerta" de mini cascada. Úsala como guía para conversar, no como burocracia.']},
+{id:'s5',t:'Tableros, métricas e indicadores',p:[
+ '<b>Burndown</b>: trabajo restante contra el tiempo del Sprint, con una línea ideal de referencia. Una línea plana varios días suele indicar bloqueos o trabajo mal dividido.',
+ '<b>Burnup</b>: trabajo completado contra alcance total. A diferencia del burndown, muestra cuando el alcance cambia.',
+ '<b>Velocidad</b>: puntos terminados por Sprint. Úsala en promedio de 3 a 5 Sprints para pronosticar. <b>Nunca</b> para comparar equipos ni como meta de desempeño: los puntos son relativos a cada equipo.',
+ 'Métricas de flujo: <b>lead time</b> (desde que se pide hasta que se entrega), <b>cycle time</b> (desde que se empieza hasta que se termina), <b>throughput</b> (elementos terminados por periodo), <b>WIP</b> (trabajo en curso) y <b>diagrama de flujo acumulado</b> (una banda que se ensancha indica un cuello de botella).',
+ 'Calidad: defectos escapados a producción, tasa de retrabajo. Negocio: cumplimiento del Sprint Goal, satisfacción del usuario. Equipo: encuestas de salud del equipo (por ejemplo, el health check de Spotify) y felicidad.',
+ 'Ley de Goodhart: "cuando una medida se vuelve objetivo, deja de ser buena medida". Las métricas sirven para conversar y mejorar, no para castigar.']},
+{id:'s6',t:'Liderazgo y equipos de alto rendimiento',p:[
+ 'Etapas de Tuckman: <b>formación, conflicto (storming), normalización y desempeño</b>. El conflicto es normal: tu trabajo es que sea sobre ideas y no sobre personas.',
+ '<b>Seguridad psicológica</b> (Amy Edmondson): el equipo puede opinar, preguntar y equivocarse sin miedo. El estudio Aristóteles de Google la identificó como el factor más importante de los equipos efectivos.',
+ 'Las 5 disfunciones de Lencioni: ausencia de confianza, temor al conflicto, falta de compromiso, evitar rendir cuentas y desatención a los resultados.',
+ 'Posturas del Scrum Master: <b>facilitar</b> (guiar el proceso), <b>enseñar</b> (explicar prácticas), <b>coaching</b> (preguntar para que el equipo encuentre su respuesta) y <b>mentoría</b> (compartir experiencia). Saber cuándo usar cada una es clave.',
+ 'Autogestión: el equipo decide quién hace qué, cómo y cuándo. Promuévela con acuerdos de trabajo, delegando decisiones y resistiendo la tentación de resolverlo todo tú.',
+ 'Impedimentos: el Scrum Master ayuda a eliminarlos, pero primero enseña al equipo a resolver los que están a su alcance. Un tablero visible de impedimentos ayuda a darles seguimiento.']},
+{id:'s7',t:'Agilidad técnica y DevOps',p:[
+ 'Prácticas de <b>XP</b>: desarrollo guiado por pruebas (TDD), programación en pareja o en grupo, refactorización, integración continua, propiedad colectiva del código, estándares de código.',
+ '<b>CI/CD</b>: cada cambio se integra, se prueba automáticamente y puede desplegarse. <b>Trunk-based development</b> con ramas cortas y <b>feature flags</b> reduce conflictos de integración.',
+ 'Pirámide de pruebas: muchas pruebas unitarias, menos de integración y pocas de interfaz (end to end).',
+ '<b>DevOps</b> se resume en <b>CALMS</b>: Cultura, Automatización, Lean, Medición y compartir (Sharing).',
+ 'Métricas <b>DORA</b>: frecuencia de despliegue, tiempo de entrega de cambios, tasa de fallas de cambios y tiempo para restaurar el servicio.',
+ 'Entorno de experimentación segura: spikes con timebox, pruebas A/B, retros sin culpables (blameless) y celebrar lo aprendido aunque el experimento falle.']},
+{id:'s8',t:'Escalado y transformación',p:[
+ '<b>Scrum of Scrums</b>: representantes de varios equipos se coordinan sobre dependencias e impedimentos compartidos.',
+ 'Marcos de escalado: <b>Nexus</b> (de Scrum.org, 3 a 9 equipos), <b>LeSS</b> (un solo Product Owner y un solo backlog para varios equipos) y <b>SAFe</b> (Agile Release Train, PI Planning, Release Train Engineer).',
+ '<b>Kanban</b>: visualizar el flujo, limitar el WIP, gestionar el flujo y hacer explícitas las políticas. Muchos equipos combinan Scrum con Kanban.',
+ 'Trabajar con otros Scrum Masters: comunidad de práctica, compartir formatos de retro, un backlog de la transformación y métricas comunes de madurez ágil.',
+ 'Gestión del cambio: empieza por pilotos, muestra resultados, involucra a líderes y trata la transformación como un producto con su propio backlog.']},
+{id:'s9',t:'Jira, Confluence, Trello, Azure DevOps, Miro y Mural',p:[
+ '<b>Jira</b>: tableros Scrum (con Sprints) o Kanban (flujo continuo). Jerarquía típica: Epic → Historia, Tarea o Bug → Subtarea. Reportes: Burndown, Velocity, Sprint Report, Control Chart y diagrama de flujo acumulado. Automatizaciones y dashboards con gadgets.',
+ '<b>JQL</b> (lenguaje de consultas de Jira): <code>project = APP AND sprint in openSprints() AND assignee = currentUser()</code> · <code>project = APP AND type = Bug AND created >= -14d</code> · <code>project = APP AND statusCategory != Done ORDER BY priority DESC</code> · <code>parent = APP-123</code> (hijos de una épica).',
+ '<b>Confluence</b>: espacios y árbol de páginas; plantillas de retrospectiva, notas de reunión, requisitos y registro de decisiones. Se conecta con Jira para mostrar incidencias dentro de una página. Úsalo para la DoD, acuerdos de trabajo y documentación.',
+ '<b>Trello</b>: tableros, listas y tarjetas; checklists, etiquetas y fechas; Power-Ups para agregar funciones y Butler para automatizar. Ideal para equipos pequeños o tableros de impedimentos.',
+ '<b>Azure DevOps</b>: Boards (con el proceso Scrum: Epic → Feature → Product Backlog Item → Task, más Bugs), Sprints con planeación de capacidad, Repos (Git), Pipelines (CI/CD en YAML), Test Plans y Artifacts.',
+ '<b>Miro y Mural</b>: pizarras colaborativas para retros, story mapping, PI Planning y dinámicas remotas. Usa plantillas, marcos, temporizador y votación integrados.']},
+{id:'s10',t:'Office nivel avanzado para un Scrum Master',p:[
+ '<b>Excel</b>: exporta incidencias de Jira o Azure DevOps a CSV y analízalas con <b>tablas dinámicas</b> y segmentaciones; usa <b>BUSCARX</b> (XLOOKUP), <b>SUMAR.SI.CONJUNTO</b> y <b>CONTAR.SI.CONJUNTO</b> para indicadores.',
+ '<b>Power Query</b>: automatiza la limpieza de las exportaciones (quitar columnas, cambiar tipos, combinar Sprints) y actualiza todo con un clic.',
+ 'Gráficos: burndown con un gráfico de líneas (trabajo restante contra línea ideal), velocidad con columnas y promedio móvil, y formato condicional para resaltar riesgos.',
+ '<b>PowerPoint</b>: presentaciones claras para Sprint Reviews y reportes a dirección: una idea por diapositiva, métricas con contexto y próximos pasos.',
+ '<b>Teams y Outlook</b>: ceremonias como reuniones recurrentes con agenda; <b>Forms</b> para encuestas de salud del equipo; <b>Planner</b> o Loop para acuerdos.',
+ 'En entrevista, da un ejemplo concreto: "Armé un tablero en Excel con Power Query conectado a la exportación de Jira que calculaba velocidad y defectos por Sprint".']}
+],
+flash:[['¿Cuáles son los 3 pilares del empirismo?','Transparencia, inspección y adaptación.'],['¿Cuáles son los 5 valores de Scrum?','Compromiso, foco, apertura, respeto y coraje.'],['Timebox del Daily Scrum','15 minutos, todos los días del Sprint.'],['Timebox de la Sprint Planning (Sprint de un mes)','Hasta 8 horas.'],['Timebox de la Sprint Review (Sprint de un mes)','Hasta 4 horas.'],['Timebox de la Retrospectiva (Sprint de un mes)','Hasta 3 horas.'],['Compromiso del Product Backlog','Product Goal.'],['Compromiso del Sprint Backlog','Sprint Goal.'],['Compromiso del Incremento','Definition of Done.'],['¿La Definition of Ready está en la Guía Scrum?','No. Es una práctica complementaria.'],['¿Qué significa INVEST?','Independiente, Negociable, Valiosa, Estimable, Pequeña (Small) y Testeable.'],['¿Qué es WSJF?','Weighted Shortest Job First: costo de retraso dividido entre el tamaño del trabajo.'],['Diferencia entre burndown y burnup','El burndown muestra trabajo restante; el burnup muestra trabajo completado y el alcance total, así se ven los cambios de alcance.'],['¿Para qué sirve la velocidad?','Para pronosticar cuánto puede entregar el mismo equipo. No para comparar equipos.'],['Lead time contra cycle time','Lead time: desde que se pide hasta que se entrega. Cycle time: desde que se empieza a trabajar hasta que se termina.'],['¿Qué indica una banda que se ensancha en un diagrama de flujo acumulado?','Un cuello de botella en esa etapa.'],['Las 4 métricas DORA','Frecuencia de despliegue, tiempo de entrega de cambios, tasa de fallas de cambios y tiempo para restaurar el servicio.'],['¿Qué significa CALMS?','Cultura, Automatización, Lean, Medición y compartir (Sharing).'],['Etapas de Tuckman','Formación, conflicto, normalización y desempeño.'],['Tamaño recomendado del Scrum Team','10 personas o menos.'],['¿Quién es dueño del Sprint Backlog?','Los Developers.'],['¿Quién puede cancelar un Sprint?','Solo el Product Owner, si el Sprint Goal se vuelve obsoleto.'],['JQL: bugs creados en los últimos 14 días','project = APP AND type = Bug AND created >= -14d'],['Jerarquía de trabajo en Azure DevOps (proceso Scrum)','Epic → Feature → Product Backlog Item → Task (y Bugs).'],['¿Para qué sirve Power Query en tu rol?','Para automatizar la limpieza y combinación de exportaciones de Jira o Azure DevOps y actualizar indicadores con un clic.']],
+quiz:[
+ {q:'¿Quién es responsable de maximizar el valor del producto?',o:['El Scrum Master','El Product Owner','Los Developers','El gerente del proyecto'],a:1,e:'El Product Owner maximiza el valor y gestiona el Product Backlog.'},
+ {q:'El Daily Scrum dura 25 minutos todos los días. ¿Qué haces?',o:['Nada, lo importante es hablar','Ayudar al equipo a mantener el timebox de 15 minutos y llevar los temas largos a otra conversación','Cancelar el Daily','Dirigir tú la reunión y pedir estatus a cada uno'],a:1,e:'El Daily es de 15 minutos y es de los Developers. Tu papel es que ocurra, sea efectivo y respete el timebox.'},
+ {q:'¿Cuál es el compromiso del Incremento?',o:['Sprint Goal','Product Goal','Definition of Done','Definition of Ready'],a:2,e:'Cada artefacto tiene un compromiso: el Incremento tiene la Definition of Done.'},
+ {q:'Un gerente quiere comparar la velocidad de dos equipos para premiar al "más productivo". ¿Qué respondes?',o:['Es buena idea','Explicas que los puntos son relativos a cada equipo y que compararlos genera inflación de estimaciones; propones métricas de resultado y flujo','Pides que ambos equipos usen los mismos puntos','Le das la velocidad sin comentarios'],a:1,e:'La velocidad no es comparable entre equipos. Ofrece métricas de valor, calidad y flujo.'},
+ {q:'¿Qué muestra un burnup que no muestra un burndown?',o:['Los defectos','Los cambios en el alcance total','La felicidad del equipo','El costo'],a:1,e:'El burnup dibuja la línea del alcance total, así se ve cuando crece o disminuye.'},
+ {q:'¿Cuál NO es parte de la Guía Scrum?',o:['Sprint Goal','Definition of Done','Definition of Ready','Product Goal'],a:2,e:'La Definition of Ready es una práctica complementaria.'},
+ {q:'El equipo nunca termina lo planeado. ¿Qué harías primero?',o:['Pedir que trabajen horas extra','Llevar datos a la retro (velocidad real, WIP, trabajo no planeado) y que el equipo proponga ajustes','Reducir el Sprint a una semana sin consultar','Asignar tú las tareas'],a:1,e:'Hacer visible el problema con datos y dejar que el equipo encuentre mejoras refuerza la autogestión.'},
+ {q:'Un diagrama de flujo acumulado muestra la banda "En revisión" cada vez más ancha. Significa:',o:['Todo va bien','Hay un cuello de botella en revisión','El equipo entrega más rápido','Hay menos trabajo'],a:1,e:'Una banda que se ensancha indica que entra más trabajo del que sale de esa etapa.'},
+ {q:'¿Qué técnica ayuda a dividir una historia muy grande?',o:['MoSCoW','SPIDR','DORA','CALMS'],a:1,e:'SPIDR: Spike, Paths, Interfaces, Data y Rules.'},
+ {q:'¿Quién puede cancelar un Sprint?',o:['El Scrum Master','El Product Owner','Cualquier stakeholder','Los Developers'],a:1,e:'Solo el Product Owner puede cancelarlo, si el Sprint Goal se vuelve obsoleto.'},
+ {q:'¿Cuál es una métrica DORA?',o:['Velocidad','Frecuencia de despliegue','Puntos de historia','Horas trabajadas'],a:1,e:'DORA: frecuencia de despliegue, tiempo de entrega de cambios, tasa de fallas y tiempo de recuperación.'},
+ {q:'En Jira, ¿qué JQL muestra tu trabajo del Sprint activo?',o:['project = APP AND sprint in openSprints() AND assignee = currentUser()','SELECT * FROM sprint','project = APP AND sprint = activo','assignee = yo AND sprint = hoy'],a:0,e:'openSprints() y currentUser() son funciones de JQL.'},
+ {q:'Un miembro del equipo casi no habla en las retros. ¿Qué haces?',o:['Lo ignoras','Usas dinámicas que den voz a todos (escritura silenciosa, votación anónima, rondas) y hablas con él en privado','Lo expones frente al equipo','Le pides que no venga'],a:1,e:'La seguridad psicológica se construye con dinámicas inclusivas y conversaciones uno a uno.'},
+ {q:'En Azure DevOps con el proceso Scrum, ¿qué va debajo de una Feature?',o:['Epic','Product Backlog Item','Sprint','Pipeline'],a:1,e:'Epic → Feature → Product Backlog Item → Task.'},
+ {q:'¿Qué postura usas cuando haces preguntas para que el equipo encuentre su propia solución?',o:['Mentoría','Enseñanza','Coaching','Dirección'],a:2,e:'El coaching usa preguntas poderosas; la mentoría comparte experiencia propia.'},
+ {q:'La Sprint Review es principalmente:',o:['Una demo para aprobar el trabajo','Una sesión de trabajo con stakeholders para inspeccionar el resultado y adaptar el backlog','Una junta de estatus','Una evaluación del desempeño del equipo'],a:1,e:'La Review inspecciona el resultado y decide próximos pasos con los stakeholders.'}
+],
+ent:[
+ {q:'¿Cuál es el rol de un Scrum Master?',r:'Soy responsable de la efectividad del Scrum Team. Lo logro de tres formas: con el equipo, fomentando la autogestión, la calidad y eliminando impedimentos; con el Product Owner, ayudándole a definir el Product Goal y a mantener un backlog claro y priorizado por valor; y con la organización, guiando la adopción de Scrum y quitando barreras entre stakeholders y equipos. No soy el jefe ni el secretario del equipo: soy un líder que sirve.',t:'Menciona las tres "direcciones" de servicio: equipo, Product Owner y organización.'},
+ {q:'¿Cómo manejas a un stakeholder que quiere meter trabajo a mitad del Sprint?',r:'Primero entiendo la urgencia y el valor. Después lo dirijo con el Product Owner, que es quien decide sobre el backlog. Si es realmente urgente y pone en riesgo el Sprint Goal, el PO y los Developers negocian qué sale del Sprint o, en casos extremos, el PO puede cancelarlo. Lo importante es proteger el foco del equipo y hacer visible el costo de interrumpir.',t:'Muestra que respetas los roles: tú no decides el contenido, facilitas la decisión.'},
+ {q:'Cuéntame de una retrospectiva que no funcionó y qué hiciste.',r:'Usa el método STAR. Situación: las retros se volvieron repetitivas y nadie proponía mejoras. Tarea: recuperar el valor de la retro. Acción: cambié el formato (Velero y luego una línea del tiempo del Sprint), usé escritura silenciosa para que opinaran todos, y limitamos las acciones a dos con responsable y fecha, revisándolas al inicio de la siguiente retro. Resultado: aumentó la participación y en tres Sprints cumplimos 5 de 6 acciones.',t:'Si no tienes experiencia laboral como Scrum Master, usa un proyecto escolar, personal o de voluntariado, y dilo con honestidad.'},
+ {q:'¿Qué métricas usarías para saber si el equipo mejora?',r:'Combino cuatro tipos: valor (cumplimiento del Sprint Goal, satisfacción del usuario), flujo (cycle time, throughput, WIP), calidad (defectos escapados, métricas DORA si hay CI/CD) y personas (encuesta de salud del equipo). Las reviso con el equipo como tendencias, no como metas individuales, para evitar que se "maquillen".',t:'Menciona la Ley de Goodhart: demuestra madurez.'},
+ {q:'¿Cómo ayudas a un Product Owner con un backlog desordenado?',r:'Empiezo por el Product Goal: si no está claro, lo trabajamos juntos. Luego hacemos un taller de story mapping en Miro para ver el recorrido del usuario, eliminamos o archivamos lo que ya no aporta valor, dividimos las épicas en historias INVEST con criterios de aceptación y priorizamos con una técnica como WSJF o valor contra esfuerzo. Después establecemos refinamientos regulares para que se mantenga así.',t:'Da un proceso concreto y nombra una herramienta.'},
+ {q:'¿Qué diferencia hay entre Definition of Done y criterios de aceptación?',r:'Los criterios de aceptación son específicos de cada historia: describen qué debe hacer esa funcionalidad. La Definition of Done aplica a todo el Incremento: es el estándar de calidad común, como pruebas automáticas, revisión de código y documentación. Una historia está terminada cuando cumple sus criterios de aceptación y la DoD.',t:'Pregunta clásica; responde con un ejemplo corto de cada uno.'},
+ {q:'¿Cómo creas un entorno de experimentación segura?',r:'Con retrospectivas sin culpables, donde analizamos procesos y no personas; con spikes de tiempo limitado para investigar; promoviendo prácticas como programación en pareja y revisiones de código como aprendizaje; y celebrando lo que aprendemos aunque un experimento no salga. Yo modelo esa actitud reconociendo mis propios errores.',t:'Conecta con la seguridad psicológica.'},
+ {q:'¿Qué harías en tus primeros 30 días como Scrum Master de un equipo nuevo?',r:'Primero observar y escuchar: conversaciones uno a uno con cada miembro, el Product Owner y stakeholders clave, y acompañar las ceremonias sin cambiar nada todavía. Después hacer visible el estado actual: tablero, flujo, métricas base y acuerdos de trabajo. Con eso facilito una retrospectiva donde el equipo elija las primeras mejoras. Prefiero ganar confianza antes de proponer cambios grandes.',t:'Muestra que no llegas a imponer.'},
+ {q:'¿Cómo trabajarías con otros Scrum Masters en una transformación?',r:'Participando en una comunidad de práctica para compartir formatos, métricas y aprendizajes; coordinando dependencias en un Scrum of Scrums; manteniendo un tablero común de impedimentos organizacionales; y apoyando el backlog de la transformación, tratándola como un producto con objetivos medibles.',t:'Usa las palabras de la vacante: "equipo de transformación y mejora continua".'},
+ {q:'Preséntate en un minuto.',r:'Plantilla: "Soy [nombre], ingeniero en informática. Me especializo en [tu enfoque]. Recientemente [proyecto concreto con resultado]. Me interesa este puesto porque [conexión con la empresa]. Lo que aporto es [2 fortalezas]." Por ejemplo, puedes contar cómo desarrollaste un sistema por iteraciones para un negocio real, priorizando con el dueño lo que más valor le daba.',t:'Ensáyalo en voz alta y cronométralo: 60 a 90 segundos.'}
+]},
+datos:{n:'Ingeniero de datos',e:'🛠️',c:'#0E7490',desc:'Scala, Spark, SQL, modelado, formatos, orquestación, streaming y cómo se trabaja con Jira en un equipo de datos.',
+mods:[
+{id:'d1',t:'Qué hace un ingeniero de datos',p:[
+ 'Construye y mantiene <b>pipelines</b> que llevan datos desde las fuentes (bases, APIs, archivos, eventos) hasta donde se analizan, con calidad, a tiempo y a un costo razonable.',
+ '<b>ETL</b> transforma antes de cargar; <b>ELT</b> carga primero en el warehouse o lakehouse y transforma ahí (lo más común hoy en la nube).',
+ '<b>Batch</b> procesa por lotes programados; <b>streaming</b> procesa eventos casi en tiempo real.',
+ '<b>Data lake</b>: archivos crudos y baratos. <b>Data warehouse</b>: datos estructurados para análisis con SQL. <b>Lakehouse</b>: combina ambos con formatos de tabla transaccionales como Delta Lake o Iceberg.',
+ 'Arquitectura <b>medallion</b>: <b>bronze</b> (crudo), <b>silver</b> (limpio y conformado) y <b>gold</b> (agregado y listo para negocio).']},
+{id:'d2',t:'Scala esencial',p:[
+ '<code>val</code> es inmutable y <code>var</code> es mutable. En Scala se prefiere la inmutabilidad: evita errores en procesamiento paralelo.',
+ 'Las <b>case classes</b> modelan datos: traen igualdad por valor, <code>copy</code> y funcionan con pattern matching.',
+ '<b>Option</b> reemplaza a los nulos: <code>Some(valor)</code> o <code>None</code>. Se combina con <code>map</code>, <code>getOrElse</code> y <code>fold</code>.',
+ 'Colecciones inmutables y funciones de orden superior: <code>map</code>, <code>filter</code>, <code>flatMap</code>, <code>foldLeft</code>, <code>groupBy</code>, <code>reduce</code>.',
+ '<b>Traits</b> son como interfaces con implementación; los <b>object</b> son singletons, y el companion object guarda métodos de fábrica.',
+ 'Manejo de errores funcional con <code>Try</code> (Success o Failure) y <code>Either</code> (Left para error, Right para éxito).',
+ '<b>sbt</b> es la herramienta de construcción: compila, prueba y empaqueta (por ejemplo, un JAR para Spark).']},
+{id:'d3',t:'Spark con Scala',p:[
+ '<b>SparkSession</b> es el punto de entrada. Las APIs principales son DataFrame (sin tipo en compilación) y <b>Dataset</b> (con tipo, usando case classes). Los RDD son la API de bajo nivel.',
+ '<b>Transformaciones</b> (filter, select, groupBy, join) son perezosas: solo construyen el plan. Las <b>acciones</b> (count, collect, write, show) lo ejecutan.',
+ 'Transformaciones <b>angostas</b> (filter, map) no mueven datos entre particiones; las <b>anchas</b> (groupBy, join, orderBy) causan un <b>shuffle</b>, que es lo más costoso.',
+ '<code>repartition(n)</code> redistribuye con shuffle y puede aumentar o reducir particiones; <code>coalesce(n)</code> solo reduce y evita el shuffle completo.',
+ 'Optimizar: <b>broadcast join</b> para tablas pequeñas, <code>cache</code> o <code>persist</code> cuando reutilizas un DataFrame, filtrar temprano, evitar UDFs cuando existe una función nativa, y resolver datos sesgados (skew) con salting o con Adaptive Query Execution (AQE).',
+ 'El optimizador <b>Catalyst</b> genera el plan de ejecución y <b>Tungsten</b> optimiza memoria y CPU. Revisa el plan con <code>df.explain()</code>.']},
+{id:'d4',t:'SQL que siempre preguntan',p:[
+ 'JOINs: INNER (coincidencias), LEFT (todo lo de la izquierda), FULL y cuidado con duplicados al unir por llaves no únicas.',
+ '<b>Funciones de ventana</b>: <code>ROW_NUMBER()</code>, <code>RANK()</code>, <code>LAG()</code>/<code>LEAD()</code> y <code>SUM(...) OVER (PARTITION BY ... ORDER BY ...)</code> para acumulados.',
+ 'Quitar duplicados quedándote con el registro más reciente: <code>ROW_NUMBER() OVER (PARTITION BY id ORDER BY actualizado DESC) = 1</code>.',
+ 'WHERE filtra filas antes de agrupar; HAVING filtra después de agrupar.',
+ 'CTEs (<code>WITH</code>) para consultas legibles por pasos.']},
+{id:'d5',t:'Modelado de datos',p:[
+ '<b>Esquema estrella</b>: una tabla de <b>hechos</b> (eventos medibles, como ventas) rodeada de <b>dimensiones</b> (cliente, producto, fecha).',
+ 'Define siempre el <b>grano</b>: qué representa una fila de la tabla de hechos (por ejemplo, una línea de ticket).',
+ '<b>SCD tipo 1</b> sobrescribe el valor (sin historia). <b>SCD tipo 2</b> guarda historia con nuevas filas y columnas como fecha de inicio, fecha de fin y si es el registro vigente.',
+ 'Normalizar reduce duplicación (bueno para sistemas transaccionales); desnormalizar acelera lecturas (bueno para análisis).']},
+{id:'d6',t:'Formatos y almacenamiento',p:[
+ '<b>Parquet</b>: columnar y comprimido; permite leer solo columnas necesarias y filtrar temprano (predicate pushdown). El estándar para análisis.',
+ '<b>Avro</b>: por filas, con esquema y buena evolución de esquema; común en streaming con Kafka. <b>ORC</b>: columnar, muy usado en el ecosistema Hive.',
+ '<b>Delta Lake</b> e <b>Iceberg</b> agregan transacciones ACID, actualizaciones (MERGE), control de versiones y "viaje en el tiempo" sobre archivos Parquet.',
+ 'Particiona por columnas con las que filtras seguido (por ejemplo, fecha), pero sin exagerar: demasiadas particiones crean el problema de <b>archivos pequeños</b>.']},
+{id:'d7',t:'Orquestación y calidad de datos',p:[
+ '<b>Airflow</b> define flujos como <b>DAGs</b> (grafos de tareas con dependencias), con programación, reintentos y alertas. Alternativas en la nube: Azure Data Factory, Cloud Composer, AWS MWAA.',
+ '<b>Idempotencia</b>: correr un pipeline dos veces debe dar el mismo resultado (por ejemplo, sobrescribir la partición del día en vez de agregar).',
+ '<b>Backfill</b>: reprocesar fechas pasadas; es fácil si el pipeline es idempotente y parametrizado por fecha.',
+ 'Pruebas de calidad: nulos, unicidad de llaves, rangos válidos, integridad referencial y <b>frescura</b> (¿llegaron los datos de hoy?). Herramientas: Great Expectations, dbt tests o Deequ (para Spark y Scala).',
+ 'Linaje y monitoreo: saber de dónde viene cada dato y alertar antes de que el negocio note un problema.']},
+{id:'d8',t:'Streaming con Kafka y Spark',p:[
+ '<b>Kafka</b>: los eventos se publican en <b>topics</b> divididos en <b>particiones</b>; el orden se garantiza dentro de cada partición. Los consumidores se agrupan en <b>consumer groups</b> y avanzan con <b>offsets</b>.',
+ '<b>Spark Structured Streaming</b> trata el flujo como una tabla que crece; procesa en micro-lotes.',
+ '<b>Watermark</b>: cuánto tiempo esperas datos atrasados en agregaciones por ventana.',
+ '<b>Checkpoint</b>: guarda el progreso para recuperarse de fallas. Con fuentes reproducibles y destinos idempotentes se logra procesamiento exactamente una vez.']},
+{id:'d9',t:'Jira en un equipo de datos',p:[
+ 'Historias típicas: "Como analista de ventas quiero la tabla de ventas diarias actualizada a las 7:00 para preparar el reporte matutino".',
+ 'Criterios de aceptación medibles: frescura, conteo de filas conciliado con la fuente, cero duplicados en la llave, documentación en Confluence.',
+ 'Definition of Done para datos: pruebas de calidad automáticas, código revisado, pipeline desplegado con CI/CD, monitoreo y alertas configuradas, linaje documentado.',
+ 'Usa <b>spikes</b> para investigar fuentes nuevas con timebox, y registra los incidentes de datos como Bugs con su causa raíz.',
+ 'JQL útil: <code>project = DATA AND labels = pipeline-ventas AND statusCategory != Done</code>.']}
+],
+code:[
+ {t:'Case class, colecciones y agregación en Scala',c:`case class Venta(id: Long, cliente: String, monto: Double)
+
+val ventas = List(
+  Venta(1, "Ana", 250.0),
+  Venta(2, "Luis", 120.5),
+  Venta(3, "Ana", 80.0)
+)
+
+// Total por cliente
+val totalPorCliente: Map[String, Double] =
+  ventas.groupBy(_.cliente).map { case (c, vs) => c -> vs.map(_.monto).sum }
+// Map(Ana -> 330.0, Luis -> 120.5)`},
+ {t:'Pattern matching y Option',c:`def nivel(monto: Double): String = monto match {
+  case m if m >= 1000 => "alto"
+  case m if m >= 100  => "medio"
+  case _              => "bajo"
+}
+
+val correo: Option[String] = Some("ana@empresa.com")
+val dominio = correo.map(_.split("@")(1)).getOrElse("sin correo")`},
+ {t:'Pipeline con Spark: de bronze a gold',c:`import org.apache.spark.sql.SparkSession
+import org.apache.spark.sql.functions._
+
+val spark = SparkSession.builder.appName("ventas-diarias").getOrCreate()
+
+val ventas = spark.read.parquet("s3://datos/bronze/ventas/")
+
+val resumen = ventas
+  .filter(col("monto") > 0)
+  .withColumn("fecha", to_date(col("fecha_hora")))
+  .groupBy("fecha", "cliente_id")
+  .agg(sum("monto").as("total"), count(lit(1)).as("transacciones"))
+
+resumen.write
+  .mode("overwrite")
+  .partitionBy("fecha")
+  .parquet("s3://datos/gold/ventas_diarias/")`},
+ {t:'Quitar duplicados y broadcast join',c:`import org.apache.spark.sql.expressions.Window
+
+val w = Window.partitionBy("id").orderBy(col("actualizado").desc)
+
+val sinDuplicados = df
+  .withColumn("rn", row_number().over(w))
+  .filter(col("rn") === 1)
+  .drop("rn")
+
+// La tabla de clientes es pequeña: se envía a todos los nodos y se evita el shuffle
+val enriquecido = sinDuplicados.join(broadcast(clientes), Seq("cliente_id"), "left")`}
+],
+flash:[['val contra var','val es inmutable; var es mutable. Se prefiere val.'],['¿Qué aporta una case class?','Igualdad por valor, copy, toString útil y soporte para pattern matching.'],['¿Para qué sirve Option?','Para representar un valor que puede faltar sin usar null: Some(x) o None.'],['Transformación contra acción en Spark','Las transformaciones son perezosas y construyen el plan; las acciones lo ejecutan.'],['¿Qué es un shuffle?','Mover datos entre particiones por operaciones anchas como groupBy o join. Es lo más costoso.'],['repartition contra coalesce','repartition hace shuffle y puede subir o bajar particiones; coalesce solo reduce y evita el shuffle completo.'],['¿Cuándo usar broadcast join?','Cuando una de las tablas es pequeña y cabe en memoria de cada nodo.'],['DataFrame contra Dataset','Dataset tiene tipo en compilación (case classes); DataFrame es un Dataset[Row] sin tipo.'],['ETL contra ELT','ETL transforma antes de cargar; ELT carga y transforma dentro del warehouse.'],['Capas medallion','Bronze (crudo), silver (limpio) y gold (listo para negocio).'],['SCD tipo 2','Guarda historia agregando filas nuevas con fechas de vigencia.'],['¿Por qué Parquet?','Es columnar y comprimido: lee solo las columnas necesarias y filtra temprano.'],['¿Qué es idempotencia en un pipeline?','Correrlo varias veces produce el mismo resultado.'],['¿Qué es un watermark?','El límite de espera para datos atrasados en agregaciones de streaming.'],['Orden en Kafka','Se garantiza solo dentro de una partición.'],['WHERE contra HAVING','WHERE filtra antes de agrupar; HAVING después.'],['¿Qué es el grano de una tabla de hechos?','Lo que representa una sola fila.'],['¿Para qué sirve df.explain()?','Para ver el plan de ejecución de Spark y detectar shuffles o scans costosos.']],
+quiz:[
+ {q:'¿Cuál de estas operaciones de Spark provoca un shuffle?',o:['filter','select','groupBy','withColumn'],a:2,e:'groupBy es una transformación ancha: reagrupa datos entre particiones.'},
+ {q:'¿Qué operación ejecuta realmente el plan en Spark?',o:['filter','withColumn','count','join'],a:2,e:'count es una acción; las demás son transformaciones perezosas.'},
+ {q:'Quieres reducir de 200 a 10 particiones antes de escribir, con el menor costo. Usas:',o:['repartition(10)','coalesce(10)','cache()','orderBy'],a:1,e:'coalesce reduce particiones sin un shuffle completo.'},
+ {q:'Unes una tabla de 2 TB con una de 5 MB. Lo más eficiente es:',o:['Un join normal','Un broadcast join de la tabla pequeña','Convertir a RDD','Hacer collect de la tabla grande'],a:1,e:'El broadcast evita el shuffle de la tabla grande.'},
+ {q:'En Scala, ¿qué devuelve Some("a").map(_.toUpperCase)?',o:['"A"','Some("A")','None','Error'],a:1,e:'map sobre Option conserva el contenedor: Some("A").'},
+ {q:'¿Qué formato es columnar?',o:['CSV','JSON','Avro','Parquet'],a:3,e:'Parquet (y ORC) son columnares; Avro es por filas.'},
+ {q:'Necesitas guardar el historial de cambios de dirección de un cliente. Usas:',o:['SCD tipo 1','SCD tipo 2','Borrar y cargar todo','Una vista'],a:1,e:'SCD tipo 2 agrega filas con fechas de vigencia.'},
+ {q:'Tu pipeline diario se corrió dos veces y duplicó datos. ¿Qué principio faltó?',o:['Idempotencia','Normalización','Particionado','Compresión'],a:0,e:'Un pipeline idempotente sobrescribe la partición del día en lugar de agregar.'},
+ {q:'¿Qué consulta obtiene el registro más reciente por id?',o:['GROUP BY id','ROW_NUMBER() OVER (PARTITION BY id ORDER BY fecha DESC) = 1','DISTINCT id','HAVING fecha = MAX(fecha)'],a:1,e:'La función de ventana numera por id y te quedas con el primero.'},
+ {q:'¿Qué agrega Delta Lake sobre Parquet?',o:['Compresión','Transacciones ACID, MERGE y versiones','Visualizaciones','Streaming de video'],a:1,e:'Delta es una capa transaccional sobre archivos Parquet.'},
+ {q:'En Kafka, el orden de los mensajes se garantiza:',o:['En todo el topic','Dentro de cada partición','Nunca','Solo con un consumidor'],a:1,e:'Kafka garantiza orden por partición.'},
+ {q:'En Scala, ¿qué es lo recomendable para datos que no cambian?',o:['var','val','null','Any'],a:1,e:'val es inmutable y es la opción preferida.'}
+],
+ent:[
+ {q:'Explica la diferencia entre transformaciones y acciones en Spark.',r:'Las transformaciones, como filter, select o join, son perezosas: Spark solo registra el plan. Las acciones, como count, show o write, disparan la ejecución. Esto permite que el optimizador Catalyst combine y reordene pasos, por ejemplo, empujando filtros antes de un join. Además distingo transformaciones angostas, que no mueven datos, de anchas, que generan shuffle y son las más costosas.',t:'Termina con un ejemplo de optimización: "filtrar antes del join".'},
+ {q:'¿Cómo optimizarías un job de Spark lento?',r:'Primero mido: reviso la Spark UI y el plan con explain para ver en qué etapa se va el tiempo. Luego busco las causas típicas: shuffles innecesarios, datos sesgados, archivos pequeños, UDFs que podrían ser funciones nativas o DataFrames recalculados. Las soluciones dependen del caso: filtrar y proyectar temprano, broadcast de tablas pequeñas, salting o AQE para el sesgo, ajustar particiones, cache de datos reutilizados y escribir en Parquet particionado.',t:'Empieza por "medir primero": demuestra método.'},
+ {q:'¿Por qué Scala para ingeniería de datos?',r:'Spark está escrito en Scala, así que tengo acceso completo a su API y a Datasets tipados, que detectan errores en compilación. Scala es funcional e inmutable por defecto, lo que encaja con el procesamiento distribuido, y corre en la JVM, con todo el ecosistema de Java. Aun así, sé que PySpark es muy común y me adapto al estándar del equipo.',t:'Muestra flexibilidad: no desprecies Python.'},
+ {q:'Diseña un pipeline de ventas diarias.',r:'Ingesta: extraigo de la fuente a la capa bronze en Parquet, particionado por fecha. Transformación en Spark: limpio tipos, quito duplicados con una ventana por id y conformo catálogos en silver. Agrego ventas por día, tienda y producto en gold. Orquesto con Airflow o Data Factory, con reintentos y parámetro de fecha para poder hacer backfill. El pipeline es idempotente porque sobrescribe la partición del día. Agrego pruebas de calidad (conteos, nulos, frescura) y alertas, y documento en Confluence.',t:'Sigue siempre el orden: ingesta, transformación, almacenamiento, orquestación, calidad y monitoreo.'},
+ {q:'¿Qué harías si los datos de un reporte vienen mal?',r:'Primero contengo: aviso a los usuarios afectados y, si es necesario, marco el reporte como en revisión. Luego rastreo con el linaje en qué etapa aparece el error, comparando conteos entre fuente, silver y gold. Corrijo la causa raíz, reproceso las fechas afectadas con un backfill y agrego una prueba de calidad para que no se repita. Al final lo documento como Bug en Jira con su causa raíz.',t:'Estructura: contener, diagnosticar, corregir, prevenir, documentar.'},
+ {q:'¿Cómo trabajas con Jira en un equipo de datos?',r:'Escribo historias con valor para el usuario de los datos y criterios de aceptación medibles, como frescura o conciliación de conteos. Divido trabajos grandes por fuente o por capa. Uso spikes con timebox para explorar fuentes nuevas, registro incidentes como Bugs con causa raíz y me apoyo en una Definition of Done que incluye pruebas de calidad, revisión de código y monitoreo.',t:'Combina lo ágil con lo técnico: es tu ventaja si también te preparas como Scrum Master.'}
+]},
+cloud:{n:'Cloud y DevOps',e:'☁️',c:'#1D4ED8',desc:'Fundamentos de nube, equivalencias entre AWS, Azure y GCP, datos en la nube, seguridad, CI/CD, contenedores, Terraform y costos.',
+mods:[
+{id:'c1',t:'Fundamentos de la nube',p:[
+ 'Características (NIST): autoservicio bajo demanda, acceso amplio por red, recursos compartidos, <b>elasticidad</b> rápida y servicio medido (pagas por lo que usas).',
+ 'Modelos de servicio: <b>IaaS</b> (máquinas y redes: tú administras el sistema operativo), <b>PaaS</b> (plataforma administrada: tú pones código y datos), <b>SaaS</b> (software listo) y <b>serverless</b> (funciones que escalan solas y cobran por ejecución).',
+ 'Modelos de despliegue: nube pública, privada, híbrida y multinube.',
+ '<b>Regiones</b> (ubicaciones geográficas) con varias <b>zonas de disponibilidad</b> (centros de datos independientes). Desplegar en varias zonas da alta disponibilidad.',
+ '<b>Modelo de responsabilidad compartida</b>: el proveedor protege la infraestructura física; tú proteges tus datos, identidades y configuración. En IaaS tu parte es mayor que en SaaS.',
+ 'Economía: pasas de <b>CapEx</b> (comprar servidores) a <b>OpEx</b> (gasto operativo por uso).']},
+{id:'c2',t:'Equivalencias AWS, Azure y GCP',tabla:[['Servicio','AWS','Azure','Google Cloud'],['Almacenamiento de objetos','S3','Blob Storage / Data Lake Storage Gen2','Cloud Storage'],['Máquinas virtuales','EC2','Virtual Machines','Compute Engine'],['Funciones serverless','Lambda','Azure Functions','Cloud Run functions'],['Data warehouse','Redshift','Synapse Analytics / Microsoft Fabric','BigQuery'],['Spark administrado','EMR / Databricks','Azure Databricks / HDInsight','Dataproc / Databricks'],['ETL e integración','Glue','Data Factory','Dataflow / Data Fusion'],['Streaming','Kinesis / MSK (Kafka)','Event Hubs','Pub/Sub'],['Orquestación (Airflow)','MWAA','Data Factory / Fabric','Cloud Composer'],['Kubernetes','EKS','AKS','GKE'],['Identidad','IAM','Microsoft Entra ID','Cloud IAM'],['Secretos y llaves','Secrets Manager / KMS','Key Vault','Secret Manager / Cloud KMS'],['Infraestructura como código','CloudFormation','ARM / Bicep','Deployment Manager'],['CI/CD','CodePipeline','Azure DevOps Pipelines','Cloud Build']],p:['Terraform funciona con las tres nubes y es muy pedido en vacantes. Si la vacante menciona Azure DevOps, es probable que la empresa use Azure.']},
+{id:'c3',t:'Datos en la nube',p:[
+ 'Patrón típico: fuentes → almacenamiento de objetos (el lago, en capas bronze, silver y gold) → procesamiento con Spark (Databricks, EMR, Dataproc) → warehouse (BigQuery, Synapse, Redshift) → BI (Power BI, Looker, Tableau).',
+ 'Serverless para datos: BigQuery y Athena permiten consultar con SQL sin administrar servidores; cobran por datos escaneados, así que particionar y usar Parquet ahorra dinero.',
+ 'Integración: Data Factory y Glue mueven y transforman datos con conectores y programación.',
+ 'Streaming: Event Hubs, Kinesis y Pub/Sub reciben eventos; Spark Structured Streaming o Dataflow los procesan.',
+ 'Gobierno: catálogo de datos (Unity Catalog, Purview, Glue Data Catalog, Dataplex), permisos por columna y linaje.']},
+{id:'c4',t:'Seguridad e identidad',p:[
+ '<b>Mínimo privilegio</b>: cada identidad tiene solo los permisos que necesita. Usa <b>roles</b> y grupos, no permisos por persona.',
+ '<b>MFA</b> para usuarios; identidades administradas o cuentas de servicio para aplicaciones, nunca contraseñas en el código.',
+ 'Cifrado <b>en reposo</b> y <b>en tránsito</b>; llaves en KMS o Key Vault; secretos en un gestor de secretos.',
+ 'Red: <b>VPC o VNet</b> con subredes públicas y privadas, grupos de seguridad o NSG como firewall, y private endpoints para que los servicios no queden expuestos a internet.',
+ 'Auditoría y monitoreo: CloudTrail, Azure Monitor o Cloud Audit Logs para saber quién hizo qué.']},
+{id:'c5',t:'DevOps: CI/CD, contenedores e IaC',p:[
+ '<b>CI</b>: cada cambio se integra y se prueba automáticamente. <b>CD</b>: el cambio queda listo para desplegarse (entrega continua) o se despliega solo (despliegue continuo).',
+ 'Etapas de un pipeline: compilar → pruebas unitarias → análisis de calidad y seguridad → empaquetar → desplegar a pruebas → aprobación → producción.',
+ 'Estrategias de despliegue: <b>blue/green</b> (dos ambientes y se cambia el tráfico), <b>canary</b> (se libera a un porcentaje pequeño primero) y rolling (por lotes).',
+ '<b>Docker</b>: una imagen es la plantilla; un contenedor es una instancia en ejecución. El Dockerfile define cómo construir la imagen.',
+ '<b>Kubernetes</b>: los pods ejecutan contenedores; los Deployments mantienen réplicas; los Services exponen la aplicación.',
+ '<b>Terraform</b>: describes la infraestructura en código; <code>terraform plan</code> muestra los cambios y <code>terraform apply</code> los aplica; el <b>state</b> guarda lo que existe (se almacena remoto y bloqueado en equipos).',
+ 'Observabilidad: <b>logs, métricas y trazas</b>, con alertas basadas en objetivos de servicio (SLO).']},
+{id:'c6',t:'Costos y buenas prácticas',p:[
+ 'Pilares del AWS Well-Architected Framework: excelencia operativa, seguridad, confiabilidad, eficiencia de desempeño, optimización de costos y sostenibilidad. Azure y Google tienen marcos equivalentes.',
+ 'Ahorro: etiquetas (tags) por equipo y proyecto, autoescalado, apagar ambientes de desarrollo fuera de horario, instancias reservadas o de compromiso para cargas estables, instancias spot para trabajos tolerantes a interrupciones y reglas de ciclo de vida para mover datos viejos a almacenamiento frío.',
+ 'Presupuestos y alertas de costo desde el primer día.',
+ 'Certificaciones de entrada recomendadas: AZ-900 y DP-900 (Azure), AWS Certified Cloud Practitioner, Google Cloud Digital Leader; para datos, Databricks Data Engineer Associate; para Scrum, PSM I de Scrum.org.']}
+],
+code:[
+ {t:'Pipeline de Azure DevOps (YAML) para un proyecto Scala',c:`trigger:
+  - main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+  - script: sbt test
+    displayName: Ejecutar pruebas
+
+  - script: sbt assembly
+    displayName: Empaquetar JAR
+
+  - publish: target/scala-2.12
+    artifact: jar-spark
+    displayName: Publicar artefacto`},
+ {t:'Terraform: un bucket para la capa bronze',c:`resource "aws_s3_bucket" "bronze" {
+  bucket = "miempresa-datos-bronze"
+
+  tags = {
+    equipo  = "datos"
+    entorno = "dev"
+  }
+}`},
+ {t:'Dockerfile mínimo',c:`FROM eclipse-temurin:17-jre
+WORKDIR /app
+COPY target/app.jar app.jar
+CMD ["java", "-jar", "app.jar"]`}
+],
+flash:[['IaaS, PaaS y SaaS','IaaS: infraestructura (tú administras el SO). PaaS: plataforma administrada. SaaS: software listo para usar.'],['¿Qué es una zona de disponibilidad?','Uno o más centros de datos independientes dentro de una región.'],['Modelo de responsabilidad compartida','El proveedor protege la infraestructura; tú proteges datos, identidades y configuración.'],['Equivalente de S3 en Azure','Blob Storage (Data Lake Storage Gen2 para analítica).'],['Equivalente de BigQuery en AWS','Redshift (o Athena para consultas serverless sobre S3).'],['Kubernetes administrado en Azure','AKS.'],['¿Qué hace terraform plan?','Muestra qué cambios hará sin aplicarlos.'],['Blue/green contra canary','Blue/green cambia todo el tráfico entre dos ambientes; canary libera primero a un porcentaje pequeño.'],['Imagen contra contenedor','La imagen es la plantilla; el contenedor es una instancia en ejecución.'],['Principio de mínimo privilegio','Dar solo los permisos necesarios para la tarea.'],['Tres pilares de la observabilidad','Logs, métricas y trazas.'],['¿Por qué Parquet ahorra dinero en BigQuery o Athena?','Porque cobran por datos escaneados y Parquet permite leer solo las columnas necesarias.'],['CapEx contra OpEx','CapEx: inversión en equipos. OpEx: gasto operativo por uso.'],['¿Dónde guardar contraseñas de una aplicación?','En un gestor de secretos (Key Vault, Secrets Manager, Secret Manager), nunca en el código.']],
+quiz:[
+ {q:'Una empresa quiere desplegar su aplicación sin administrar servidores ni sistema operativo. Le conviene:',o:['IaaS','PaaS o serverless','Servidores propios','Máquinas virtuales'],a:1,e:'PaaS y serverless abstraen la infraestructura.'},
+ {q:'¿Qué da alta disponibilidad ante la caída de un centro de datos?',o:['Desplegar en varias zonas de disponibilidad','Usar una máquina más grande','Hacer backups semanales','Usar SaaS'],a:0,e:'Las zonas son independientes: si una falla, las otras siguen.'},
+ {q:'¿Cuál es el equivalente de Azure Data Factory en AWS?',o:['Lambda','Glue','EKS','Route 53'],a:1,e:'Glue es el servicio de ETL e integración de datos.'},
+ {q:'Un desarrollador pone la contraseña de la base de datos en el código. ¿Qué recomiendas?',o:['Cifrar el archivo','Usar un gestor de secretos o una identidad administrada','Ponerla en una variable global','Subirla a un repositorio privado'],a:1,e:'Los secretos van en Key Vault, Secrets Manager o similares.'},
+ {q:'Quieres liberar una versión nueva solo al 5% de usuarios primero. Usas:',o:['Blue/green','Canary','Rolling','Big bang'],a:1,e:'Canary expone el cambio a un porcentaje pequeño.'},
+ {q:'¿Qué comando de Terraform muestra los cambios sin aplicarlos?',o:['terraform apply','terraform plan','terraform init','terraform destroy'],a:1,e:'plan previsualiza; apply ejecuta.'},
+ {q:'Según la responsabilidad compartida, ¿quién configura los permisos de tus datos?',o:['El proveedor de nube','Tú (el cliente)','Nadie','El auditor'],a:1,e:'Identidades, permisos y datos siempre son responsabilidad del cliente.'},
+ {q:'¿Cuál NO es una métrica DORA?',o:['Frecuencia de despliegue','Tasa de fallas de cambios','Velocidad del equipo','Tiempo para restaurar el servicio'],a:2,e:'La velocidad es una métrica de Scrum, no DORA.'},
+ {q:'Para un trabajo por lotes que tolera interrupciones y quieres el menor costo, usas:',o:['Instancias reservadas','Instancias spot o preemptibles','La máquina más grande','Un servidor dedicado'],a:1,e:'Spot es mucho más barato, pero puede ser interrumpido.'},
+ {q:'En Kubernetes, ¿qué mantiene un número de réplicas de tu aplicación?',o:['Service','Deployment','ConfigMap','Namespace'],a:1,e:'El Deployment gestiona réplicas y actualizaciones.'}
+],
+ent:[
+ {q:'Explica IaaS, PaaS y SaaS con un ejemplo.',r:'IaaS es rentar infraestructura: por ejemplo, una máquina virtual en EC2 o Azure VM, donde yo instalo y mantengo el sistema operativo. PaaS me da una plataforma administrada, como Azure App Service o una base de datos administrada: solo pongo mi código y datos. SaaS es software listo, como Microsoft 365 o Jira Cloud. Entre más subo, menos administro yo y más responsabilidad asume el proveedor.',t:'Usa ejemplos de las herramientas de la vacante, como Jira Cloud.'},
+ {q:'¿Cómo diseñarías una plataforma de datos en Azure?',r:'Ingesta con Data Factory o Event Hubs hacia Data Lake Storage Gen2, organizado en bronze, silver y gold con formato Delta. Procesamiento con Azure Databricks en Spark. Capa de consumo en Synapse o Fabric, y reportes en Power BI. Seguridad con Entra ID, mínimo privilegio, secretos en Key Vault y private endpoints. Todo desplegado con Terraform o Bicep y pipelines de Azure DevOps, con monitoreo en Azure Monitor y alertas de costo.',t:'Cubre ingesta, almacenamiento, procesamiento, consumo, seguridad y operación.'},
+ {q:'¿Qué es CI/CD y por qué importa?',r:'Integración continua significa que cada cambio se integra al repositorio principal y se valida automáticamente con pruebas. Entrega o despliegue continuo significa que ese cambio validado puede llegar a producción de forma automatizada y repetible. Importa porque reduce el riesgo de cada liberación, da retroalimentación rápida y permite entregar valor con más frecuencia, lo que se ve en las métricas DORA.',t:'Conecta con el valor de negocio, no solo con la técnica.'},
+ {q:'¿Cómo controlarías los costos de la nube?',r:'Primero visibilidad: etiquetas por equipo y proyecto, presupuestos y alertas. Luego optimización: ajustar el tamaño de los recursos, autoescalado, apagar ambientes de desarrollo fuera de horario, compromisos de uso para cargas estables, spot para lotes y ciclo de vida para datos viejos. En datos, particionar y usar formatos columnares reduce lo escaneado. Y revisar los costos con el equipo en cada Sprint como una métrica más.',t:'Mencionar revisar costos en cada Sprint une nube con Scrum.'}
+]}
+};
+const PLAN=[
+ ['Día 1','Lee la ruta Scrum Master: módulos 1 y 2. Haz las tarjetas de memoria.'],['Día 2','Módulos 3 y 4. Escribe 3 historias de usuario INVEST con criterios Gherkin.'],['Día 3','Módulo 5 (métricas). Arma en Excel un burndown y una gráfica de velocidad con datos inventados.'],['Día 4','Módulos 6 y 7. Examen de Scrum Master: meta 80%.'],['Día 5','Crea una cuenta gratis de Jira: un tablero Scrum, 10 historias, un Sprint y prueba 3 consultas JQL.'],['Día 6','Confluence y Trello gratis: una página de DoD y una plantilla de retro. En Miro o Mural haz un story map.'],['Día 7','Simulador de entrevista: 5 preguntas de Scrum Master. Repite las que tengan menos de 7.'],['Día 8','Ruta de datos: módulos 1 a 3. Corre el código de Scala en Scastie (scastie.scala-lang.org).'],['Día 9','Módulos 4 a 6. Practica funciones de ventana en SQL.'],['Día 10','Módulos 7 a 9. Examen de datos: meta 80%.'],['Día 11','Ruta cloud: módulos 1 a 3. Aprende la tabla de equivalencias.'],['Día 12','Módulos 4 a 6. Crea una cuenta gratis de Azure DevOps y un pipeline sencillo.'],['Día 13','Simulador: 3 preguntas por ruta. Ensaya tu presentación de 60 segundos en voz alta.'],['Día 14','Repaso de tarjetas marcadas como "repasar" y examen final de las tres rutas.']
+];
+
+/* ================= Motor de JQL (subconjunto real de Jira) ================= */
+const YO='jose';
+const INCIDENCIAS=[
+ {key:'APP-1',project:'APP',type:'Epic',summary:'Cuenta de cliente',status:'In Progress',priority:'High',assignee:'ana',labels:[],hace:40,sprint:null,parent:null},
+ {key:'APP-2',project:'APP',type:'Story',summary:'Iniciar sesión con correo',status:'Done',priority:'High',assignee:'jose',labels:['login'],hace:20,sprint:'Sprint 11',parent:'APP-1'},
+ {key:'APP-3',project:'APP',type:'Story',summary:'Recuperar contraseña',status:'In Progress',priority:'High',assignee:'jose',labels:['login'],hace:12,sprint:'Sprint 12',parent:'APP-1'},
+ {key:'APP-4',project:'APP',type:'Story',summary:'Historial de pedidos',status:'To Do',priority:'Highest',assignee:null,labels:[],hace:10,sprint:'Sprint 12',parent:'APP-1'},
+ {key:'APP-5',project:'APP',type:'Bug',summary:'Error al cerrar sesión en iPhone',status:'In Review',priority:'High',assignee:'luis',labels:['ios'],hace:5,sprint:'Sprint 12',parent:null},
+ {key:'APP-6',project:'APP',type:'Bug',summary:'Botón de pago no responde',status:'To Do',priority:'Highest',assignee:null,labels:['pagos','impedimento'],hace:2,sprint:'Sprint 12',parent:null},
+ {key:'APP-7',project:'APP',type:'Task',summary:'Configurar pipeline de despliegue',status:'Done',priority:'Medium',assignee:'luis',labels:['devops'],hace:25,sprint:'Sprint 11',parent:null},
+ {key:'APP-8',project:'APP',type:'Story',summary:'Exportar pedidos a Excel',status:'To Do',priority:'Medium',assignee:'ana',labels:[],hace:30,sprint:'Sprint 11',parent:null},
+ {key:'APP-9',project:'APP',type:'Story',summary:'Correo de confirmación',status:'To Do',priority:'Low',assignee:null,labels:[],hace:3,sprint:null,parent:'APP-1'},
+ {key:'APP-10',project:'APP',type:'Bug',summary:'Texto cortado en Android',status:'Done',priority:'Low',assignee:'jose',labels:['android'],hace:15,sprint:'Sprint 11',parent:null},
+ {key:'DATA-1',project:'DATA',type:'Epic',summary:'Tablero de ventas',status:'In Progress',priority:'High',assignee:'luis',labels:[],hace:35,sprint:null,parent:null},
+ {key:'DATA-2',project:'DATA',type:'Story',summary:'Pipeline de ventas diarias',status:'In Progress',priority:'High',assignee:'jose',labels:['pipeline'],hace:9,sprint:'Sprint 12',parent:'DATA-1'},
+ {key:'DATA-3',project:'DATA',type:'Task',summary:'Pruebas de calidad de datos',status:'To Do',priority:'Medium',assignee:'luis',labels:['calidad'],hace:6,sprint:'Sprint 12',parent:'DATA-1'},
+ {key:'DATA-4',project:'DATA',type:'Bug',summary:'Duplicados en la tabla de clientes',status:'In Review',priority:'Highest',assignee:'ana',labels:['calidad'],hace:4,sprint:'Sprint 12',parent:null},
+ {key:'DATA-5',project:'DATA',type:'Story',summary:'Ingesta desde la API de inventario',status:'To Do',priority:'Medium',assignee:null,labels:['impedimento'],hace:1,sprint:'Sprint 12',parent:'DATA-1'},
+ {key:'DATA-6',project:'DATA',type:'Task',summary:'Documentar linaje en Confluence',status:'Done',priority:'Low',assignee:'ana',labels:['docs'],hace:18,sprint:'Sprint 11',parent:null},
+ {key:'DATA-7',project:'DATA',type:'Task',summary:'Migrar jobs a Scala 2.13',status:'In Progress',priority:'Medium',assignee:'luis',labels:[],hace:22,sprint:'Sprint 11',parent:null}
+];
+const SPRINTS={'sprint 12':'open','sprint 11':'closed'};
+const CAT={'to do':'To Do','in progress':'In Progress','in review':'In Progress','done':'Done'};
+const ALIAS_TIPO={historia:'story',tarea:'task','épica':'epic',epica:'epic',error:'bug'};
+function tokenizar(s){
+  const t=[];let i=0;
+  while(i<s.length){const c=s[i];
+    if(/\s/.test(c)){i++;continue}
+    if(c==='('||c===')'||c===','){t.push({k:c});i++;continue}
+    if(c==='"'||c==="'"){const j=s.indexOf(c,i+1);if(j<0)throw 'Falta cerrar una comilla.';t.push({k:'val',v:s.slice(i+1,j)});i=j+1;continue}
+    const op=/^(!=|>=|<=|!~|=|>|<|~)/.exec(s.slice(i));if(op){t.push({k:'op',v:op[1]});i+=op[1].length;continue}
+    const w=/^[A-Za-z0-9_\-\.áéíóúñÁÉÍÓÚÑ]+(\(\))?/.exec(s.slice(i));if(w){const v=w[0];const up=v.toUpperCase();
+      if(['AND','OR','NOT','IN','IS','EMPTY','NULL','ORDER','BY','ASC','DESC'].includes(up)&&!w[1])t.push({k:up});else t.push({k:w[1]?'fn':'val',v});i+=v.length;continue}
+    throw `No entiendo el carácter "${c}".`;
+  }return t;
+}
+function parsear(s){
+  const t=tokenizar(s);let p=0;const ver=()=>t[p],tom=k=>{if(t[p]&&t[p].k===k)return t[p++];return null};
+  const exigir=(k,msg)=>{const x=tom(k);if(!x)throw msg;return x};
+  function expr(){let a=term();while(tom('OR')){const b=term();const x=a;a=it=>x(it)||b(it)}return a}
+  function term(){let a=fact();while(tom('AND')){const b=fact();const x=a;a=it=>x(it)&&b(it)}return a}
+  function fact(){if(tom('NOT')){const f=fact();return it=>!f(it)}if(tom('(')){const e=expr();exigir(')','Falta cerrar un paréntesis.');return e}return clausula()}
+  function valor(){const x=t[p];if(!x)throw 'Falta un valor al final de la consulta.';if(x.k!=='val'&&x.k!=='fn')throw 'Falta un valor después del operador. Si el valor tiene espacios, ponlo entre comillas: "In Review".';p++;return x}
+  function clausula(){
+    const f=t[p];if(!f||f.k!=='val')throw 'Esperaba un campo, por ejemplo: project, type, status, priority, assignee, labels, created, sprint o parent.';p++;
+    const campo=f.v.toLowerCase();
+    if(!['project','type','issuetype','status','statuscategory','priority','assignee','labels','created','sprint','parent','key','summary','text'].includes(campo))throw `El campo "${f.v}" no existe en este laboratorio.`;
+    if(tom('IS')){const neg=!!tom('NOT');if(!tom('EMPTY')&&!tom('NULL'))throw 'Después de IS va EMPTY (o IS NOT EMPTY).';return it=>{const v=get(it,campo);const vac=v==null||(Array.isArray(v)&&!v.length);return neg?!vac:vac}}
+    let neg=false;if(ver()&&ver().k==='NOT'){p++;neg=true;if(!(ver()&&ver().k==='IN'))throw 'Después de NOT esperaba IN.'}
+    if(tom('IN')){if(ver()&&ver().k==='fn'){const fx=valor();return it=>{const v=get(it,campo);if(v==null)return neg;const r=coincide(it,campo,'=',fx);return neg?!r:r}}
+      exigir('(','Después de IN van paréntesis: in (High, Highest).');const vs=[valor()];while(tom(','))vs.push(valor());exigir(')','Falta cerrar el paréntesis de la lista.');
+      return it=>{const v=get(it,campo);if(v==null||(Array.isArray(v)&&!v.length))return false;const r=vs.some(x=>coincide(it,campo,'=',x));return neg?!r:r}}
+    const op=tom('op');if(!op)throw `Después de "${f.v}" esperaba un operador: =, !=, in, >, <, >=, <= o is.`;
+    const x=valor();return it=>{const v=get(it,campo);if(v==null||(Array.isArray(v)&&!v.length))return false;return coincide(it,campo,op.v,x)}
+  }
+  const e=expr();
+  if(tom('ORDER')){exigir('BY','Después de ORDER va BY.');valor();tom('ASC')||tom('DESC');while(tom(',')){valor();tom('ASC')||tom('DESC')}}
+  if(p<t.length)throw 'Sobra algo al final de la consulta. ¿Te faltó un AND u OR?';
+  return e;
+}
+function get(it,c){if(c==='issuetype')c='type';if(c==='statuscategory')return CAT[it.status.toLowerCase()];if(c==='text')return it.summary;if(c==='created')return it.hace;return it[c]}
+function norm(s){return String(s).toLowerCase().trim()}
+function coincide(it,campo,op,x){
+  let v=get(it,campo);
+  if(x.k==='fn'){const fn=x.v.toLowerCase();
+    if(fn==='currentuser()'){x={v:YO}}
+    else if(fn==='opensprints()'||fn==='closedsprints()'){if(campo!=='sprint')throw `${x.v} solo funciona con el campo sprint.`;const est=fn.startsWith('open')?'open':'closed';const r=v&&SPRINTS[norm(v)]===est;return op==='!='?!r:r}
+    else throw `La función ${x.v} no está disponible en este laboratorio.`}
+  if(campo==='created'){const m=/^(-?\d+)([dw])$/.exec(x.v);if(!m)throw 'Para fechas usa formato relativo como -7d (hace 7 días) o -2w (hace 2 semanas).';
+    const lim=parseInt(m[1])*(m[2]==='w'?7:1),val=-v;return {'>=':val>=lim,'>':val>lim,'<=':val<=lim,'<':val<lim,'=':val===lim,'!=':val!==lim}[op]}
+  if(['>','<','>=','<='].includes(op)){if(campo==='priority'){const o=['lowest','low','medium','high','highest'];const a=o.indexOf(norm(v)),b=o.indexOf(norm(x.v));return {'>':a>b,'<':a<b,'>=':a>=b,'<=':a<=b}[op]}throw `El operador ${op} no aplica al campo ${campo}.`}
+  let val=norm(x.v);if(campo==='type'||campo==='issuetype')val=ALIAS_TIPO[val]||val;
+  if(op==='~'||op==='!~'){const r=norm(v).includes(val);return op==='~'?r:!r}
+  const r=Array.isArray(v)?v.some(e=>norm(e)===val):norm(v)===val;
+  return op==='!='?!r:r;
+}
+function ejecutarJQL(q){const f=parsear(q);return INCIDENCIAS.filter(f).map(i=>i.key)}
+const RETOS_JQL=[
+ {t:'Todos los bugs del proyecto APP.',r:'project = APP AND type = Bug',p:'Combina dos condiciones con AND: el proyecto y el tipo.'},
+ {t:'Tu trabajo en el sprint activo (en cualquier proyecto).',r:'sprint in openSprints() AND assignee = currentUser()',p:'Usa las funciones openSprints() y currentUser().'},
+ {t:'Pendientes de APP con prioridad High o Highest (que no estén terminadas).',r:'project = APP AND priority in (High, Highest) AND statusCategory != Done',p:'Usa "in (...)" para varias prioridades y statusCategory != Done para excluir lo terminado.'},
+ {t:'Incidencias sin asignar que no estén terminadas.',r:'assignee is EMPTY AND statusCategory != Done',p:'Para campos vacíos se usa "is EMPTY", no "= null".'},
+ {t:'Incidencias creadas en los últimos 7 días.',r:'created >= -7d',p:'Las fechas relativas se escriben como -7d.'},
+ {t:'Todas las incidencias hijas de la épica APP-1.',r:'parent = APP-1',p:'El campo parent conecta las incidencias con su épica.'},
+ {t:'Incidencias con la etiqueta "impedimento" que sigan abiertas.',r:'labels = impedimento AND statusCategory != Done',p:'Con labels, el signo = significa "tiene esta etiqueta".'},
+ {t:'Lo que quedó sin terminar en el sprint cerrado.',r:'sprint in closedSprints() AND statusCategory != Done',p:'Usa closedSprints().'},
+ {t:'Bugs de cualquier proyecto que estén en revisión.',r:'type = Bug AND status = "In Review"',p:'Si el valor tiene espacios, ponlo entre comillas.'},
+ {t:'Incidencias de DATA que NO son de Luis, incluyendo las que no tienen responsable.',r:'project = DATA AND (assignee != luis OR assignee is EMPTY)',p:'Trampa clásica de Jira: "assignee != luis" excluye también las sin asignar. Agrega OR assignee is EMPTY entre paréntesis.'},
+ {t:'Trabajo de DATA con prioridad mayor que Medium, ordenado por prioridad.',r:'project = DATA AND priority > Medium ORDER BY priority DESC',p:'priority acepta > y <. ORDER BY no cambia qué resultados salen, solo el orden.'}
+];
+
+const RETOS_SCALA=[
+ {n:'Básico',c:`val xs = List(1, 2, 3, 4)
+println(xs.map(_ * 2).filter(_ > 4))`,q:'¿Qué imprime?',o:['List(6, 8)','List(2, 4, 6, 8)','List(3, 4)','List(8)'],a:0,e:'map duplica: List(2, 4, 6, 8); filter deja los mayores a 4: List(6, 8).'},
+ {n:'Básico',c:`val ys = 0 :: List(1, 2, 3)
+println(ys)`,q:'¿Qué imprime?',o:['List(1, 2, 3, 0)','List(0, 1, 2, 3)','List(0, List(1, 2, 3))','Error'],a:1,e:'El operador :: agrega un elemento al inicio de una lista.'},
+ {n:'Básico',c:`val nombre = "Ana"
+println(s"Hola $nombre")`,q:'¿Qué imprime?',o:['Hola $nombre','Hola Ana','Hola nombre','Error'],a:1,e:'El prefijo s habilita la interpolación de variables con $.'},
+ {n:'Básico',c:`val palabras = List("a", "bb", "ccc")
+println(palabras.map(_.length).sum)`,q:'¿Qué imprime?',o:['3','6','abbccc','List(1, 2, 3)'],a:1,e:'Las longitudes son 1, 2 y 3; su suma es 6.'},
+ {n:'Básico',c:`println((1 to 6).filter(_ % 2 == 1).toList)`,q:'¿Qué imprime?',o:['List(2, 4, 6)','List(1, 3, 5)','List(1, 2, 3)','3'],a:1,e:'1 to 6 incluye el 6; se quedan los impares: 1, 3 y 5.'},
+ {n:'Intermedio',c:`val precio: Option[Double] = Some(100.0)
+println(precio.map(_ * 2).getOrElse(0.0))`,q:'¿Qué imprime?',o:['Some(200.0)','200.0','0.0','100.0'],a:1,e:'map duplica el valor dentro del Some y getOrElse lo extrae: 200.0. (Ojo: con decimales como 1.16 el resultado puede salir 115.99999999999999; para dinero se usa BigDecimal.)'},
+ {n:'Intermedio',c:`val descuento: Option[Int] = None
+println(descuento.map(_ + 5).getOrElse(0))`,q:'¿Qué imprime?',o:['5','None','0','Error: NullPointerException'],a:2,e:'map sobre None no hace nada; getOrElse devuelve el valor por defecto. Por eso Option evita errores con nulos.'},
+ {n:'Intermedio',c:`println(List(1, 2, 3).foldLeft(10)(_ + _))`,q:'¿Qué imprime?',o:['6','16','10','List(11, 12, 13)'],a:1,e:'foldLeft empieza en 10 y suma cada elemento: 10 + 1 + 2 + 3 = 16.'},
+ {n:'Intermedio',c:`case class Persona(nombre: String, edad: Int)
+val a = Persona("Ana", 30)
+val b = a.copy(edad = 31)
+println(a == Persona("Ana", 30))`,q:'¿Qué imprime?',o:['true','false','Error','Persona(Ana,31)'],a:0,e:'Las case classes comparan por valor, no por referencia. copy crea un objeto nuevo sin modificar a.'},
+ {n:'Intermedio',c:`val x = 7
+val r = x match {
+  case 1 => "uno"
+  case n if n % 2 == 0 => "par"
+  case _ => "impar"
+}
+println(r)`,q:'¿Qué imprime?',o:['uno','par','impar','7'],a:2,e:'7 no es 1 ni par, así que cae en el caso comodín _.'},
+ {n:'Intermedio',c:`val m = Map("a" -> 1, "b" -> 2)
+println(m.getOrElse("c", 0))`,q:'¿Qué imprime?',o:['None','0','Error: NoSuchElementException','2'],a:1,e:'getOrElse evita el error cuando la llave no existe. m("c") sí lanzaría una excepción.'},
+ {n:'Intermedio',c:`import scala.util.Try
+println(Try("12a".toInt).isFailure)`,q:'¿Qué imprime?',o:['true','false','12','Error: NumberFormatException'],a:0,e:'Try captura la excepción de la conversión y la convierte en Failure, sin detener el programa.'},
+ {n:'Intermedio',c:`val ventas = List(("Ana", 100), ("Luis", 50), ("Ana", 30))
+val total = ventas.groupBy(_._1).map { case (c, vs) => c -> vs.map(_._2).___ }`,q:'¿Qué va en el hueco para obtener el total por cliente?',o:['sum','length','head','max'],a:0,e:'sum suma los montos de cada cliente: Map(Ana -> 130, Luis -> 50).'},
+ {n:'Spark',c:`val df2 = df.filter(col("monto") > 0)
+val df3 = df2.groupBy("cliente").agg(sum("monto"))
+val n = df3.count()`,q:'¿En qué línea se ejecuta realmente el trabajo en el clúster?',o:['Línea 1 (filter)','Línea 2 (groupBy)','Línea 3 (count)','En las tres'],a:2,e:'filter y groupBy son transformaciones perezosas; count es una acción y dispara la ejecución.'},
+ {n:'Spark',c:`// Quieres escribir un solo archivo sin un shuffle completo
+resultado.___(1).write.parquet("s3://datos/gold/reporte/")`,q:'¿Qué va en el hueco?',o:['repartition','coalesce','cache','collect'],a:1,e:'coalesce reduce particiones sin shuffle completo. repartition(1) también funciona, pero mueve todos los datos.'},
+ {n:'Spark',c:`val enriquecido = ventas.join(___(clientes), Seq("cliente_id"))
+// clientes tiene 2,000 filas; ventas, 500 millones`,q:'¿Qué va en el hueco para evitar el shuffle de la tabla grande?',o:['cache','broadcast','coalesce','lit'],a:1,e:'broadcast envía la tabla pequeña a todos los nodos y evita mover la tabla de ventas.'},
+ {n:'Spark',c:`val w = Window.partitionBy("id").orderBy(col("actualizado").desc)
+val limpio = df.withColumn("rn", ___().over(w)).filter(col("rn") === 1)`,q:'¿Qué función va en el hueco para quedarte con el registro más reciente de cada id?',o:['rank','row_number','count','first'],a:1,e:'row_number numera sin empates: el 1 es el más reciente. rank podría dar dos filas con 1 si hay empates.'}
+];
+
+/* ================= Estado ================= */
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const LKEY='prep-entrevista-v1';
+let P={mods:{},flash:{},quiz:{},ent:{},plan:{},sim:[],lab:{}};
+let V={v:'inicio'},DB=null,SAMPLE=null,saveT=null;
+function guardar(){try{localStorage.setItem(LKEY,JSON.stringify(P))}catch(e){}clearTimeout(saveT);saveT=setTimeout(async()=>{if(DB)try{await DB.doc('data/users/me/prep').set(P)}catch(e){}},900)}
+function toast(t){const el=$('toast');el.textContent=t;el.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>el.classList.remove('show'),2600)}
+function avance(k){const r=RUTAS[k];const m=r.mods.filter(x=>P.mods[x.id]).length/r.mods.length,q=(P.quiz[k]||0)/100,e=Object.keys(P.ent[k]||{}).length/r.ent.length;return Math.round((m*0.4+q*0.3+e*0.3)*100)}
+function anillo(p,c,size=64){const R=26,C=2*Math.PI*R;return `<svg class="ring" width="${size}" height="${size}" viewBox="0 0 64 64" aria-label="${p}% de preparación"><circle cx="32" cy="32" r="${R}" class="rbg"/><circle cx="32" cy="32" r="${R}" stroke="${c}" class="rfg" stroke-dasharray="${C}" stroke-dashoffset="${C*(1-p/100)}"/><text x="32" y="37" text-anchor="middle">${p}%</text></svg>`}
+function ir(v){V=v;render();window.scrollTo({top:0})}
+
+/* ================= Vistas ================= */
+function render(){
+  document.querySelectorAll('.nav button').forEach(b=>b.setAttribute('aria-current',(b.dataset.v===V.v&&(!b.dataset.r||b.dataset.r===V.r))?'page':'false'));
+  const el=$('main');
+  if(V.v==='inicio')el.innerHTML=vInicio();
+  else if(V.v==='ruta')el.innerHTML=vRuta();
+  else if(V.v==='sim')el.innerHTML=vSim();
+  else if(V.v==='lab')el.innerHTML=vLab();
+  montar();
+}
+function vInicio(){
+  const hechos=Object.values(P.plan).filter(Boolean).length;
+  return `<section class="hero"><div><span class="kicker">Preparación para entrevistas</span><h1>Llega seguro a tu entrevista de Scrum Master, datos o cloud</h1>
+    <p>Estudia con lecciones cortas, repasa con tarjetas, mide tu nivel con exámenes y practica respuestas con un entrevistador de IA que te da retroalimentación.</p>
+    <div class="herobtns"><button class="btn primary" data-go="sim">🎙️ Simular entrevista</button><button class="btn light" data-ruta="scrum">Empezar por Scrum</button></div></div>
+    <div class="heroart" aria-hidden="true">${arte()}</div></section>
+  <h2 class="sect">Tus rutas</h2>
+  <div class="rutas">${Object.entries(RUTAS).map(([k,r],i)=>`<button class="ruta" data-ruta="${k}" style="--c:${r.c};animation-delay:${i*80}ms"><div class="rtop"><span class="re">${r.e}</span>${anillo(avance(k),r.c)}</div><h3>${r.n}</h3><p>${r.desc}</p>
+    <div class="rmeta"><span>${r.mods.filter(x=>P.mods[x.id]).length}/${r.mods.length} lecciones</span><span>Examen: ${P.quiz[k]!=null?P.quiz[k]+'%':'pendiente'}</span></div></button>`).join('')}</div>
+  <h2 class="sect">🧪 Laboratorio práctico</h2>
+  <div class="labcards"><button class="labcard" data-lab="jira"><span>🗂️</span><b>Simulador de Sprint</b><small>Planea, maneja imprevistos y mira tu burndown${P.lab&&P.lab.jira?` · mejor: ${P.lab.jira}/100`:''}</small></button>
+   <button class="labcard" data-lab="jql"><span>🔎</span><b>Práctica de JQL</b><small>${RETOS_JQL.length} retos de consultas de Jira${P.lab&&P.lab.jql?` · ${Object.keys(P.lab.jql).length} resueltos`:''}</small></button>
+   <button class="labcard" data-lab="scala"><span>⌨️</span><b>Ejercicios de Scala</b><small>De lo básico a Spark${P.lab&&P.lab.scala?` · mejor: ${P.lab.scala}%`:''}</small></button></div>
+  <div class="two">
+   <section class="card"><div class="cardhead"><h2>Plan de 14 días</h2><span class="pill">${hechos}/14</span></div><div class="bar"><b style="width:${hechos/14*100}%"></b></div>
+    <ol class="plan">${PLAN.map(([d,t],i)=>`<li><label><input type="checkbox" data-plan="${i}" ${P.plan[i]?'checked':''}><span><b>${d}</b> ${esc(t)}</span></label></li>`).join('')}</ol></section>
+   <section class="card"><h2>Consejos para el día de la entrevista</h2><ul class="tips">
+    <li><b>Método STAR</b> para preguntas de experiencia: Situación, Tarea, Acción y Resultado (con un número si puedes).</li>
+    <li><b>Si no tienes experiencia formal</b> como Scrum Master, usa proyectos reales propios: dilo con honestidad y enfócate en lo que hiciste y aprendiste.</li>
+    <li><b>Conecta con la vacante</b>: repite sus palabras clave (entrega de valor, equipo autogestionado, mejora continua) con ejemplos tuyos.</li>
+    <li><b>Prepara 3 preguntas</b> para ellos: ¿cómo miden el éxito del equipo?, ¿qué madurez ágil tienen?, ¿cuál es el mayor impedimento hoy?</li>
+    <li><b>Certificación</b>: la PSM I de Scrum.org es la más valorada para Scrum Master; AZ-900 o DP-900 abren puertas en datos y nube.</li></ul>
+    ${P.sim.length?`<h3 class="sub">Tus últimas simulaciones</h3><ul class="hist">${P.sim.slice(-5).reverse().map(s=>`<li><span class="score s${s.puntaje>=8?'h':s.puntaje>=6?'m':'l'}">${s.puntaje}</span>${esc(s.q)}</li>`).join('')}</ul>`:''}</section>
+  </div>`;
+}
+function arte(){return `<svg viewBox="0 0 220 170"><rect x="10" y="20" width="200" height="130" rx="14" fill="#fff" opacity=".12"/>
+ ${['Por hacer','En curso','Hecho'].map((t,i)=>`<text x="${22+i*64}" y="42" fill="#fff" opacity=".85" font-size="10" font-weight="700">${t}</text>`).join('')}
+ ${[[0,0],[0,1],[0,2],[1,0],[1,1],[2,0],[2,1],[2,2]].map(([c,r],k)=>`<rect class="tk" style="animation-delay:${k*180}ms" x="${20+c*64}" y="${52+r*30}" width="54" height="22" rx="5" fill="${['#FDE68A','#A5B4FC','#6EE7B7'][c]}"/>`).join('')}
+ <path d="M150 150 L170 120 L190 130 L210 95" stroke="#FDE68A" stroke-width="3" fill="none" class="line"/></svg>`}
+function vRuta(){
+  const k=V.r,r=RUTAS[k],t=V.t||'aprender';
+  const tabs=[['aprender','📚 Aprender'],['tarjetas','🃏 Tarjetas'],['examen','📝 Examen'],['entrevista','💬 Entrevista']];
+  let h=`<section class="rhead" style="--c:${r.c}"><button class="back" data-go="inicio">← Inicio</button><div class="rh"><span class="re">${r.e}</span><div><h1>${r.n}</h1><p>${r.desc}</p></div>${anillo(avance(k),'#fff',72)}</div>
+   <nav class="subtabs">${tabs.map(([id,n])=>`<button data-t="${id}" aria-current="${id===t?'page':'false'}">${n}</button>`).join('')}</nav></section>`;
+  const labs={scrum:[['jira','🗂️ Simulador de Sprint'],['jql','🔎 Práctica de JQL']],datos:[['scala','⌨️ Ejercicios de Scala'],['jql','🔎 Práctica de JQL']],cloud:[]}[k];
+  if(labs.length)h+=`<div class="labline"><span>Practica en el laboratorio:</span>${labs.map(([id,n])=>`<button class="btn sm" data-lab="${id}">${n}</button>`).join('')}</div>`;
+  if(t==='aprender')h+=vAprender(r);else if(t==='tarjetas')h+=vTarjetas(k,r);else if(t==='examen')h+=vExamen(k,r);else h+=vEntrevista(k,r);
+  return h;
+}
+function vAprender(r){
+  let h=`<div class="mods">${r.mods.map((m,i)=>`<details class="mod ${P.mods[m.id]?'done':''}" ${V.open===m.id?'open':''} data-mod="${m.id}"><summary><span class="mn">${P.mods[m.id]?'✓':i+1}</span><b>${esc(m.t)}</b><span class="chev">›</span></summary>
+    <div class="mbody">${m.tabla?`<div class="tw"><table><thead><tr>${m.tabla[0].map(c=>`<th>${esc(c)}</th>`).join('')}</tr></thead><tbody>${m.tabla.slice(1).map(f=>`<tr>${f.map((c,j)=>j?`<td>${esc(c)}</td>`:`<th>${esc(c)}</th>`).join('')}</tr>`).join('')}</tbody></table></div>`:''}
+    <ul>${m.p.map(x=>`<li>${x}</li>`).join('')}</ul><button class="btn ${P.mods[m.id]?'':'primary'} sm" data-hecho="${m.id}">${P.mods[m.id]?'✓ Lo entendí':'Marcar como entendido'}</button></div></details>`).join('')}</div>`;
+  if(r.code)h+=`<h2 class="sect">Código para practicar</h2>${r.code.map((c,i)=>`<div class="code"><div class="codehead"><b>${esc(c.t)}</b><button class="btn sm ghost" data-copy="${i}">Copiar</button></div><pre><code>${resaltar(c.c)}</code></pre></div>`).join('')}
+    <p class="muted">Puedes correr el código de Scala gratis en <b>scastie.scala-lang.org</b>, y el de Spark en Databricks Community Edition.</p>`;
+  return h;
+}
+function resaltar(src){
+  const KW=/\b(val|var|def|case|class|object|import|match|if|else|new|trait|extends|true|false|resource|trigger|pool|steps|FROM|WORKDIR|COPY|CMD)\b/;
+  return src.split('\n').map(l=>{const c=l.indexOf('//');const cod=c>=0?l.slice(0,c):l,com=c>=0?l.slice(c):'';
+    return esc(cod).replace(/(&quot;.*?&quot;|"[^"]*")/g,'<span class="s">$1</span>').replace(/\b(val|var|def|case|class|object|import|match|if|else|new|trait|resource)\b/g,'<span class="k">$1</span>').replace(/\b(\d+(?:\.\d+)?)\b/g,'<span class="n">$1</span>')+(com?`<span class="c">${esc(com)}</span>`:'')}).join('\n');
+}
+function vTarjetas(k,r){
+  const est=P.flash[k]||{},pend=r.flash.map((_,i)=>i).filter(i=>est[i]!=='ok'),i=V.fi??(pend[0]??0),f=r.flash[i];
+  const ok=r.flash.filter((_,j)=>est[j]==='ok').length;
+  if(!pend.length&&V.fi==null)return `<div class="card center"><h2>¡Dominas las ${r.flash.length} tarjetas! 🎉</h2><p class="muted">Vuelve a repasarlas antes de tu entrevista.</p><button class="btn primary" data-reiniciar-flash>Repasar de nuevo</button></div>`;
+  return `<div class="flashwrap"><p class="muted center">${ok} de ${r.flash.length} dominadas · Toca la tarjeta para voltearla</p>
+   <button class="flash" id="flash" aria-label="Voltear tarjeta"><div class="fin"><div class="ff"><small>Pregunta</small><p>${esc(f[0])}</p></div><div class="fb"><small>Respuesta</small><p>${esc(f[1])}</p></div></div></button>
+   <div class="fbtns"><button class="btn" data-fl="rep">🔁 Repasar después</button><button class="btn primary" data-fl="ok">✓ Me la sé</button></div></div>`;
+}
+function vExamen(k,r){
+  const E=V.ex;
+  if(!E)return `<div class="card center"><h2>Examen de ${esc(r.n)}</h2><p class="muted">${r.quiz.length} preguntas de opción múltiple con explicación. Tu mejor resultado: <b>${P.quiz[k]!=null?P.quiz[k]+'%':'aún no'}</b>.</p><button class="btn primary" data-empezar>Comenzar examen</button></div>`;
+  if(E.i>=E.qs.length){const p=Math.round(E.ok/E.qs.length*100);return `<div class="card center"><div class="big">${anillo(p,p>=80?'#16A34A':p>=60?'#D97706':'#DC2626',120)}</div><h2>${p>=80?'¡Listo para la entrevista!':p>=60?'Vas bien, repasa lo que fallaste':'Repasa las lecciones y vuelve a intentarlo'}</h2>
+    <p class="muted">${E.ok} de ${E.qs.length} correctas. Meta recomendada: 80%.</p>${E.mal.length?`<div class="review"><h3 class="sub">Para repasar</h3><ul>${E.mal.map(q=>`<li><b>${esc(q.q)}</b><br>${esc(q.e)}</li>`).join('')}</ul></div>`:''}<button class="btn primary" data-empezar>Intentar de nuevo</button></div>`}
+  const q=E.qs[E.i];
+  return `<div class="card quiz"><div class="qtop"><span class="pill">Pregunta ${E.i+1} de ${E.qs.length}</span><div class="bar"><b style="width:${E.i/E.qs.length*100}%"></b></div></div><h2>${esc(q.q)}</h2>
+   <div class="ops">${q.o.map((o,j)=>`<button class="op ${E.r!=null?(j===q.a?'bien':j===E.r?'mal':''):''}" data-op="${j}" ${E.r!=null?'disabled':''}><span class="ol">${'ABCD'[j]}</span>${esc(o)}</button>`).join('')}</div>
+   ${E.r!=null?`<div class="exp ${E.r===q.a?'bien':'mal'}"><b>${E.r===q.a?'Correcto.':'No exactamente.'}</b> ${esc(q.e)}</div><button class="btn primary" data-sig>${E.i+1<E.qs.length?'Siguiente':'Ver resultado'}</button>`:''}</div>`;
+}
+function vEntrevista(k,r){const est=P.ent[k]||{};
+  return `<p class="muted">Lee la pregunta, respóndela en voz alta (idealmente grabándote) y luego compara con la respuesta modelo. Marca las que ya practicaste. ${SAMPLE?'Para retroalimentación personalizada, usa el <b>simulador</b>.':''}</p>
+  <div class="ents">${r.ent.map((e,i)=>`<details class="ent ${est[i]?'done':''}"><summary><span class="mn">${est[i]?'✓':'?'}</span><b>${esc(e.q)}</b><span class="chev">›</span></summary><div class="mbody">
+   <p class="modelo"><span class="lbl">Respuesta modelo</span>${esc(e.r)}</p><p class="tip">💡 ${esc(e.t)}</p>
+   <div class="entbtns"><button class="btn sm ${est[i]?'':'primary'}" data-prac="${i}">${est[i]?'✓ Practicada':'Marcar como practicada'}</button>${SAMPLE?`<button class="btn sm" data-simq="${i}">🎙️ Practicar con IA</button>`:''}</div></div></details>`).join('')}</div>`;
+}
+function vSim(){
+  const S=V.s||{};
+  if(!SAMPLE)return `<section class="card"><h1>Simulador de entrevista</h1><p class="muted">El entrevistador con IA no está disponible en esta vista. Puedes practicar igual: abre cualquier ruta, entra a "Entrevista", responde en voz alta y compara con la respuesta modelo.</p><button class="btn primary" data-ruta="scrum">Ir a preguntas de Scrum Master</button></section>`;
+  if(!S.ruta)return `<section class="card"><h1>🎙️ Simulador de entrevista</h1><p class="muted">Elige para qué puesto quieres practicar. Te haré una pregunta, tú escribes tu respuesta como la dirías, y te doy una calificación, lo que hiciste bien, qué mejorar y una versión mejorada de tu respuesta.</p>
+    <div class="rutas mini">${Object.entries(RUTAS).map(([k,r])=>`<button class="ruta" data-simruta="${k}" style="--c:${r.c}"><span class="re">${r.e}</span><h3>${r.n}</h3></button>`).join('')}</div></section>`;
+  const r=RUTAS[S.ruta];
+  return `<section class="card sim"><div class="cardhead"><span class="pill" style="background:${r.c};color:#fff">${r.e} ${r.n}</span><button class="btn sm ghost" data-simruta="">Cambiar puesto</button></div>
+   <div class="entrevistador"><div class="avatar" aria-hidden="true">👩‍💼</div><div class="bubble"><small>Entrevistadora</small><p id="simQ">${esc(S.q||'')}</p></div></div>
+   <label class="resp"><span>Tu respuesta</span><textarea id="simA" rows="7" placeholder="Escribe tu respuesta como la dirías en la entrevista. Usa el método STAR si te piden un ejemplo.">${esc(S.a||'')}</textarea></label>
+   <div class="simbtns"><button class="btn primary" id="evaluar">Evaluar mi respuesta</button><button class="btn" id="otraQ">Otra pregunta</button><button class="btn ghost" id="nuevaQ">Pregunta nueva generada por IA</button></div>
+   <div id="simR">${S.res?resultadoHTML(S.res):''}</div></section>`;
+}
+function resultadoHTML(x){
+  if(x.cargando)return `<div class="loading"><span class="dots"><i></i><i></i><i></i></span> ${esc(x.cargando)}</div>`;
+  if(x.error)return `<div class="exp mal">${esc(x.error)}</div>`;
+  const p=Math.max(0,Math.min(10,Math.round(+x.puntaje||0)));
+  return `<div class="res"><div class="rscore"><span class="score s${p>=8?'h':p>=6?'m':'l'} xl">${p}</span><div><b>${p>=8?'¡Muy buena respuesta!':p>=6?'Buena base, se puede fortalecer':'Hay que trabajarla más'}</b><p class="muted">Calificación de 0 a 10</p></div></div>
+   <div class="two"><div class="rbox good"><h3>Lo que hiciste bien</h3><ul>${(x.fortalezas||[]).map(f=>`<li>${esc(f)}</li>`).join('')}</ul></div><div class="rbox warn"><h3>Qué mejorar</h3><ul>${(x.mejorar||[]).map(f=>`<li>${esc(f)}</li>`).join('')}</ul></div></div>
+   <div class="rbox"><h3>Versión mejorada de tu respuesta</h3><p>${esc(x.respuesta_mejorada||'')}</p></div>
+   ${x.seguimiento?`<div class="rbox"><h3>Pregunta de seguimiento que podrían hacerte</h3><p>${esc(x.seguimiento)}</p><button class="btn sm" id="usarSeg">Responder esta</button></div>`:''}</div>`;
+}
+
+/* ================= Interacción ================= */
+let simCtl=null;
+function montar(){
+  document.querySelectorAll('[data-plan]').forEach(c=>c.onchange=()=>{P.plan[c.dataset.plan]=c.checked;guardar();if(c.checked)toast('¡Un día menos! Sigue así');render()});
+  document.querySelectorAll('details[data-mod]').forEach(d=>d.ontoggle=()=>{if(d.open)V.open=d.dataset.mod});
+  const fl=$('flash');if(fl)fl.onclick=()=>fl.classList.toggle('vuelta');
+  if(V.v==='sim')montarSim();
+  if(V.v==='lab')montarLab();
+}
+document.addEventListener('click',e=>{
+  const g=e.target.closest('[data-go]');if(g){ir({v:g.dataset.go});return}
+  const lb=e.target.closest('[data-lab]');if(lb){ir({v:'lab',lt:lb.dataset.lab});return}
+  const r=e.target.closest('[data-ruta]');if(r){ir({v:'ruta',r:r.dataset.ruta,t:'aprender'});return}
+  const t=e.target.closest('[data-t]');if(t){V={v:'ruta',r:V.r,t:t.dataset.t};render();return}
+  const h=e.target.closest('[data-hecho]');if(h){const id=h.dataset.hecho;P.mods[id]=!P.mods[id];V.open=id;guardar();render();if(P.mods[id])toast('¡Lección completada!');return}
+  const cp=e.target.closest('[data-copy]');if(cp){const c=RUTAS[V.r].code[+cp.dataset.copy].c;(navigator.clipboard?navigator.clipboard.writeText(c):Promise.reject()).then(()=>toast('Código copiado'),()=>toast('Selecciona el código y cópialo manualmente'));return}
+  const fb=e.target.closest('[data-fl]');if(fb){const k=V.r,r=RUTAS[k],est=P.flash[k]||(P.flash[k]={}),pend=r.flash.map((_,i)=>i).filter(i=>est[i]!=='ok'),i=V.fi??pend[0];
+    est[i]=fb.dataset.fl;guardar();const rest=r.flash.map((_,j)=>j).filter(j=>est[j]!=='ok'&&j!==i);const sig=rest.find(j=>j>i)??rest[0];V.fi=sig??null;render();return}
+  if(e.target.closest('[data-reiniciar-flash]')){P.flash[V.r]={};V.fi=null;guardar();render();return}
+  if(e.target.closest('[data-empezar]')){const qs=[...RUTAS[V.r].quiz].sort(()=>Math.random()-.5).map(q=>{const idx=q.o.map((_,j)=>j).sort(()=>Math.random()-.5);return{...q,o:idx.map(j=>q.o[j]),a:idx.indexOf(q.a)}});V.ex={qs,i:0,ok:0,mal:[],r:null};render();return}
+  const o=e.target.closest('[data-op]');if(o){const E=V.ex;E.r=+o.dataset.op;const q=E.qs[E.i];if(E.r===q.a)E.ok++;else E.mal.push(q);render();return}
+  if(e.target.closest('[data-sig]')){const E=V.ex;E.i++;E.r=null;if(E.i>=E.qs.length){const p=Math.round(E.ok/E.qs.length*100);P.quiz[V.r]=Math.max(P.quiz[V.r]||0,p);guardar()}render();window.scrollTo({top:0});return}
+  const pr=e.target.closest('[data-prac]');if(pr){const est=P.ent[V.r]||(P.ent[V.r]={}),i=pr.dataset.prac;if(est[i])delete est[i];else est[i]=true;guardar();render();return}
+  const sq=e.target.closest('[data-simq]');if(sq){ir({v:'sim',s:{ruta:V.r,q:RUTAS[V.r].ent[+sq.dataset.simq].q,modelo:RUTAS[V.r].ent[+sq.dataset.simq].r}});return}
+  const sr=e.target.closest('[data-simruta]');if(sr){if(!sr.dataset.simruta){V.s={};render();return}const k=sr.dataset.simruta,x=RUTAS[k].ent[Math.floor(Math.random()*RUTAS[k].ent.length)];V.s={ruta:k,q:x.q,modelo:x.r};render();return}
+});
+function montarSim(){
+  const S=V.s;if(!S||!S.ruta)return;
+  const ta=$('simA');ta.oninput=()=>S.a=ta.value;
+  $('otraQ').onclick=()=>{const b=RUTAS[S.ruta].ent,x=b[Math.floor(Math.random()*b.length)];V.s={ruta:S.ruta,q:x.q,modelo:x.r};render()};
+  $('nuevaQ').onclick=generarPregunta;
+  $('evaluar').onclick=evaluar;
+  const us=$('usarSeg');if(us)us.onclick=()=>{V.s={ruta:S.ruta,q:S.res.seguimiento};render();$('simA').focus()};
+}
+async function generarPregunta(){
+  const S=V.s,r=RUTAS[S.ruta];if(simCtl)simCtl.abort();simCtl=new AbortController();
+  $('simQ').textContent='Pensando una pregunta…';
+  try{const out=await SAMPLE(`Eres una entrevistadora de recursos humanos y técnica en una empresa de tecnología en México. Genera UNA sola pregunta de entrevista, en español, para el puesto de ${r.n}. Temas posibles: ${r.mods.map(m=>m.t).join(', ')}. Varía entre preguntas técnicas, situacionales ("¿qué harías si...?") y de comportamiento ("cuéntame de una vez que..."). Evita estas preguntas ya usadas: ${r.ent.map(e=>e.q).join(' | ')}. Responde solo con la pregunta, sin comillas ni explicación.`,{modelTier:'quick',cache:false,signal:simCtl.signal});
+    V.s={ruta:S.ruta,q:out.text.trim().replace(/^["“]|["”]$/g,'')};render()}
+  catch(err){if(err&&err.code==='cancelled')return;manejarError(err);$('simQ').textContent=S.q}
+}
+async function evaluar(){
+  const S=V.s,r=RUTAS[S.ruta],a=($('simA').value||'').trim();
+  if(a.length<40){toast('Escribe una respuesta un poco más completa (al menos 2 o 3 oraciones).');return}
+  S.a=a;S.res={cargando:'Evaluando tu respuesta…'};$('simR').innerHTML=resultadoHTML(S.res);$('evaluar').disabled=true;
+  if(simCtl)simCtl.abort();simCtl=new AbortController();
+  const prompt=`Eres una entrevistadora experta para el puesto de ${r.n} en una empresa de tecnología en México. Evalúa con honestidad y amabilidad la respuesta de un candidato junior o en transición de carrera.
+
+Pregunta: ${S.q}
+${S.modelo?`Puntos que una buena respuesta suele cubrir (referencia interna, no la cites textual): ${S.modelo}`:''}
+Respuesta del candidato: ${a}
+
+Criterios: exactitud técnica (por ejemplo, fidelidad a la Guía Scrum 2020 o a buenas prácticas de datos y nube), claridad y estructura, ejemplos concretos (idealmente con método STAR y un resultado), y conexión con el valor para el negocio. No inventes experiencia que el candidato no mencionó: en la versión mejorada usa marcadores como [tu ejemplo] donde haga falta un dato personal.
+
+Responde SOLO con JSON válido con esta forma exacta:
+{"puntaje": número entero de 0 a 10, "fortalezas": [2 o 3 frases cortas], "mejorar": [2 o 3 frases cortas y accionables], "respuesta_mejorada": "la respuesta reescrita en primera persona, 90 a 150 palabras, natural para decirla en voz alta", "seguimiento": "una pregunta de seguimiento que haría la entrevistadora"}`;
+  try{
+    const res=await SAMPLE.json(prompt,{modelTier:'default',cache:false,signal:simCtl.signal});
+    S.res=res;P.sim.push({ruta:S.ruta,q:S.q,puntaje:Math.round(+res.puntaje||0),fecha:new Date().toISOString()});if(P.sim.length>50)P.sim=P.sim.slice(-50);guardar();
+  }catch(err){if(err&&err.code==='cancelled')return;S.res={error:mensajeError(err)}}
+  if(V.s===S){$('simR').innerHTML=resultadoHTML(S.res);$('evaluar').disabled=false;const us=$('usarSeg');if(us)us.onclick=()=>{V.s={ruta:S.ruta,q:S.res.seguimiento};render();$('simA').focus()};$('simR').scrollIntoView({behavior:'smooth',block:'start'})}
+}
+function mensajeError(err){const c=err&&err.code;if(c==='not_granted')return 'No se dio permiso para usar la IA. Puedes practicar con las respuestas modelo en cada ruta.';if(c==='rate_limited')return 'Hiciste muchas evaluaciones seguidas. Espera un minuto y vuelve a intentar.';return 'No pude evaluar la respuesta en este momento. Intenta de nuevo.'}
+function manejarError(err){toast(mensajeError(err))}
+
+/* ================= Inicio ================= */
+(async function(){
+  try{const d=JSON.parse(localStorage.getItem(LKEY)||'null');if(d)P={...P,...d}}catch(e){}
+  render();
+  if(window.claude&&typeof window.claude.use==='function'){
+    const [db,user,sample]=await Promise.all(['db','user','sample'].map(n=>window.claude.use(n).catch(()=>null)));
+    SAMPLE=sample||null;
+    if(db&&user){DB=db;try{const s=await db.doc('data/users/me/prep').get();if(s.exists){const x=s.data();P={mods:{...x.mods,...P.mods},flash:{...x.flash,...P.flash},quiz:{...x.quiz,...P.quiz},ent:{...x.ent,...P.ent},plan:{...x.plan,...P.plan},sim:(P.sim.length>=(x.sim||[]).length?P.sim:x.sim),lab:{jira:Math.max((x.lab||{}).jira||0,(P.lab||{}).jira||0),scala:Math.max((x.lab||{}).scala||0,(P.lab||{}).scala||0),jql:{...((x.lab||{}).jql||{}),...((P.lab||{}).jql||{})}}}}}catch(e){DB=null}}
+    render();
+  }
+})();
+
+/* ================= Laboratorio ================= */
+const BACKLOG=[
+ {k:'APP-101',t:'Como cliente quiero iniciar sesión con mi correo',tipo:'Historia',pts:5,pri:'Alta',meta:true,lista:true},
+ {k:'APP-102',t:'Como cliente quiero recuperar mi contraseña',tipo:'Historia',pts:3,pri:'Alta',meta:true,lista:true},
+ {k:'APP-103',t:'Como cliente quiero ver mi historial de pedidos',tipo:'Historia',pts:8,pri:'Alta',meta:true,lista:true},
+ {k:'APP-107',t:'Error al cerrar sesión en iPhone',tipo:'Bug',pts:2,pri:'Alta',meta:true,lista:true},
+ {k:'APP-106',t:'Como cliente quiero pagar con tarjeta',tipo:'Historia',pts:13,pri:'Alta',lista:false,motivo:'es demasiado grande (13 puntos) y conviene dividirla antes'},
+ {k:'APP-105',t:'Mejorar el rendimiento de la búsqueda',tipo:'Historia',pts:8,pri:'Media',lista:false,motivo:'no tiene criterios de aceptación medibles'},
+ {k:'APP-104',t:'Como admin quiero exportar pedidos a Excel',tipo:'Historia',pts:5,pri:'Media',lista:true},
+ {k:'APP-108',t:'Como cliente quiero recibir un correo de confirmación',tipo:'Historia',pts:3,pri:'Media',lista:true},
+ {k:'APP-109',t:'Como admin quiero ver las ventas por día',tipo:'Historia',pts:5,pri:'Baja',lista:true},
+ {k:'APP-110',t:'Cambiar el color del botón principal',tipo:'Tarea',pts:1,pri:'Baja',lista:true}
+];
+const METAS=[
+ {t:'Los clientes pueden entrar a su cuenta y consultar sus pedidos',ok:true},
+ {t:'Terminar la mayor cantidad posible de historias',ok:false,e:'No es un objetivo: no dice qué valor se entrega. Un buen Sprint Goal da foco y permite decidir qué es importante si algo cambia.'},
+ {t:'Avanzar en todos los temas del backlog',ok:false,e:'Es demasiado vago. El Sprint Goal debe describir un resultado valioso y concreto.'}
+];
+const EVENTOS={
+ 3:{t:'El gerente comercial llega a tu escritorio: "Necesito que agreguen Exportar a PDF (5 puntos) a este Sprint. Es urgentísimo."',ops:[
+   {t:'Agregarla de inmediato al Sprint para dejarlo contento',p:0,efecto:'agregar',e:'Meter trabajo sin pasar por el Product Owner rompe el foco y pone en riesgo el Sprint Goal. Además, solo el PO decide sobre el backlog.'},
+   {t:'Llevarlo con el Product Owner, que decide con el equipo si cambia el alcance sin poner en riesgo el Sprint Goal',p:10,efecto:'backlog',e:'¡Correcto! Respetas los roles: el PO decide qué entra y el equipo protege el objetivo. El PO la pone arriba del backlog para el siguiente Sprint.'},
+   {t:'Decirle que no, porque el Sprint está cerrado y no se puede tocar',p:4,efecto:'nada',e:'Proteger el Sprint está bien, pero Scrum no es rígido: el alcance puede negociarse con el PO. Mejor escuchar la necesidad y canalizarla.'}]},
+ 5:{t:'En el Daily, alguien comenta: "APP-103 está bloqueada, nos falta acceso a la API de pedidos del equipo de backend."',ops:[
+   {t:'Esperar a que el equipo de backend lo resuelva por su cuenta',p:0,efecto:'bloqueo-largo',e:'Un impedimento que nadie atiende se come días del Sprint. Parte de tu trabajo es hacerlo visible y ayudar a eliminarlo.'},
+   {t:'Registrar el impedimento, hablar hoy con el equipo de backend y, mientras, que el equipo avance en otra historia',p:10,efecto:'bloqueo-corto',e:'¡Bien! Haces visible el bloqueo, lo escalas rápido y el equipo no se queda parado.'},
+   {t:'Pedirle a quien la tiene que trabaje horas extra para recuperar el tiempo',p:2,efecto:'bloqueo-largo',e:'Las horas extra no quitan el bloqueo y dañan el ritmo sostenible del equipo.'}]},
+ 7:{t:'¡Alerta! Aparece un bug crítico en producción: los clientes no pueden pagar.',ops:[
+   {t:'Dejarlo para el siguiente Sprint para no romper el plan',p:0,efecto:'ignorar',e:'Un bug crítico en producción afecta directamente al negocio. El plan del Sprint puede adaptarse.'},
+   {t:'El Product Owner decide priorizarlo; el equipo lo atiende y, si hace falta, saca del Sprint lo de menor prioridad',p:10,efecto:'bug',e:'¡Exacto! Adaptarse con transparencia es empirismo puro. El PO renegocia el alcance y el equipo protege lo más valioso.'},
+   {t:'Arreglarlo tú mismo para no distraer al equipo',p:2,efecto:'nada',e:'El Scrum Master no es el "bombero" del equipo. Los Developers son quienes crean el Incremento; tú facilitas la decisión.'}]}
+};
+let J=null;
+function nuevoSprint(){J={fase:'plan',meta:null,sel:new Set(),tarjetas:[],dia:0,burn:[],alcance:[],decis:[],pend:null,bloqRest:0,wipAviso:false,puntosPlan:0,log:[]}}
+function vLab(){
+  const t=V.lt||'jira';
+  const tabs=[['jira','🗂️ Simulador de Sprint (Jira)'],['jql','🔎 Práctica de JQL'],['scala','⌨️ Ejercicios de Scala']];
+  let h=`<section class="labhead"><div><span class="kicker dark">Laboratorio</span><h1>Practica con las manos, no solo con la teoría</h1><p class="muted">Tres simuladores para decir en la entrevista "sí lo he hecho".</p></div></section>
+   <nav class="labtabs">${tabs.map(([id,n])=>`<button data-lt="${id}" aria-current="${id===t?'page':'false'}">${n}</button>`).join('')}</nav>`;
+  if(t==='jira')h+=vJira();else if(t==='jql')h+=vJQL();else h+=vScala();
+  return h;
+}
+/* ---------- Simulador de Sprint ---------- */
+function vJira(){
+  if(!J)nuevoSprint();
+  if(J.fase==='plan'){
+    const tot=[...J.sel].reduce((s,k)=>s+BACKLOG.find(b=>b.k===k).pts,0);
+    const col=tot>22?'var(--bad)':tot<14?'var(--warn)':'var(--good)';
+    return `<div class="card"><div class="cardhead"><h2>1. Sprint Planning</h2><span class="pill">Sprint 12 · 10 días</span></div>
+     <div class="contexto"><div><b>Velocidad de los últimos 3 Sprints</b>${barrasVel([18,22,20])}<small class="muted">Promedio: 20 puntos</small></div>
+      <div class="nota">📅 Este Sprint una desarrolladora tiene <b>2 días de vacaciones</b>. Tómalo en cuenta al decidir cuánto trabajo aceptan.</div></div>
+     <h3 class="sub">Elige el Sprint Goal</h3><div class="metas">${METAS.map((m,i)=>`<label class="meta ${J.meta===i?'on':''}"><input type="radio" name="meta" data-meta="${i}" ${J.meta===i?'checked':''}>${esc(m.t)}</label>`).join('')}</div>
+     <h3 class="sub">Arrastra al Sprint lo que el equipo puede terminar <small class="muted">(toca para agregar o quitar)</small></h3>
+     <div class="cargabar"><span>Puntos seleccionados: <b style="color:${col}">${tot}</b></span><div class="bar"><b style="width:${Math.min(100,tot/30*100)}%;background:${col}"></b></div></div>
+     <div class="backlog">${BACKLOG.map(b=>`<button class="issue ${J.sel.has(b.k)?'sel':''}" data-bk="${b.k}"><span class="ik ${b.tipo==='Bug'?'bug':b.tipo==='Tarea'?'task':''}">${b.tipo==='Bug'?'🐞':b.tipo==='Tarea'?'☑️':'📗'} ${b.k}</span><span class="it">${esc(b.t)}</span><span class="ip pri-${b.pri}">${b.pri}</span><span class="pts">${b.pts}</span>${!b.lista?'<span class="nolista" title="No cumple la Definition of Ready">⚠️ No lista</span>':''}</button>`).join('')}</div>
+     <button class="btn primary" id="iniciar" style="margin-top:14px">Iniciar Sprint ▶</button></div>`;
+  }
+  if(J.fase==='fin')return vFinSprint();
+  const cols=[['todo','Por hacer'],['doing','En curso'],['review','En revisión'],['done','Hecho']];
+  const doing=J.tarjetas.filter(c=>c.col==='doing').length;
+  return `<div class="card"><div class="cardhead"><h2>2. Sprint en curso · Día ${J.dia} de 10</h2><span class="pill">Límite de trabajo en curso: 3</span></div>
+   <p class="goal">🎯 <b>Sprint Goal:</b> ${esc(METAS[J.meta].t)}</p>
+   ${J.pend?`<div class="evento"><b>⚡ Día ${J.dia}</b><p>${esc(EVENTOS[J.pend].t)}</p><div class="evops">${EVENTOS[J.pend].ops.map((o,i)=>`<button class="btn" data-ev="${i}">${esc(o.t)}</button>`).join('')}</div></div>`:''}
+   ${J.ultimo?`<div class="exp ${J.ultimo.p>=10?'bien':'mal'}">${esc(J.ultimo.e)}</div>`:''}
+   <div class="board">${cols.map(([c,n])=>`<div class="col"><h4>${n} <span>${J.tarjetas.filter(x=>x.col===c).length}</span></h4>${J.tarjetas.filter(x=>x.col===c).map(x=>`<button class="card2 ${x.bloq?'bloq':''} ${c==='todo'&&!J.pend?'mov':''}" data-mv="${x.k}" ${c!=='todo'||J.pend?'tabindex="-1"':''}><span class="ik">${x.tipo==='Bug'?'🐞':'📗'} ${x.k}</span><span class="it">${esc(x.t)}</span>${c==='doing'?`<span class="prog"><b style="width:${(1-x.rest/x.pts)*100}%"></b></span>`:''}${x.bloq?'<span class="bl">⛔ Bloqueada</span>':''}<span class="pts">${x.pts}</span></button>`).join('')}${c==='todo'&&J.tarjetas.some(x=>x.col==='todo')?'<small class="muted">Toca una tarjeta para empezarla</small>':''}</div>`).join('')}</div>
+   ${doing>3?'<div class="exp mal">Hay más de 3 tarjetas en curso: la multitarea hace que el equipo avance más lento. Termina antes de empezar.</div>':''}
+   <div class="daybar"><button class="btn primary" id="sigDia" ${J.pend?'disabled':''}>${J.dia>=10?'Terminar Sprint y ver resultados':'Siguiente día ▶'}</button><div class="minib">${burndownSVG(260,110)}</div></div></div>`;
+}
+function barrasVel(v){const mx=Math.max(...v);return `<div class="vel">${v.map((x,i)=>`<div><b style="height:${x/mx*50}px"></b><small>S${9+i}: ${x}</small></div>`).join('')}</div>`}
+function burndownSVG(W,H){
+  const ini=J.alcance[0]||1,mx=Math.max(...J.alcance,...J.burn,ini),x=d=>20+d*(W-30)/10,y=v=>H-18-v/mx*(H-30);
+  let s=`<svg viewBox="0 0 ${W} ${H}" class="burn" role="img" aria-label="Burndown del Sprint"><line x1="${x(0)}" y1="${y(ini)}" x2="${x(10)}" y2="${y(0)}" class="ideal"/>`;
+  if(J.burn.length>1)s+=`<polyline class="real" points="${J.burn.map((v,d)=>`${x(d)},${y(v)}`).join(' ')}"/>`;
+  J.burn.forEach((v,d)=>s+=`<circle cx="${x(d)}" cy="${y(v)}" r="2.5" class="pt"/>`);
+  s+=`<text x="${x(0)}" y="${H-4}" class="lb">Día 0</text><text x="${x(10)}" y="${H-4}" text-anchor="end" class="lb">Día 10</text><text x="${W-4}" y="12" text-anchor="end" class="lb">— ideal · ● real</text></svg>`;return s}
+function restante(){return J.tarjetas.filter(c=>c.col!=='done').reduce((s,c)=>s+c.pts,0)}
+function iniciarSprint(){
+  if(J.meta==null){toast('Primero elige un Sprint Goal.');return}
+  if(!J.sel.size){toast('Agrega al menos una historia al Sprint.');return}
+  const sel=BACKLOG.filter(b=>J.sel.has(b.k)),tot=sel.reduce((s,b)=>s+b.pts,0);let pts=0;const fb=[];
+  if(METAS[J.meta].ok){pts+=10;fb.push(['bien','Sprint Goal claro y orientado a valor.'])}else fb.push(['mal',METAS[J.meta].e]);
+  if(tot>=14&&tot<=20){pts+=10;fb.push(['bien',`Compromiso realista: ${tot} puntos, considerando la velocidad de 20 y las vacaciones.`])}
+  else if(tot<=22){pts+=6;fb.push(['mal',`${tot} puntos es algo optimista con una persona de vacaciones; lo ideal era cerca de 18.`])}
+  else if(tot>22){fb.push(['mal',`${tot} puntos es sobrecomprometerse: la velocidad promedio es 20 y hay vacaciones. Planear de más genera estrés y trabajo sin terminar.`])}
+  else{pts+=4;fb.push(['mal',`${tot} puntos es poco para la capacidad del equipo.`])}
+  const noListas=sel.filter(b=>!b.lista);if(noListas.length)fb.push(['mal',`Metiste ${noListas.map(b=>b.k).join(' y ')}, que no cumple${noListas.length>1?'n':''} la Definition of Ready: ${noListas.map(b=>b.motivo).join('; ')}.`]);else pts+=5;
+  if(METAS[J.meta].ok){const faltan=BACKLOG.filter(b=>b.meta&&!J.sel.has(b.k));if(!faltan.length){pts+=5;fb.push(['bien','Incluiste todo lo necesario para cumplir el Sprint Goal.'])}else fb.push(['mal',`Para cumplir el Sprint Goal faltó incluir ${faltan.map(b=>b.k).join(', ')}.`])}
+  J.puntosPlan=pts;J.fbPlan=fb;
+  J.tarjetas=sel.map(b=>({...b,col:'todo',rest:b.pts*(b.lista?1:1.4),bloq:false}));
+  J.fase='sprint';J.dia=0;J.burn=[restante()];J.alcance=[restante()];render();
+  toast('¡Sprint iniciado! Mueve tarjetas a "En curso" y avanza los días.');
+}
+function siguienteDia(){
+  if(J.dia>=10){cerrarSprint();return}
+  const doing=J.tarjetas.filter(c=>c.col==='doing');
+  if(!doing.length&&J.tarjetas.some(c=>c.col==='todo')){toast('Nadie está trabajando: toca una tarjeta de "Por hacer" para empezarla.');return}
+  J.dia++;J.ultimo=null;
+  J.tarjetas.filter(c=>c.col==='review').forEach(c=>c.col='done');
+  const activos=doing.filter(c=>!c.bloq),ef=doing.length>3?0.65:1,cap=2.4*ef;
+  if(doing.length>3)J.wipAviso=true;
+  const porTarjeta=Math.min(1.4,cap/Math.max(1,activos.length));activos.forEach(c=>{c.rest-=porTarjeta});
+  activos.forEach(c=>{if(c.rest<=0.01){c.rest=0;c.col='review'}});
+  if(J.bloqRest>0){J.bloqRest--;if(!J.bloqRest)J.tarjetas.forEach(c=>{if(c.bloq){c.bloq=false;J.ultimo={p:10,e:`${c.k} se desbloqueó. El equipo puede continuar.`}}})}
+  if(EVENTOS[J.dia]&&!J.decis.some(d=>d.dia===J.dia)){
+    if(J.dia===5){const t=J.tarjetas.find(c=>c.k==='APP-103'&&c.col!=='done')||J.tarjetas.find(c=>c.col==='doing')||J.tarjetas.find(c=>c.col==='todo');if(t){t.bloq=true;EVENTOS[5].t=`En el Daily, alguien comenta: "${t.k} está bloqueada, nos falta acceso a la API de pedidos del equipo de backend."`}else{J.burn.push(restante());J.alcance.push(J.alcance[J.alcance.length-1]);render();return}}
+    J.pend=J.dia;
+  }
+  J.burn.push(restante());J.alcance.push(J.tarjetas.reduce((s,c)=>s+c.pts,0));render();
+}
+function decidir(i){
+  const ev=EVENTOS[J.pend],o=ev.ops[i];J.decis.push({dia:J.pend,p:o.p});J.ultimo=o;
+  if(o.efecto==='agregar'){J.tarjetas.push({k:'APP-111',t:'Exportar pedidos a PDF',tipo:'Historia',pts:5,col:'todo',rest:5,bloq:false})}
+  if(o.efecto==='bloqueo-corto')J.bloqRest=1;if(o.efecto==='bloqueo-largo')J.bloqRest=3;
+  if(o.efecto==='bug'){J.tarjetas.push({k:'APP-112',t:'Pagos fallan en producción',tipo:'Bug',pts:3,col:'doing',rest:3,bloq:false});
+    const baja=J.tarjetas.filter(c=>c.col==='todo'&&!c.meta).sort((a,b)=>['Baja','Media','Alta'].indexOf(a.pri)-['Baja','Media','Alta'].indexOf(b.pri))[0];
+    if(baja){J.tarjetas=J.tarjetas.filter(c=>c!==baja);o.e+=` El PO regresó ${baja.k} al backlog para hacer espacio.`}}
+  if(o.efecto==='ignorar')J.bugIgnorado=true;
+  J.pend=null;J.alcance[J.alcance.length-1]=J.tarjetas.reduce((s,c)=>s+c.pts,0);J.burn[J.burn.length-1]=restante();render();
+}
+function cerrarSprint(){
+  J.tarjetas.filter(c=>c.col==='review').forEach(c=>c.col='done');
+  const hechos=J.tarjetas.filter(c=>c.col==='done'),vel=hechos.reduce((s,c)=>s+c.pts,0);
+  const metaOk=METAS[J.meta].ok&&BACKLOG.filter(b=>b.meta).every(b=>hechos.some(h=>h.k===b.k));
+  const dec=J.decis.reduce((s,d)=>s+d.p,0);
+  let ejec=0;if(metaOk)ejec+=30;else if(METAS[J.meta].ok)ejec+=Math.round(30*BACKLOG.filter(b=>b.meta&&hechos.some(h=>h.k===b.k)).length/4);
+  if(!J.wipAviso)ejec+=10;if(J.bugIgnorado)ejec=Math.max(0,ejec-10);
+  J.res={vel,metaOk,total:Math.min(100,J.puntosPlan+dec+ejec),dec,ejec,hechos:hechos.length,sin:J.tarjetas.filter(c=>c.col!=='done')};
+  J.fase='fin';P.lab=P.lab||{};P.lab.jira=Math.max(P.lab.jira||0,J.res.total);guardar();render();
+}
+function vFinSprint(){const r=J.res;
+  return `<div class="card"><div class="cardhead"><h2>3. Sprint Review y Retrospectiva</h2><span class="pill">Tu calificación: ${r.total}/100</span></div>
+   <div class="kpis"><div><b>${r.vel}</b><small>puntos terminados (velocidad)</small></div><div><b>${r.metaOk?'✅':'❌'}</b><small>Sprint Goal ${r.metaOk?'cumplido':'no cumplido'}</small></div><div><b>${r.hechos}</b><small>elementos en "Hecho"</small></div></div>
+   <div class="burnbig">${burndownSVG(560,200)}</div>
+   <h3 class="sub">Planeación</h3><ul class="fb">${J.fbPlan.map(([k,t])=>`<li class="${k}">${esc(t)}</li>`).join('')}</ul>
+   <h3 class="sub">Decisiones durante el Sprint (${r.dec}/30)</h3><ul class="fb">${J.decis.map(d=>{const o=EVENTOS[d.dia].ops.find(x=>x.p===d.p);return `<li class="${d.p>=10?'bien':'mal'}"><b>Día ${d.dia}:</b> ${esc(o.e)}</li>`}).join('')}</ul>
+   <h3 class="sub">Para la retrospectiva</h3><ul class="fb">
+    ${r.sin.length?`<li class="mal">Quedaron sin terminar: ${r.sin.map(c=>c.k).join(', ')}. Regresan al Product Backlog y el PO decide su prioridad; no se "pasan" automáticamente al siguiente Sprint.</li>`:'<li class="bien">El equipo terminó todo lo planeado.</li>'}
+    ${J.wipAviso?'<li class="mal">Hubo más de 3 tarjetas en curso al mismo tiempo. Limitar el WIP ayuda a terminar antes.</li>':'<li class="bien">Respetaste el límite de trabajo en curso.</li>'}
+    <li>En la entrevista puedes contar: "Practiqué un Sprint completo: planeación con velocidad y capacidad, manejo de cambios de alcance, impedimentos y un incidente en producción".</li></ul>
+   <button class="btn primary" id="otroSprint">Jugar otro Sprint</button></div>`}
+/* ---------- JQL ---------- */
+function vJQL(){
+  const i=V.jq??0,r=RETOS_JQL[i],hechos=(P.lab&&P.lab.jql)||{};
+  return `<div class="jqlgrid"><div class="card"><div class="cardhead"><h2>Reto ${i+1} de ${RETOS_JQL.length}</h2><span class="pill">${Object.keys(hechos).length} resueltos</span></div>
+    <p class="reto">${esc(r.t)}</p>
+    <label class="jqlin"><span>Consulta JQL</span><textarea id="jqlQ" rows="3" spellcheck="false" placeholder="project = APP AND type = Bug">${esc(V.jqlTxt??'')}</textarea></label>
+    <div class="simbtns"><button class="btn primary" id="jqlRun">Ejecutar</button><button class="btn" id="jqlPista">Pista</button><button class="btn ghost" id="jqlSol">Ver solución</button></div>
+    <div id="jqlOut">${V.jqlOut||''}</div>
+    <div class="retonav">${RETOS_JQL.map((_,k)=>`<button data-jq="${k}" class="${k===i?'on':''} ${hechos[k]?'ok':''}" aria-label="Reto ${k+1}">${hechos[k]?'✓':k+1}</button>`).join('')}</div></div>
+   <div class="card"><h3>Guía rápida</h3><ul class="guia"><li><code>=  !=  in (a, b)  not in</code></li><li><code>is EMPTY</code> · <code>is not EMPTY</code></li><li><code>&gt; &lt; &gt;=</code> con priority y created</li><li><code>created &gt;= -7d</code> (últimos 7 días)</li><li><code>currentUser()</code> · <code>openSprints()</code> · <code>closedSprints()</code></li><li><code>AND  OR  NOT  ( )</code> · <code>ORDER BY priority DESC</code></li><li><code>summary ~ palabra</code> (contiene)</li></ul>
+    <p class="muted small">Campos: project, type, status, statusCategory, priority, assignee, labels, created, sprint, parent, summary. Tú eres el usuario <b>jose</b>. Hay ${INCIDENCIAS.length} incidencias en APP y DATA.</p></div></div>`;
+}
+function tablaInc(keys,marca){const set=new Set(marca||[]);return `<div class="tw"><table class="inc"><thead><tr><th>Clave</th><th>Tipo</th><th>Resumen</th><th>Estado</th><th>Prioridad</th><th>Responsable</th></tr></thead><tbody>${keys.map(k=>{const it=INCIDENCIAS.find(x=>x.key===k);return `<tr class="${marca&&!set.has(k)?'extra':''}"><td>${it.key}</td><td>${it.type}</td><td>${esc(it.summary)}</td><td>${it.status}</td><td>${it.priority}</td><td>${it.assignee||'<i>Sin asignar</i>'}</td></tr>`}).join('')}</tbody></table></div>`}
+function correrJQL(){
+  const i=V.jq??0,r=RETOS_JQL[i],q=$('jqlQ').value.trim();V.jqlTxt=q;if(!q)return;
+  let tuyo;try{tuyo=ejecutarJQL(q)}catch(e){V.jqlOut=`<div class="exp mal">⚠️ ${esc(String(e))}</div>`;$('jqlOut').innerHTML=V.jqlOut;return}
+  const esp=ejecutarJQL(r.r),ok=tuyo.length===esp.length&&tuyo.every(k=>esp.includes(k));
+  if(ok){P.lab=P.lab||{};P.lab.jql=P.lab.jql||{};P.lab.jql[i]=true;guardar()}
+  const faltan=esp.filter(k=>!tuyo.includes(k)),sobran=tuyo.filter(k=>!esp.includes(k));
+  V.jqlOut=(ok?`<div class="exp bien"><b>¡Correcto!</b> Tu consulta devuelve exactamente las ${esp.length} incidencias esperadas.${i+1<RETOS_JQL.length?' <button class="btn sm" id="jqlNext">Siguiente reto →</button>':''}</div>`
+    :`<div class="exp mal"><b>Todavía no.</b> Tu consulta devuelve ${tuyo.length} resultado${tuyo.length===1?'':'s'}; se esperaban ${esp.length}.${faltan.length?` Faltan: ${faltan.join(', ')}.`:''}${sobran.length?` Sobran: ${sobran.join(', ')} (marcadas abajo).`:''}</div>`)
+    +(tuyo.length?tablaInc(tuyo,ok?null:esp):'<p class="muted">Sin resultados.</p>');
+  render();
+}
+/* ---------- Scala ---------- */
+function vScala(){
+  const S=V.sc;const best=(P.lab&&P.lab.scala)||0;
+  if(!S)return `<div class="card center"><h2>Ejercicios de Scala</h2><p class="muted">${RETOS_SCALA.length} ejercicios de "¿qué imprime?" y "completa el código", de lo básico a Spark. Tu mejor resultado: <b>${best?best+'%':'aún no'}</b>.</p><button class="btn primary" id="scEmp">Comenzar</button><p class="muted small">Tip: copia cualquier ejercicio en <b>scastie.scala-lang.org</b> para correrlo y experimentar.</p></div>`;
+  if(S.i>=RETOS_SCALA.length){const p=Math.round(S.ok/RETOS_SCALA.length*100);return `<div class="card center">${anillo(p,p>=80?'#16A34A':p>=60?'#D97706':'#DC2626',110)}<h2>${S.ok} de ${RETOS_SCALA.length} correctas</h2><p class="muted">${p>=80?'¡Buen dominio de Scala para una entrevista junior!':'Repasa la lección de Scala esencial y vuelve a intentarlo.'}</p><button class="btn primary" id="scEmp">Otra vez</button></div>`}
+  const r=S.qs[S.i];
+  return `<div class="card quiz"><div class="qtop"><span class="pill">${r.n} · ${S.i+1} de ${RETOS_SCALA.length}</span><div class="bar"><b style="width:${S.i/RETOS_SCALA.length*100}%"></b></div></div>
+   <div class="code"><pre><code>${resaltar(r.c)}</code></pre></div><h2>${esc(r.q)}</h2>
+   <div class="ops">${r.o.map((o,j)=>`<button class="op ${S.r!=null?(j===r.a?'bien':j===S.r?'mal':''):''}" data-sco="${j}" ${S.r!=null?'disabled':''}><span class="ol">${'ABCD'[j]}</span><code>${esc(o)}</code></button>`).join('')}</div>
+   ${S.r!=null?`<div class="exp ${S.r===r.a?'bien':'mal'}"><b>${S.r===r.a?'Correcto.':'No exactamente.'}</b> ${esc(r.e)}</div><button class="btn primary" id="scSig">${S.i+1<RETOS_SCALA.length?'Siguiente':'Ver resultado'}</button>`:''}</div>`;
+}
+/* ---------- Eventos del laboratorio ---------- */
+function montarLab(){
+  document.querySelectorAll('[data-lt]').forEach(b=>b.onclick=()=>{V.lt=b.dataset.lt;render()});
+  const t=V.lt||'jira';
+  if(t==='jira'){
+    document.querySelectorAll('[data-meta]').forEach(r=>r.onchange=()=>{J.meta=+r.dataset.meta;render()});
+    document.querySelectorAll('[data-bk]').forEach(b=>b.onclick=()=>{const k=b.dataset.bk;J.sel.has(k)?J.sel.delete(k):J.sel.add(k);render()});
+    $('iniciar')&&($('iniciar').onclick=iniciarSprint);
+    document.querySelectorAll('[data-mv]').forEach(b=>b.onclick=()=>{if(J.pend)return;const c=J.tarjetas.find(x=>x.k===b.dataset.mv);if(c&&c.col==='todo'){c.col='doing';render()}});
+    $('sigDia')&&($('sigDia').onclick=siguienteDia);
+    document.querySelectorAll('[data-ev]').forEach(b=>b.onclick=()=>decidir(+b.dataset.ev));
+    $('otroSprint')&&($('otroSprint').onclick=()=>{nuevoSprint();render();window.scrollTo({top:0})});
+  }
+  if(t==='jql'){
+    const q=$('jqlQ');q.onkeydown=e=>{if(e.key==='Enter'&&(e.ctrlKey||e.metaKey||!e.shiftKey)){e.preventDefault();correrJQL()}};q.oninput=()=>V.jqlTxt=q.value;
+    $('jqlRun').onclick=correrJQL;
+    $('jqlPista').onclick=()=>{V.jqlOut=`<div class="exp">💡 ${esc(RETOS_JQL[V.jq??0].p)}</div>`;$('jqlOut').innerHTML=V.jqlOut};
+    $('jqlSol').onclick=()=>{const r=RETOS_JQL[V.jq??0];V.jqlTxt=r.r;V.jqlOut='';render();toast('Ejecútala para ver el resultado y luego intenta escribirla tú sin verla.')};
+    document.querySelectorAll('[data-jq]').forEach(b=>b.onclick=()=>{V.jq=+b.dataset.jq;V.jqlTxt='';V.jqlOut='';render()});
+    $('jqlNext')&&($('jqlNext').onclick=()=>{V.jq=(V.jq??0)+1;V.jqlTxt='';V.jqlOut='';render()});
+  }
+  if(t==='scala'){
+    $('scEmp')&&($('scEmp').onclick=()=>{const qs=RETOS_SCALA.map(q=>{const idx=q.o.map((_,j)=>j).sort(()=>Math.random()-.5);return{...q,o:idx.map(j=>q.o[j]),a:idx.indexOf(q.a)}});V.sc={i:0,ok:0,r:null,qs};render()});
+    document.querySelectorAll('[data-sco]').forEach(b=>b.onclick=()=>{V.sc.r=+b.dataset.sco;if(V.sc.r===V.sc.qs[V.sc.i].a)V.sc.ok++;render()});
+    $('scSig')&&($('scSig').onclick=()=>{V.sc.i++;V.sc.r=null;if(V.sc.i>=RETOS_SCALA.length){P.lab=P.lab||{};P.lab.scala=Math.max(P.lab.scala||0,Math.round(V.sc.ok/RETOS_SCALA.length*100));guardar()}render();window.scrollTo({top:0})});
+  }
+}
+
+</script>
+</body>
+</html>
