@@ -12,3 +12,4 @@ Ingeniero en Informática. Este repositorio contiene mi portafolio y los proyect
 | Bit: gimnasio de programación | [bit.html](https://jmarcosloeza-jpg.github.io/bit.html) | [bit.md](bit.md) |
 | Cántico: acordes para alabar | [cantico.html](https://jmarcosloeza-jpg.github.io/cantico.html) | [cantico.md](cantico.md) |
 | Prepárate: preparación para entrevistas técnicas | [preparate.html](https://jmarcosloeza-jpg.github.io/preparate.html) | [preparate.md](preparate.md) |
+| Lumi: app educativa para niños con TDAH | [lumi.html](https://jmarcosloeza-jpg.github.io/lumi.html) | [lumi.md](lumi.md) |
